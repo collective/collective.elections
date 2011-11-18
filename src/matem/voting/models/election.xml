@@ -1,0 +1,126 @@
+<?xml version="1.0" ?>
+<model xmlns="http://namespaces.plone.org/supermodel/schema"
+       xmlns:form="http://namespaces.plone.org/supermodel/form">
+ <schema>
+  <field name="text" type="zope.schema.Text">
+   <title>Text</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="chief_electoral_officer" type="zope.schema.TextLine">
+   <title>Chief electoral officer</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="election_officials" type="zope.schema.List">
+   <title>Election officials</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="voting_start" type="zope.schema.Datetime">
+   <title>Start of voting</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="voting_end" type="zope.schema.Datetime">
+   <title>End of voting</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="nomination_acceptance" type="zope.schema.Datetime">
+   <title>Acceptance of nomination</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="nomination_withdrawal" type="zope.schema.Datetime">
+   <title>Withdrawal of nomination</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="voters_list_publication" type="zope.schema.Datetime">
+   <title>Voters list publication</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="draft_candidates_list_publication" type="zope.schema.Datetime">
+   <title>Draft candidates list publication</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="candidates_list_publication" type="zope.schema.Datetime">
+   <title>Candidates list publication</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="election_results_publication" type="zope.schema.Datetime">
+   <title>Election results publication</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="allow_electoral_slogan" type="zope.schema.Bool">
+   <title>Allow electoral slogan</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="allow_event" type="zope.schema.Bool">
+   <title>Allow event</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="allow_url" type="zope.schema.Bool">
+   <title>Allow url</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="forum_url" type="zope.schema.URI">
+   <title>Forum url</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="documents_url" type="zope.schema.URI">
+   <title>Documents url</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="results_mode" type="zope.schema.List">
+   <title>Results mode</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="message" type="zope.schema.Text">
+   <title>Message</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="gpg_key_officer" type="zope.schema.Text">
+   <title>GPG key officer</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="gpg_key_officials" type="zope.schema.Text">
+   <title>GPG key officials</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="random_length" type="zope.schema.Int">
+   <title>Random length</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="gpg_mode" type="zope.schema.List">
+   <title>GPG mode</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="load_election_data" type="zope.schema.Bool">
+   <title>Load election data</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="save_election_data" type="zope.schema.Bool">
+   <title>Save election data</title>
+   <description></description>
+   <required>True</required>
+  </field>
+ </schema>
+</model>

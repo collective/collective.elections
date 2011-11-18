@@ -28,6 +28,7 @@ setup(name='matem.voting',
       zip_safe=False,
       install_requires=[
         'setuptools',
+        'plone.app.dexterity>=1.0.3',
         ],
       extras_require={
         'test': ['plone.app.testing'],
