@@ -12,7 +12,7 @@
    <description></description>
    <required>True</required>
   </field>
-  <field name="election_officials" type="zope.schema.List">
+  <field name="election_officials" type="zope.schema.TextLine">
    <title>Election officials</title>
    <description></description>
    <required>True</required>
@@ -82,7 +82,7 @@
    <description></description>
    <required>True</required>
   </field>
-  <field name="results_mode" type="zope.schema.List">
+  <field name="results_mode" type="zope.schema.TextLine">
    <title>Results mode</title>
    <description></description>
    <required>True</required>
@@ -107,7 +107,7 @@
    <description></description>
    <required>True</required>
   </field>
-  <field name="gpg_mode" type="zope.schema.List">
+  <field name="gpg_mode" type="zope.schema.TextLine">
    <title>GPG mode</title>
    <description></description>
    <required>True</required>
