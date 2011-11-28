@@ -7,9 +7,9 @@ from plone.app.testing import setRoles
 
 from Products.CMFCore.WorkflowCore import WorkflowException
 
-from matem.voting.testing import INTEGRATION_TESTING
+from matem.elections.testing import INTEGRATION_TESTING
 
-ctype = 'matem.voting.election'
+ctype = 'matem.elections.election'
 workflow_id = 'election_workflow'
 
 

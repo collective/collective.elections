@@ -5,7 +5,7 @@ import os
 
 version = '1.0'
 
-setup(name='matem.voting',
+setup(name='matem.elections',
       version=version,
       description="A voting system for Plone.",
       long_description=open("README.txt").read() + "\n" +
@@ -19,7 +19,7 @@ setup(name='matem.voting',
       keywords='',
       author='Héctor Velarde',
       author_email='hector.velarde@gmail.com',
-      url='https://github.com/collective/matem.voting',
+      url='https://github.com/collective/matem.elections',
       license='GPL',
       packages=find_packages('src'),
       package_dir={'': 'src'},

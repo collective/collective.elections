@@ -12,20 +12,20 @@ class Fixture(PloneSandboxLayer):
 
     def setUpZope(self, app, configurationContext):
         # Load ZCML
-        import matem.voting
-        self.loadZCML(package=matem.voting)
+        import matem.elections
+        self.loadZCML(package=matem.elections)
 
     def setUpPloneSite(self, portal):
         # Install into Plone site using portal_setup
-        self.applyProfile(portal, 'matem.voting:default')
+        self.applyProfile(portal, 'matem.elections:default')
 
 
 FIXTURE = Fixture()
 INTEGRATION_TESTING = IntegrationTesting(
     bases=(FIXTURE,),
-    name='matem.voting:Integration',
+    name='matem.elections:Integration',
     )
 FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(FIXTURE,),
-    name='matem.voting:Functional',
+    name='matem.elections:Functional',
     )

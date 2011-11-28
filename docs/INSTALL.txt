@@ -1,11 +1,11 @@
-matem.voting Installation
+matem.elections Installation
 -------------------------
 
-To install matem.voting into the global Python environment (or a workingenv),
+To install matem.elections into the global Python environment (or a workingenv),
 using a traditional Zope 2 instance, you can do this:
 
 * When you're reading this you have probably already run 
-  ``easy_install matem.voting``. Find out how to install setuptools
+  ``easy_install matem.elections``. Find out how to install setuptools
   (and EasyInstall) here:
   http://peak.telecommunity.com/DevCenter/EasyInstall
 
@@ -16,11 +16,11 @@ using a traditional Zope 2 instance, you can do this:
 
 into your Zope instance.
 
-* Create a file called ``matem.voting-configure.zcml`` in the
+* Create a file called ``matem.elections-configure.zcml`` in the
   ``/path/to/instance/etc/package-includes`` directory.  The file
   should only contain this::
 
-    <include package="matem.voting" />
+    <include package="matem.elections" />
 
 .. _pythonproducts: http://plone.org/products/pythonproducts
 
@@ -28,13 +28,13 @@ into your Zope instance.
 Alternatively, if you are using zc.buildout and the plone.recipe.zope2instance
 recipe to manage your project, you can do this:
 
-* Add ``matem.voting`` to the list of eggs to install, e.g.:
+* Add ``matem.elections`` to the list of eggs to install, e.g.:
 
     [buildout]
     ...
     eggs =
         ...
-        matem.voting
+        matem.elections
        
 * Tell the plone.recipe.zope2instance recipe to install a ZCML slug:
 
@@ -42,7 +42,7 @@ recipe to manage your project, you can do this:
     recipe = plone.recipe.zope2instance
     ...
     zcml =
-        matem.voting
+        matem.elections
       
 * Re-run buildout, e.g. with:
 

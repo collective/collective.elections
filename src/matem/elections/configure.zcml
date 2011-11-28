@@ -4,7 +4,7 @@
     xmlns:grok="http://namespaces.zope.org/grok"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-    i18n_domain="matem.voting">
+    i18n_domain="matem.elections">
 
   <five:registerPackage package="." />
 
@@ -13,9 +13,9 @@
 
   <genericsetup:registerProfile
       name="default"
-      title="matem.voting"
+      title="matem.elections"
       directory="profiles/default"
-      description="Installs the matem.voting package"
+      description="Installs the matem.elections package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 

@@ -2,7 +2,7 @@
 <object name="portal_workflow">
  <object name="election_workflow" meta_type="Workflow"/>
  <bindings>
-  <type type_id="matem.voting.election">
+  <type type_id="matem.elections.election">
    <bound-workflow workflow_id="election_workflow"/>
   </type>
  </bindings>
