@@ -92,12 +92,14 @@
    <description></description>
    <required>True</required>
   </field>
-  <field name="gpg_key_officer" type="zope.schema.Text">
+  <field name="gpg_key_officer" type="zope.schema.Text"
+     form:validator="matem.elections.validators.GPGKeyValidator">
    <title>GPG key officer</title>
    <description></description>
    <required>True</required>
   </field>
-  <field name="gpg_key_officials" type="zope.schema.Text">
+  <field name="gpg_key_officials" type="zope.schema.Text"
+     form:validator="matem.elections.validators.GPGKeyValidator">
    <title>GPG key officials</title>
    <description></description>
    <required>True</required>
