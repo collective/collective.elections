@@ -31,6 +31,7 @@ setup(name='matem.elections',
       zip_safe=False,
       install_requires=[
         'setuptools',
+        'python-gnupg',
         'plone.app.dexterity>=1.1',
         ],
       extras_require={
