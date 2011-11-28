@@ -3,6 +3,7 @@
 *.pyc
 .installed.cfg
 .mr.developer.cfg
+gpg
 bin/
 develop-eggs/
 downloads/
