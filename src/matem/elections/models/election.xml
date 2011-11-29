@@ -7,10 +7,11 @@
    <description></description>
    <required>True</required>
   </field>
-  <field name="chief_electoral_officer" type="zope.schema.TextLine">
+  <field name="chief_electoral_officer" type="zope.schema.Choice">
    <title>Chief electoral officer</title>
    <description></description>
    <required>True</required>
+   <vocabulary>plone.principalsource.Users</vocabulary>
   </field>
   <field name="election_officials" type="zope.schema.TextLine">
    <title>Election officials</title>
@@ -60,17 +61,18 @@
   <field name="allow_electoral_slogan" type="zope.schema.Bool">
    <title>Allow electoral slogan</title>
    <description></description>
-   <required>True</required>
+   <required>False</required>
   </field>
   <field name="allow_event" type="zope.schema.Bool">
    <title>Allow event</title>
+   <default>True</default>
    <description></description>
    <required>True</required>
   </field>
   <field name="allow_url" type="zope.schema.Bool">
    <title>Allow url</title>
    <description></description>
-   <required>True</required>
+   <required>False</required>
   </field>
   <field name="forum_url" type="zope.schema.URI">
    <title>Forum url</title>
@@ -106,23 +108,32 @@
   </field>
   <field name="random_length" type="zope.schema.Int">
    <title>Random length</title>
+   <default>40</default>
    <description></description>
    <required>True</required>
   </field>
-  <field name="gpg_mode" type="zope.schema.TextLine">
+  <field name="gpg_mode" type="zope.schema.Choice">
    <title>GPG mode</title>
-   <description></description>
+   <default>Mandatory</default>
+   <description>
+      Defines if GPG is used in the whole process. Votes are encrypted
+      regardless the selection.
+   </description>
    <required>True</required>
+   <values>
+    <element>Mandatory</element>
+    <element>Optional</element>
+   </values>
   </field>
   <field name="load_election_data" type="zope.schema.Bool">
    <title>Load election data</title>
    <description></description>
-   <required>True</required>
+   <required>False</required>
   </field>
   <field name="save_election_data" type="zope.schema.Bool">
    <title>Save election data</title>
    <description></description>
-   <required>True</required>
+   <required>False</required>
   </field>
  </schema>
 </model>
