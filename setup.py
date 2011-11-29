@@ -33,6 +33,7 @@ setup(name='matem.elections',
         'setuptools',
         'python-gnupg',
         'plone.app.dexterity>=1.1',
+        'plone.principalsource',
         ],
       extras_require={
         'test': ['plone.app.testing'],
