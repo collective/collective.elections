@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <model xmlns="http://namespaces.plone.org/supermodel/schema"
-       xmlns:form="http://namespaces.plone.org/supermodel/form">
+       xmlns:form="http://namespaces.plone.org/supermodel/form"
+       xmlns:security="http://namespaces.plone.org/supermodel/security">
  <schema>
   <field name="text" type="zope.schema.Text">
    <title>Text</title>
@@ -12,11 +13,6 @@
    <description></description>
    <required>True</required>
    <vocabulary>plone.principalsource.Users</vocabulary>
-  </field>
-  <field name="election_officials" type="zope.schema.TextLine">
-   <title>Election officials</title>
-   <description></description>
-   <required>True</required>
   </field>
   <field name="voting_start" type="zope.schema.Datetime">
    <title>Start of voting</title>
@@ -96,13 +92,7 @@
   </field>
   <field name="gpg_key_officer" type="zope.schema.Text"
      form:validator="matem.elections.validators.GPGKeyValidator">
-   <title>GPG key officer</title>
-   <description></description>
-   <required>True</required>
-  </field>
-  <field name="gpg_key_officials" type="zope.schema.Text"
-     form:validator="matem.elections.validators.GPGKeyValidator">
-   <title>GPG key officials</title>
+   <title>GPG public key officer</title>
    <description></description>
    <required>True</required>
   </field>
@@ -134,6 +124,40 @@
    <title>Save election data</title>
    <description></description>
    <required>False</required>
+  </field>
+
+  <!-- the following fields must be available to the chief electoral officer only -->
+
+  <field name="election_officials" type="zope.schema.TextLine"
+     security:write-permission="cmf.ModifyPortalContent">
+   <title>Election officials</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="comments" type="zope.schema.Text"
+     security:write-permission="cmf.ModifyPortalContent">
+   <title>Comments</title>
+   <description></description>
+   <required>False</required>
+  </field>
+  <field name="gpg_key_officials" type="zope.schema.Text"
+     form:validator="matem.elections.validators.GPGKeyValidator"
+     security:write-permission="cmf.ModifyPortalContent">
+   <title>GPG public key officials</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="electoral_roll" type="zope.schema.Text"
+     security:write-permission="cmf.ModifyPortalContent">
+   <title>Electoral roll</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="nominations_roll" type="zope.schema.Text"
+     security:write-permission="cmf.ModifyPortalContent">
+   <title>Nominations roll</title>
+   <description></description>
+   <required>True</required>
   </field>
  </schema>
 </model>
