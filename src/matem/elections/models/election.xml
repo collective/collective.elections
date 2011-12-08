@@ -3,6 +3,9 @@
        xmlns:form="http://namespaces.plone.org/supermodel/form"
        xmlns:security="http://namespaces.plone.org/supermodel/security">
  <schema>
+
+  <!-- available only in Private state -->
+
   <field name="text" type="zope.schema.Text">
    <title>Text</title>
    <description></description>
@@ -126,7 +129,7 @@
    <required>False</required>
   </field>
 
-  <!-- the following fields must be available to the chief electoral officer only -->
+  <!-- available only in Pending state -->
 
   <field name="election_officials" type="zope.schema.TextLine"
      security:write-permission="cmf.ModifyPortalContent">
@@ -147,6 +150,9 @@
    <description></description>
    <required>True</required>
   </field>
+
+  <!-- available only in Draft state -->
+
   <field name="electoral_roll" type="zope.schema.Text"
      security:write-permission="cmf.ModifyPortalContent">
    <title>Electoral roll</title>

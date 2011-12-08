@@ -9,12 +9,11 @@ government in 2003. *Kiezen op Afstand* is literally translated from Dutch as
 Parliamentary election of June 2004 and was subsequently released under the
 `GNU General Public License <http://www.gnu.org/copyleft/gpl.html>`_.
 
-The first version of this system, `ATVotaciones
-<http://proyectos.matem.unam.mx:8080/pm/p/infomatem/browser/Products.ATVotaciones>`_,
-was developed in 2007 by Alexander Zapata under supervision of Sergio
-Rajsbaum, a member of the `Institute of Mathematics
-<https://info.matem.unam.mx/>`_ at `National Autonomous University of Mexico
-<http://unam.mx>`_, and was later updated by Iván Cervantes to be Plone 3 compatible.
+The first version of this system, ATVotaciones, was developed in 2007 by
+Alexander Zapata under supervision of Sergio Rajsbaum, a member of the
+`Institute of Mathematics <https://info.matem.unam.mx/>`_ at `National
+Autonomous University of Mexico <http://unam.mx>`_, and was later updated by
+Iván Cervantes to be Plone 3 compatible.
 
 matem.elections is a new implementation of the system for Plone 4.1 and above
 using `Dexterity <http://pypi.python.org/pypi/plone.app.dexterity>`_ and a
@@ -47,10 +46,8 @@ The original system was developed using Archetypes and did not used Plone's
 workflow machinery at all. The system was heavily attached to
 `FacultyStaffDirectory
 <http://pypi.python.org/pypi/Products.FacultyStaffDirectory>`_, a personnel
-directory, and to `ATSelectUsers
-<http://proyectos.matem.unam.mx:8080/pm/p/infomatem/browser/Products.ATSelectUsers>`_,
-a product developed by the Institute of Mathematics in order to create subsets
-of persons inside a staff directory.
+directory, and to ATSelectUsers, a product developed by the Institute of
+Mathematics in order to create subsets of persons inside a staff directory.
 
 User roles
 ----------
@@ -65,7 +62,7 @@ The original system defined three user roles:
       call is fulfilled; they will also sign documents produced through the
       election process.
  - **General Users** (GU)
-      Nominees and voters.
+      Nominees, candidates and voters.
 
 The election process in a nutshell
 ----------------------------------
@@ -111,42 +108,38 @@ User roles
 
 We will maintain the three roles mentioned before:
 
- - EA: probably mapped as Manager or Site Administrator
- - EO: probably mapped as Editor
- - GU: probably mapped as Contributor
+ - EA (probably mapped as Manager or Site Administrator)
+ - EO (probably mapped as Editor)
+ - GU (probably mapped as Contributor)
 
 Workflow states
 ---------------
 
-We visualize a workflow with, more or less, the following states (we need
-better, descriptive names):
+We visualize a workflow with, more or less, the following states:
 
- #. **Initial configuration**
+ #. **Private**
       Initial state of the election; the EA fills all the parameters.
- #. **Signature of configuration**
-      The CEO will add EO and sign the configuration.
- #. **Configuration of rolls**
-      The EA will then proceed to create the rolls.
- #. **Signature of rolls**
+ #. **Public**
+      The CEO will add more information about EO and sign the file with the
+      parameters of the election.
+ #. **Draft**
+      The EA will then proceed to create the rolls of nominees and voters.
+ #. **Pending**
       Any EO can sign the rolls.
- #. **Acceptance of nominations**
-      Rolls will be visible to voters as draft lists; in case of any issue
-      with nominees or voters we must return to 3; nominees can accept
-      nominations.
- #. **Withdraw of nominations**
-      Rolls will be visible to voters as draft lists; in case of any issue
-      with nominees or voters we must return to 3; nominees can withdraw
-      nominations.
- #. **Waiting to start**
-      We enter and leave this state automatically when dates arrive.
+ #. **Nominating**
+      Draft lists will be visible to everyone; in case of any issue with
+      nominees or voters we must return to the Draft state. Nominees can
+      accept or withdraw nominations; in case of acceptance, they will become
+      candidates.
  #. **Voting**
-      Election is open to voters; we leave this state automatically when end
-      date arrives.
- #. **Count of votes**
- #. **Validation of the election**
- #. **Waiting to publish**
-      We enter and leave this state automatically when dates arrive.
- #. **Publication of the results**
-      Results of the election is available to everybody.
- #. **Election is closed**
+      Election is open to voters as soon as the start date arrives; we leave
+      this state automatically when end date arrives.
+ #. **Counting**
+      The votes are being counted.
+ #. **Validating**
+      The results of the election are being validated.
+ #. **Published**
+      Results of the election are available to everybody as soon as the
+      publishing date arrives.
+ #. **Closed**
       No one can make further changes to the election object.
