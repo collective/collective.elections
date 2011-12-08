@@ -25,20 +25,20 @@ Security requirements
 
 KOA protocol fulfills the following requirements:
 
- - Only authorized voter are able to vote
- - No voter can vote more than once
+ - Only authorized voters are able to vote
+ - No voter's vote can be counted more than once
  - Votes are securely stored
  - Votes can not be modified/removed without detection
- - It is possible to verify that the votes were counted in the final election
+ - It is possible to verify that all the votes were counted
  - Votes are not lost
  - It allows a greater level of confidence among voters
  - It is easy to use
 
 matem.elections uses `GnuPG <http://www.gnupg.org/>`_ for all cryptographic
 functions. GnuPG is a complete and free implementation of the OpenPGP standard
-as defined by RFC4880. GnuPG allows to encrypt and sign data, features a
-versatile key management system as well as access modules for all kinds of
-public key directories.
+as defined by `RFC4880 <http://tools.ietf.org/html/rfc4880>`_. GnuPG allows to
+encrypt and sign data, features a versatile key management system as well as
+access modules for all kinds of public key directories.
 
 Overview of the original system
 ===============================
@@ -50,17 +50,22 @@ workflow machinery at all. The system was heavily attached to
 directory, and to `ATSelectUsers
 <http://proyectos.matem.unam.mx:8080/pm/p/infomatem/browser/Products.ATSelectUsers>`_,
 a product developed by the Institute of Mathematics in order to create subsets
-of members of a Plone portal.
+of persons inside a staff directory.
 
-User types
+User roles
 ----------
 
- - Election Administrator (EA): a member of the portal Administrators group
-   that creates the election and the rolls of nominees and voters.
- - Election Officials (EO): members of the portal that will guarantee all the
-   election call is fulfilled; they will also sign documents produced through
-   the election process.
- - General Users (GU): nominees and voters.
+The original system defined three user roles:
+
+ - **Election Administrator** (EA)
+      A member of the portal Administrators group that creates the election
+      and the rolls of nominees and voters.
+ - **Election Officials** (EO)
+      These are the members of the portal that will guarantee the election
+      call is fulfilled; they will also sign documents produced through the
+      election process.
+ - **General Users** (GU)
+      Nominees and voters.
 
 The election process in a nutshell
 ----------------------------------
@@ -89,3 +94,59 @@ these files are also signed by anyone of the EO. After this, nobody can change
 these rolls without detection and everybody can check to see if all, nominees
 and voters, really fulfill the requirements published in the call for the
 election.
+
+(To be continued…)
+
+Overview of the current effort
+==============================
+
+matem.elections will use Dexterity-based content types to describe an
+election. The election object will move across an election workflow in which
+different actions will be available to different users with different roles.
+We want to keep this as simple as we can, so we will try not to implement more
+roles or permissions unless necessary.
+
+User roles
+----------
+
+We will maintain the three roles mentioned before:
+
+ - EA: probably mapped as Manager or Site Administrator
+ - EO: probably mapped as Editor
+ - GU: probably mapped as Contributor
+
+Workflow states
+---------------
+
+We visualize a workflow with, more or less, the following states (we need
+better, descriptive names):
+
+ #. **Initial configuration**
+      Initial state of the election; the EA fills all the parameters.
+ #. **Signature of configuration**
+      The CEO will add EO and sign the configuration.
+ #. **Configuration of rolls**
+      The EA will then proceed to create the rolls.
+ #. **Signature of rolls**
+      Any EO can sign the rolls.
+ #. **Acceptance of nominations**
+      Rolls will be visible to voters as draft lists; in case of any issue
+      with nominees or voters we must return to 3; nominees can accept
+      nominations.
+ #. **Withdraw of nominations**
+      Rolls will be visible to voters as draft lists; in case of any issue
+      with nominees or voters we must return to 3; nominees can withdraw
+      nominations.
+ #. **Waiting to start**
+      We enter and leave this state automatically when dates arrive.
+ #. **Voting**
+      Election is open to voters; we leave this state automatically when end
+      date arrives.
+ #. **Count of votes**
+ #. **Validation of the election**
+ #. **Waiting to publish**
+      We enter and leave this state automatically when dates arrive.
+ #. **Publication of the results**
+      Results of the election is available to everybody.
+ #. **Election is closed**
+      No one can make further changes to the election object.
