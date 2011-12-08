@@ -5,18 +5,18 @@
    title="Election workflow"
    description="Defines the workflow of an election."
    state_variable="review_state"
-   initial_state="configuration"
+   initial_state="private"
    i18n:attributes="title; description">
 
  <permission>Access contents information</permission>
  <permission>Modify portal content</permission>
  <permission>View</permission>
 
- <state state_id="configuration" title="Configuration of the process" i18n:attributes="title">
+ <state state_id="private" title="Private" i18n:attributes="title">
   <description i18n:translate="">
-    General configurarion of the electoral process.
+    Can only be seen and modified by the election administrator.
   </description>
-  <exit-transition transition_id="start"/>
+  <exit-transition transition_id="show"/>
   <permission-map name="Access contents information"
                   acquired="False">
    <permission-role>Manager</permission-role>
@@ -29,8 +29,6 @@
   <permission-map name="Modify portal content"
                   acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Editor</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
@@ -43,9 +41,37 @@
   </permission-map>
  </state>
 
- <state state_id="roll" title="Configuration of the rolls" i18n:attributes="title">
+ <state state_id="public" title="Public" i18n:attributes="title">
   <description i18n:translate="">
-    Configuration of the electoral roll and nominations.
+    Can only be seen and modified by the Chief Electoral Officer.
+  </description>
+  <exit-transition transition_id="nominate"/>
+  <permission-map name="Access contents information"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Editor</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Contributor</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Editor</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Editor</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Contributor</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+ </state>
+
+ <state state_id="draft" title="Draft" i18n:attributes="title">
+  <description i18n:translate="">
+    Can only be seen and modified by the election administrator.
   </description>
   <exit-transition transition_id="sign"/>
   <permission-map name="Access contents information"
@@ -60,36 +86,6 @@
   <permission-map name="Modify portal content"
                   acquired="False">
    <permission-role>Manager</permission-role>
-  </permission-map>
-  <permission-map name="View" acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Reader</permission-role>
-   <permission-role>Contributor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
- </state>
-
- <state state_id="acceptance" title="Acceptance" i18n:attributes="title">
-  <description i18n:translate="">
-    Acceptance of nomination.
-  </description>
-  <exit-transition transition_id="confirm"/>
-  <permission-map name="Access contents information"
-                  acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Reader</permission-role>
-   <permission-role>Contributor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
-  <permission-map name="Modify portal content"
-                  acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Editor</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
@@ -102,11 +98,11 @@
   </permission-map>
  </state>
 
- <state state_id="confirmation" title="Confirmation" i18n:attributes="title">
+ <state state_id="pending" title="Pending" i18n:attributes="title">
   <description i18n:translate="">
     Nomination withdrawal.
   </description>
-  <exit-transition transition_id="wait"/>
+  <exit-transition transition_id="open"/>
   <permission-map name="Access contents information"
                   acquired="False">
    <permission-role>Manager</permission-role>
@@ -119,8 +115,8 @@
   <permission-map name="Modify portal content"
                   acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
    <permission-role>Editor</permission-role>
+   <permission-role>Contributor</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
@@ -133,11 +129,11 @@
   </permission-map>
  </state>
 
- <state state_id="waiting" title="Wait" i18n:attributes="title">
+ <state state_id="nominating" title="Nominating" i18n:attributes="title">
   <description i18n:translate="">
     Waiting for the election to start.
   </description>
-  <exit-transition transition_id="code"/>
+  <exit-transition transition_id="start"/>
   <permission-map name="Access contents information"
                   acquired="False">
    <permission-role>Manager</permission-role>
@@ -150,39 +146,8 @@
   <permission-map name="Modify portal content"
                   acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
    <permission-role>Editor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
-  <permission-map name="View" acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Reader</permission-role>
    <permission-role>Contributor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
- </state>
-
- <state state_id="coding" title="Coding" i18n:attributes="title">
-  <description i18n:translate="">
-    Waiting for the election to start.
-  </description>
-  <exit-transition transition_id="vote"/>
-  <permission-map name="Access contents information"
-                  acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Reader</permission-role>
-   <permission-role>Contributor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
-  <permission-map name="Modify portal content"
-                  acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Editor</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
@@ -212,8 +177,8 @@
   <permission-map name="Modify portal content"
                   acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
    <permission-role>Editor</permission-role>
+   <permission-role>Contributor</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
@@ -240,13 +205,6 @@
    <permission-role>Contributor</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
-  <permission-map name="Modify portal content"
-                  acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
@@ -269,13 +227,6 @@
    <permission-role>Editor</permission-role>
    <permission-role>Reader</permission-role>
    <permission-role>Contributor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
-  <permission-map name="Modify portal content"
-                  acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Editor</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
@@ -302,13 +253,6 @@
    <permission-role>Contributor</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
-  <permission-map name="Modify portal content"
-                  acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
@@ -332,14 +276,6 @@
    <permission-role>Contributor</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
-
-  <permission-map name="Modify portal content"
-                  acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
@@ -350,83 +286,69 @@
   </permission-map>
  </state>
 
- <transition transition_id="start" new_state="roll"
-             title="Start the process"
+ <transition transition_id="show" new_state="public"
+             title="Make the election public"
              trigger="USER"
              before_script="" after_script=""
              i18n:attributes="title">
   <description i18n:translate=""></description>
-  <action url="%(content_url)s/content_status_modify?workflow_action=start"
+  <action url="%(content_url)s/content_status_modify?workflow_action=show"
           category="workflow"
-          i18n:translate="">Start the process</action>
+          i18n:translate="">Show</action>
   <guard>
    <guard-permission>Modify portal content</guard-permission>
   </guard>
  </transition>
 
- <transition transition_id="sign" new_state="acceptance"
-             title="Sign the roll"
+ <transition transition_id="nominate" new_state="draft"
+             title="Create rolls with nominees and"
+             trigger="USER"
+             before_script="" after_script=""
+             i18n:attributes="title">
+  <description i18n:translate=""></description>
+  <action url="%(content_url)s/content_status_modify?workflow_action=nominate"
+          category="workflow"
+          i18n:translate="">Nominate</action>
+  <guard>
+   <guard-permission>Modify portal content</guard-permission>
+  </guard>
+ </transition>
+
+ <transition transition_id="sign" new_state="pending"
+             title="Sign the rolls"
              trigger="USER"
              before_script="" after_script=""
              i18n:attributes="title">
   <description i18n:translate=""></description>
   <action url="%(content_url)s/content_status_modify?workflow_action=sign"
           category="workflow"
-          i18n:translate="">Sign the roll</action>
+          i18n:translate="">Sign</action>
   <guard>
    <guard-permission>Modify portal content</guard-permission>
   </guard>
  </transition>
 
- <transition transition_id="confirm" new_state="confirmation"
-             title="Confirm the nomination."
+ <transition transition_id="open" new_state="Nominating"
+             title="Open the rolls to the public"
              trigger="USER"
              before_script="" after_script=""
              i18n:attributes="title">
   <description i18n:translate=""></description>
-  <action url="%(content_url)s/content_status_modify?workflow_action=confirm"
+  <action url="%(content_url)s/content_status_modify?workflow_action=open"
           category="workflow"
-          i18n:translate="">Confirm</action>
+          i18n:translate="">Open</action>
   <guard>
    <guard-permission>Modify portal content</guard-permission>
   </guard>
  </transition>
 
- <transition transition_id="wait" new_state="waiting"
-             title="Wait"
-             trigger="USER"
-             before_script="" after_script=""
-             i18n:attributes="title">
-  <description i18n:translate=""></description>
-  <action url="%(content_url)s/content_status_modify?workflow_action=wait"
-          category="workflow"
-          i18n:translate="">Wait</action>
-  <guard>
-   <guard-permission>Modify portal content</guard-permission>
-  </guard>
- </transition>
-
- <transition transition_id="code" new_state="coding"
-             title="Creating codes"
-             trigger="USER"
-             before_script="" after_script=""
-             i18n:attributes="title">
-  <description i18n:translate=""></description>
-  <action url="%(content_url)s/content_status_modify?workflow_action=code"
-          category="workflow"
-          i18n:translate="">Create codes</action>
-  <guard>
-   <guard-permission>Modify portal content</guard-permission>
-  </guard>
- </transition>
-
- <transition transition_id="vote" new_state="voting"
+ <transition transition_id="start" new_state="voting"
              title="Start voting"
              trigger="USER"
              before_script="" after_script=""
              i18n:attributes="title">
   <description i18n:translate=""></description>
-  <action url="%(content_url)s/content_status_modify?workflow_action=vote"
+  <action url="%(content_url)s/content_status_modify?workflow_action=start"
           category="workflow"
           i18n:translate="">Start voting</action>
   <guard>

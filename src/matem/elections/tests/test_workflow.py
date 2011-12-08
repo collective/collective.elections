@@ -39,26 +39,23 @@ class WorkflowTest(unittest.TestCase):
 
     def test_workflow_initial_state(self):
         review_state = self.workflow_tool.getInfoFor(self.obj, 'review_state')
-        self.assertEqual(review_state, 'configuration')
+        self.assertEqual(review_state, 'private')
 
     def test_workflow_transitions(self):
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        self.workflow_tool.doActionFor(self.obj, 'start')
+        self.workflow_tool.doActionFor(self.obj, 'show')
         review_state = self.workflow_tool.getInfoFor(self.obj, 'review_state')
-        self.assertEqual(review_state, 'roll')
+        self.assertEqual(review_state, 'public')
+        self.workflow_tool.doActionFor(self.obj, 'nominate')
+        review_state = self.workflow_tool.getInfoFor(self.obj, 'review_state')
+        self.assertEqual(review_state, 'draft')
         self.workflow_tool.doActionFor(self.obj, 'sign')
         review_state = self.workflow_tool.getInfoFor(self.obj, 'review_state')
-        self.assertEqual(review_state, 'acceptance')
-        self.workflow_tool.doActionFor(self.obj, 'confirm')
+        self.assertEqual(review_state, 'pending')
+        self.workflow_tool.doActionFor(self.obj, 'open')
         review_state = self.workflow_tool.getInfoFor(self.obj, 'review_state')
-        self.assertEqual(review_state, 'confirmation')
-        self.workflow_tool.doActionFor(self.obj, 'wait')
-        review_state = self.workflow_tool.getInfoFor(self.obj, 'review_state')
-        self.assertEqual(review_state, 'waiting')
-        self.workflow_tool.doActionFor(self.obj, 'code')
-        review_state = self.workflow_tool.getInfoFor(self.obj, 'review_state')
-        self.assertEqual(review_state, 'coding')
-        self.workflow_tool.doActionFor(self.obj, 'vote')
+        self.assertEqual(review_state, 'nominating')
+        self.workflow_tool.doActionFor(self.obj, 'start')
         review_state = self.workflow_tool.getInfoFor(self.obj, 'review_state')
         self.assertEqual(review_state, 'voting')
         self.workflow_tool.doActionFor(self.obj, 'count')
@@ -75,7 +72,7 @@ class WorkflowTest(unittest.TestCase):
         self.assertEqual(review_state, 'closed')
 
     def test_workflow_permissions(self):
-        # guard-permission: Review portal content
+        # guard-permission: Modify portal content
         self.assertRaises(WorkflowException,
                           self.workflow_tool.doActionFor,
                           self.obj, 'start')
@@ -84,7 +81,7 @@ class WorkflowTest(unittest.TestCase):
         self.workflow_tool.doActionFor(self.obj, 'start')
         setRoles(self.portal, TEST_USER_ID, ['Member'])
 
-        # guard-permission: Review portal content
+        # guard-permission: Modify portal content
         self.assertRaises(WorkflowException,
                           self.workflow_tool.doActionFor,
                           self.obj, 'sign')
@@ -93,7 +90,7 @@ class WorkflowTest(unittest.TestCase):
         self.workflow_tool.doActionFor(self.obj, 'sign')
         setRoles(self.portal, TEST_USER_ID, ['Member'])
 
-        # guard-permission: Review portal content
+        # guard-permission: Modify portal content
         self.assertRaises(WorkflowException,
                           self.workflow_tool.doActionFor,
                           self.obj, 'confirm')
@@ -102,7 +99,7 @@ class WorkflowTest(unittest.TestCase):
         self.workflow_tool.doActionFor(self.obj, 'confirm')
         setRoles(self.portal, TEST_USER_ID, ['Member'])
 
-        # guard-permission: Review portal content
+        # guard-permission: Modify portal content
         self.assertRaises(WorkflowException,
                           self.workflow_tool.doActionFor,
                           self.obj, 'wait')
@@ -111,7 +108,7 @@ class WorkflowTest(unittest.TestCase):
         self.workflow_tool.doActionFor(self.obj, 'wait')
         setRoles(self.portal, TEST_USER_ID, ['Member'])
 
-        # guard-permission: Review portal content
+        # guard-permission: Modify portal content
         self.assertRaises(WorkflowException,
                           self.workflow_tool.doActionFor,
                           self.obj, 'code')
@@ -120,7 +117,7 @@ class WorkflowTest(unittest.TestCase):
         self.workflow_tool.doActionFor(self.obj, 'code')
         setRoles(self.portal, TEST_USER_ID, ['Member'])
 
-        # guard-permission: Review portal content
+        # guard-permission: Modify portal content
         self.assertRaises(WorkflowException,
                           self.workflow_tool.doActionFor,
                           self.obj, 'start')
@@ -129,7 +126,7 @@ class WorkflowTest(unittest.TestCase):
         self.workflow_tool.doActionFor(self.obj, 'vote')
         setRoles(self.portal, TEST_USER_ID, ['Member'])
 
-        # guard-permission: Review portal content
+        # guard-permission: Modify portal content
         self.assertRaises(WorkflowException,
                           self.workflow_tool.doActionFor,
                           self.obj, 'validate')
@@ -138,7 +135,7 @@ class WorkflowTest(unittest.TestCase):
         self.workflow_tool.doActionFor(self.obj, 'validate')
         setRoles(self.portal, TEST_USER_ID, ['Member'])
 
-        # guard-permission: Review portal content
+        # guard-permission: Modify portal content
         self.assertRaises(WorkflowException,
                           self.workflow_tool.doActionFor,
                           self.obj, 'publish')
@@ -147,7 +144,7 @@ class WorkflowTest(unittest.TestCase):
         self.workflow_tool.doActionFor(self.obj, 'publish')
         setRoles(self.portal, TEST_USER_ID, ['Member'])
 
-        # guard-permission: Review portal content
+        # guard-permission: Modify portal content
         self.assertRaises(WorkflowException,
                           self.workflow_tool.doActionFor,
                           self.obj, 'close')
