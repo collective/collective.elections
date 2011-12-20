@@ -19,3 +19,13 @@ class GPGKeyValidator(validator.SimpleFieldValidator):
         import_result = gpg.import_keys(value)
         if import_result.count == 0:
             raise Invalid(_(u"The GPG key is not valid"))
+
+
+class GPGSignatureValidator(validator.SimpleFieldValidator):
+    """Ensure GPG signature is valid.
+    """
+
+    def validate(self, value):
+        super(GPGSignatureValidator, self).validate(value)
+
+        # TODO: implement validator

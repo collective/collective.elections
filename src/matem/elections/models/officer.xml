@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<model xmlns="http://namespaces.plone.org/supermodel/schema"
+       xmlns:form="http://namespaces.plone.org/supermodel/form"
+       xmlns:security="http://namespaces.plone.org/supermodel/security">
+ <schema>
+
+  <field name="gpg_key_officer" type="zope.schema.Text"
+     form:validator="matem.elections.validators.GPGKeyValidator"
+     security:write-permission="cmf.ModifyPortalContent">
+   <title>GPG public key of the chief electoral officer</title>
+   <description></description>
+   <required>True</required>
+  </field>
+  <field name="election_signature" type="zope.schema.Text"
+     form:validator="matem.elections.validators.GPGSignatureValidator">
+   <title>Election signature</title>
+   <description></description>
+   <required>False</required>
+  </field>
+  <field name="electoral_roll_signature" type="zope.schema.Text"
+     form:validator="matem.elections.validators.GPGSignatureValidator">
+   <title>Electoral roll signature</title>
+   <description></description>
+   <required>False</required>
+  </field>
+  <field name="nominations_roll_signature" type="zope.schema.Text"
+     form:validator="matem.elections.validators.GPGSignatureValidator">
+   <title>Nominations roll signature</title>
+   <description></description>
+   <required>False</required>
+  </field>
+
+ </schema>
+</model>
