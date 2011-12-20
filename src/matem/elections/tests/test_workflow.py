@@ -5,8 +5,6 @@ import unittest2 as unittest
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
 
-from Products.CMFCore.WorkflowCore import WorkflowException
-
 from matem.elections.testing import INTEGRATION_TESTING
 
 ctype = 'matem.elections.election'
@@ -42,28 +40,22 @@ class WorkflowTest(unittest.TestCase):
         self.assertEqual(review_state, 'private')
 
     def test_workflow_transitions(self):
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        self.workflow_tool.doActionFor(self.obj, 'show')
-        review_state = self.workflow_tool.getInfoFor(self.obj, 'review_state')
-        self.assertEqual(review_state, 'public')
-        self.workflow_tool.doActionFor(self.obj, 'nominate')
-        review_state = self.workflow_tool.getInfoFor(self.obj, 'review_state')
-        self.assertEqual(review_state, 'draft')
-        self.workflow_tool.doActionFor(self.obj, 'sign')
+        self.workflow_tool.doActionFor(self.obj, 'submit')
         review_state = self.workflow_tool.getInfoFor(self.obj, 'review_state')
         self.assertEqual(review_state, 'pending')
-        self.workflow_tool.doActionFor(self.obj, 'open')
+        setRoles(self.portal, TEST_USER_ID, ['Editor'])
+        self.workflow_tool.doActionFor(self.obj, 'show')
         review_state = self.workflow_tool.getInfoFor(self.obj, 'review_state')
-        self.assertEqual(review_state, 'nominating')
+        self.assertEqual(review_state, 'draft')
+        self.workflow_tool.doActionFor(self.obj, 'wait')
+        review_state = self.workflow_tool.getInfoFor(self.obj, 'review_state')
+        self.assertEqual(review_state, 'waiting')
         self.workflow_tool.doActionFor(self.obj, 'start')
         review_state = self.workflow_tool.getInfoFor(self.obj, 'review_state')
         self.assertEqual(review_state, 'voting')
         self.workflow_tool.doActionFor(self.obj, 'count')
         review_state = self.workflow_tool.getInfoFor(self.obj, 'review_state')
-        self.assertEqual(review_state, 'counting')
-        self.workflow_tool.doActionFor(self.obj, 'validate')
-        review_state = self.workflow_tool.getInfoFor(self.obj, 'review_state')
-        self.assertEqual(review_state, 'validating')
+        self.assertEqual(review_state, 'scrutiny')
         self.workflow_tool.doActionFor(self.obj, 'publish')
         review_state = self.workflow_tool.getInfoFor(self.obj, 'review_state')
         self.assertEqual(review_state, 'published')
@@ -71,84 +63,6 @@ class WorkflowTest(unittest.TestCase):
         review_state = self.workflow_tool.getInfoFor(self.obj, 'review_state')
         self.assertEqual(review_state, 'closed')
 
-    def test_workflow_permissions(self):
-        # guard-permission: Modify portal content
-        self.assertRaises(WorkflowException,
-                          self.workflow_tool.doActionFor,
-                          self.obj, 'start')
 
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        self.workflow_tool.doActionFor(self.obj, 'start')
-        setRoles(self.portal, TEST_USER_ID, ['Member'])
-
-        # guard-permission: Modify portal content
-        self.assertRaises(WorkflowException,
-                          self.workflow_tool.doActionFor,
-                          self.obj, 'sign')
-
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        self.workflow_tool.doActionFor(self.obj, 'sign')
-        setRoles(self.portal, TEST_USER_ID, ['Member'])
-
-        # guard-permission: Modify portal content
-        self.assertRaises(WorkflowException,
-                          self.workflow_tool.doActionFor,
-                          self.obj, 'confirm')
-
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        self.workflow_tool.doActionFor(self.obj, 'confirm')
-        setRoles(self.portal, TEST_USER_ID, ['Member'])
-
-        # guard-permission: Modify portal content
-        self.assertRaises(WorkflowException,
-                          self.workflow_tool.doActionFor,
-                          self.obj, 'wait')
-
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        self.workflow_tool.doActionFor(self.obj, 'wait')
-        setRoles(self.portal, TEST_USER_ID, ['Member'])
-
-        # guard-permission: Modify portal content
-        self.assertRaises(WorkflowException,
-                          self.workflow_tool.doActionFor,
-                          self.obj, 'code')
-
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        self.workflow_tool.doActionFor(self.obj, 'code')
-        setRoles(self.portal, TEST_USER_ID, ['Member'])
-
-        # guard-permission: Modify portal content
-        self.assertRaises(WorkflowException,
-                          self.workflow_tool.doActionFor,
-                          self.obj, 'start')
-
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        self.workflow_tool.doActionFor(self.obj, 'vote')
-        setRoles(self.portal, TEST_USER_ID, ['Member'])
-
-        # guard-permission: Modify portal content
-        self.assertRaises(WorkflowException,
-                          self.workflow_tool.doActionFor,
-                          self.obj, 'validate')
-
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        self.workflow_tool.doActionFor(self.obj, 'validate')
-        setRoles(self.portal, TEST_USER_ID, ['Member'])
-
-        # guard-permission: Modify portal content
-        self.assertRaises(WorkflowException,
-                          self.workflow_tool.doActionFor,
-                          self.obj, 'publish')
-
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        self.workflow_tool.doActionFor(self.obj, 'publish')
-        setRoles(self.portal, TEST_USER_ID, ['Member'])
-
-        # guard-permission: Modify portal content
-        self.assertRaises(WorkflowException,
-                          self.workflow_tool.doActionFor,
-                          self.obj, 'close')
-
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        self.workflow_tool.doActionFor(self.obj, 'close')
-        setRoles(self.portal, TEST_USER_ID, ['Member'])
+def test_suite():
+    return unittest.defaultTestLoader.loadTestsFromName(__name__)

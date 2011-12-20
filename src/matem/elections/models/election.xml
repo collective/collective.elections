@@ -4,9 +4,7 @@
        xmlns:security="http://namespaces.plone.org/supermodel/security">
  <schema>
 
-  <!-- available only in Private state -->
-
-  <field name="text" type="zope.schema.Text">
+  <field name="text" type="plone.app.textfield.RichText">
    <title>Text</title>
    <description></description>
    <required>True</required>
@@ -17,97 +15,40 @@
    <required>True</required>
    <vocabulary>plone.principalsource.Users</vocabulary>
   </field>
-  <field name="voting_start" type="zope.schema.Datetime">
+  <field name="voting_start_date" type="zope.schema.Datetime">
    <title>Start of voting</title>
    <description></description>
    <required>True</required>
   </field>
-  <field name="voting_end" type="zope.schema.Datetime">
+  <field name="voting_end_date" type="zope.schema.Datetime">
    <title>End of voting</title>
    <description></description>
    <required>True</required>
   </field>
-  <field name="nomination_acceptance" type="zope.schema.Datetime">
-   <title>Acceptance of nomination</title>
-   <description></description>
-   <required>True</required>
-  </field>
-  <field name="nomination_withdrawal" type="zope.schema.Datetime">
-   <title>Withdrawal of nomination</title>
-   <description></description>
-   <required>True</required>
-  </field>
-  <field name="voters_list_publication" type="zope.schema.Datetime">
-   <title>Voters list publication</title>
-   <description></description>
-   <required>True</required>
-  </field>
-  <field name="draft_candidates_list_publication" type="zope.schema.Datetime">
-   <title>Draft candidates list publication</title>
-   <description></description>
-   <required>True</required>
-  </field>
-  <field name="candidates_list_publication" type="zope.schema.Datetime">
-   <title>Candidates list publication</title>
-   <description></description>
-   <required>True</required>
-  </field>
-  <field name="election_results_publication" type="zope.schema.Datetime">
-   <title>Election results publication</title>
-   <description></description>
-   <required>True</required>
-  </field>
-  <field name="allow_electoral_slogan" type="zope.schema.Bool">
-   <title>Allow electoral slogan</title>
-   <description></description>
-   <required>False</required>
-  </field>
-  <field name="allow_event" type="zope.schema.Bool">
-   <title>Allow event</title>
-   <default>True</default>
-   <description></description>
-   <required>True</required>
-  </field>
-  <field name="allow_url" type="zope.schema.Bool">
-   <title>Allow url</title>
-   <description></description>
-   <required>False</required>
-  </field>
-  <field name="forum_url" type="zope.schema.URI">
-   <title>Forum url</title>
-   <description></description>
-   <required>True</required>
-  </field>
-  <field name="documents_url" type="zope.schema.URI">
-   <title>Documents url</title>
+  <field name="publication_date" type="zope.schema.Datetime">
+   <title>Publication of results</title>
    <description></description>
    <required>True</required>
   </field>
   <field name="results_mode" type="zope.schema.TextLine">
    <title>Results mode</title>
+   <default>Votes</default>
    <description></description>
    <required>True</required>
+   <values>
+    <element>Percentage</element>
+    <element>Votes</element>
+   </values>
   </field>
-  <field name="message" type="zope.schema.Text">
-   <title>Message</title>
-   <description></description>
-   <required>True</required>
-  </field>
-  <field name="gpg_key_officer" type="zope.schema.Text"
+  <field name="gpg_key_admin" type="zope.schema.Text"
      form:validator="matem.elections.validators.GPGKeyValidator">
-   <title>GPG public key officer</title>
-   <description></description>
-   <required>True</required>
-  </field>
-  <field name="random_length" type="zope.schema.Int">
-   <title>Random length</title>
-   <default>40</default>
+   <title>GPG public key of the election administrator</title>
    <description></description>
    <required>True</required>
   </field>
   <field name="gpg_mode" type="zope.schema.Choice">
    <title>GPG mode</title>
-   <default>Mandatory</default>
+   <default>Optional</default>
    <description>
       Defines if GPG is used in the whole process. Votes are encrypted
       regardless the selection.
@@ -118,52 +59,16 @@
     <element>Optional</element>
    </values>
   </field>
-  <field name="load_election_data" type="zope.schema.Bool">
-   <title>Load election data</title>
-   <description></description>
-   <required>False</required>
-  </field>
-  <field name="save_election_data" type="zope.schema.Bool">
-   <title>Save election data</title>
-   <description></description>
-   <required>False</required>
-  </field>
-
-  <!-- available only in Pending state -->
-
-  <field name="election_officials" type="zope.schema.TextLine"
-     security:write-permission="cmf.ModifyPortalContent">
-   <title>Election officials</title>
-   <description></description>
-   <required>True</required>
-  </field>
-  <field name="comments" type="zope.schema.Text"
-     security:write-permission="cmf.ModifyPortalContent">
-   <title>Comments</title>
-   <description></description>
-   <required>False</required>
-  </field>
-  <field name="gpg_key_officials" type="zope.schema.Text"
-     form:validator="matem.elections.validators.GPGKeyValidator"
-     security:write-permission="cmf.ModifyPortalContent">
-   <title>GPG public key officials</title>
-   <description></description>
-   <required>True</required>
-  </field>
-
-  <!-- available only in Draft state -->
-
-  <field name="electoral_roll" type="zope.schema.Text"
-     security:write-permission="cmf.ModifyPortalContent">
+  <field name="electoral_roll" type="zope.schema.Text">
    <title>Electoral roll</title>
    <description></description>
    <required>True</required>
   </field>
-  <field name="nominations_roll" type="zope.schema.Text"
-     security:write-permission="cmf.ModifyPortalContent">
+  <field name="nominations_roll" type="zope.schema.Text">
    <title>Nominations roll</title>
    <description></description>
    <required>True</required>
   </field>
+
  </schema>
 </model>
