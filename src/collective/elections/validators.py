@@ -6,7 +6,7 @@ gpg = gnupg.GPG()
 from zope.interface import Invalid
 from z3c.form import validator
 
-from matem.elections import _
+from collective.elections import _
 
 
 class GPGKeyValidator(validator.SimpleFieldValidator):

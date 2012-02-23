@@ -9,8 +9,8 @@ from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
 from plone.dexterity.interfaces import IDexterityFTI
 
-from matem.elections.content import IElection
-from matem.elections.testing import INTEGRATION_TESTING
+from collective.elections.content import IElection
+from collective.elections.testing import INTEGRATION_TESTING
 
 
 class IntegrationTest(unittest.TestCase):
@@ -25,24 +25,24 @@ class IntegrationTest(unittest.TestCase):
         self.folder = self.portal['test-folder']
 
     def test_adding(self):
-        self.folder.invokeFactory('matem.elections.election', 'e1')
+        self.folder.invokeFactory('collective.elections.election', 'e1')
         e1 = self.folder['e1']
         self.failUnless(IElection.providedBy(e1))
 
     def test_fti(self):
         fti = queryUtility(IDexterityFTI,
-                           name='matem.elections.election')
+                           name='collective.elections.election')
         self.assertNotEquals(None, fti)
 
     def test_schema(self):
         fti = queryUtility(IDexterityFTI,
-                           name='matem.elections.election')
+                           name='collective.elections.election')
         schema = fti.lookupSchema()
         self.assertEquals(IElection, schema)
 
     def test_factory(self):
         fti = queryUtility(IDexterityFTI,
-                           name='matem.elections.election')
+                           name='collective.elections.election')
         factory = fti.factory
         new_object = createObject(factory)
         self.failUnless(IElection.providedBy(new_object))

@@ -5,9 +5,9 @@ import unittest2 as unittest
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
 
-from matem.elections.testing import INTEGRATION_TESTING
+from collective.elections.testing import INTEGRATION_TESTING
 
-ctype = 'matem.elections.election'
+ctype = 'collective.elections.election'
 workflow_id = 'election_workflow'
 
 

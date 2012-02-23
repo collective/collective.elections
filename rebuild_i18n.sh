@@ -1,14 +1,17 @@
 #! /bin/sh
 
-I18NDOMAIN="matem.elections"
+I18NDOMAIN="collective.elections"
+BASE_DIRECTORY="src/collective/elections"
 
 # Synchronise the templates and scripts with the .pot.
-# All on one line normally:
-bin/i18ndude rebuild-pot --pot src/matem/elections/locales/${I18NDOMAIN}.pot \
+i18ndude rebuild-pot --pot ${BASE_DIRECTORY}/locales/${I18NDOMAIN}.pot \
     --create ${I18NDOMAIN} \
-   .
+    ${BASE_DIRECTORY}
 
 # Synchronise the resulting .pot with all .po files
-for po in src/matem/elections/locales/*/LC_MESSAGES/${I18NDOMAIN}.po; do
-    bin/i18ndude sync --pot src/matem/elections/locales/${I18NDOMAIN}.pot $po
+for po in ${BASE_DIRECTORY}/locales/*/LC_MESSAGES/${I18NDOMAIN}.po; do
+    i18ndude sync --pot ${BASE_DIRECTORY}/locales/${I18NDOMAIN}.pot $po
 done
+
+# Report of errors and suspect untranslated messages
+i18ndude find-untranslated ${BASE_DIRECTORY}

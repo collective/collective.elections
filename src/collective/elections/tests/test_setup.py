@@ -7,8 +7,8 @@ from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import login
 from plone.app.testing import setRoles
 
-from matem.elections.config import PROJECTNAME
-from matem.elections.testing import INTEGRATION_TESTING
+from collective.elections.config import PROJECTNAME
+from collective.elections.testing import INTEGRATION_TESTING
 
 
 class InstallTest(unittest.TestCase):

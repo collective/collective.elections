@@ -2,4 +2,4 @@
 
 from zope.i18nmessageid import MessageFactory
 
-_ = MessageFactory('matem.elections')
+_ = MessageFactory('collective.elections')

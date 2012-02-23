@@ -1,7 +1,7 @@
 Introduction
 ============
 
-matem.elections aims to be an electronic voting system based on `KOA
+collective.elections aims to be an electronic voting system based on `KOA
 <http://secure.ucd.ie/products/opensource/KOA/>`_ (*Kiezen op Afstand*), an
 Open Source Electronic/Remote/Internet Voting System developed for the Dutch
 government in 2003. *Kiezen op Afstand* is literally translated from Dutch as
@@ -15,9 +15,9 @@ Alexander Zapata under supervision of Sergio Rajsbaum, a member of the
 Autonomous University of Mexico <http://unam.mx>`_, and was later updated by
 Iván Cervantes to be Plone 3 compatible.
 
-matem.elections is a new implementation of the system for Plone 4.1 and above
-using `Dexterity <http://pypi.python.org/pypi/plone.app.dexterity>`_ and a
-custom workflow.
+collective.elections is a new implementation of the system for Plone 4.1 and
+above using `Dexterity <http://pypi.python.org/pypi/plone.app.dexterity>`_ and
+a custom workflow.
 
 Security requirements
 ---------------------
@@ -33,11 +33,12 @@ KOA protocol fulfills the following requirements:
  - It allows a greater level of confidence among voters
  - It is easy to use
 
-matem.elections uses `GnuPG <http://www.gnupg.org/>`_ for all cryptographic
-functions. GnuPG is a complete and free implementation of the OpenPGP standard
-as defined by `RFC4880 <http://tools.ietf.org/html/rfc4880>`_. GnuPG allows to
-encrypt and sign data, features a versatile key management system as well as
-access modules for all kinds of public key directories.
+collective.elections uses `GnuPG <http://www.gnupg.org/>`_ for all
+cryptographic functions. GnuPG is a complete and free implementation of the
+OpenPGP standard as defined by `RFC4880
+<http://tools.ietf.org/html/rfc4880>`_. GnuPG allows to encrypt and sign data,
+features a versatile key management system as well as access modules for all
+kinds of public key directories.
 
 Overview of the original system
 ===============================
@@ -97,7 +98,7 @@ election.
 Overview of the current effort
 ==============================
 
-matem.elections will use Dexterity-based content types to describe an
+collective.elections will use Dexterity-based content types to describe an
 election. The election object will move across an election workflow in which
 different actions will be available to different users with different roles.
 We want to keep this as simple as we can, so we will try not to implement more

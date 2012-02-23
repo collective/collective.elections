@@ -15,14 +15,14 @@ msgstr ""
 "Language-Code: en\n"
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: matem.elections\n"
+"Domain: collective.elections\n"
 
-#: matem/elections/profiles/default/types/matem.elections.election.xml
+#: collective/elections/profiles/default/types/collective.elections.election.xml
 msgid "Election"
 msgstr ""
 
-#: matem/elections/validators.py:21
-#: matem/elections/vocabularies.py:21
+#: collective/elections/validators.py:21
+#: collective/elections/vocabularies.py:21
 msgid "The GPG key is not valid"
 msgstr ""
 

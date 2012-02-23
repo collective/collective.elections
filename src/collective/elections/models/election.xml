@@ -41,7 +41,7 @@
    </values>
   </field>
   <field name="gpg_key_admin" type="zope.schema.Text"
-     form:validator="matem.elections.validators.GPGKeyValidator">
+     form:validator="collective.elections.validators.GPGKeyValidator">
    <title>GPG public key of the election administrator</title>
    <description></description>
    <required>True</required>
