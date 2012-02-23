@@ -1,3 +1,9 @@
+********************
+collective.elections
+********************
+
+.. contents:: Table of Contents
+
 Introduction
 ============
 
@@ -24,14 +30,14 @@ Security requirements
 
 KOA protocol fulfills the following requirements:
 
- - Only authorized voters are able to vote
- - No voter's vote can be counted more than once
- - Votes are securely stored
- - Votes can not be modified/removed without detection
- - It is possible to verify that all the votes were counted
- - Votes are not lost
- - It allows a greater level of confidence among voters
- - It is easy to use
+- Only authorized voters are able to vote
+- No voter's vote can be counted more than once
+- Votes are securely stored
+- Votes can not be modified/removed without detection
+- It is possible to verify that all the votes were counted
+- Votes are not lost
+- It allows a greater level of confidence among voters
+- It is easy to use
 
 collective.elections uses `GnuPG <http://www.gnupg.org/>`_ for all
 cryptographic functions. GnuPG is a complete and free implementation of the
@@ -55,15 +61,15 @@ User roles
 
 The original system defined three user roles:
 
- - **Election Administrator** (EA)
-      A member of the portal Administrators group that creates the election
-      and the rolls of nominees and voters.
- - **Election Officials** (EO)
-      These are the members of the portal that will guarantee the election
-      call is fulfilled; they will also sign documents produced through the
-      election process.
- - **General Users** (GU)
-      Nominees, candidates and voters.
+- **Election Administrator** (EA)
+  A member of the portal Administrators group that creates the election and
+  the rolls of nominees and voters.
+- **Election Officials** (EO)
+  These are the members of the portal that will guarantee the election call is
+  fulfilled; they will also sign documents produced through the election
+  process.
+- **General Users** (GU)
+  Nominees, candidates and voters.
 
 The election process in a nutshell
 ----------------------------------
@@ -109,117 +115,142 @@ User roles
 
 We will maintain the three roles mentioned before:
 
- - EA (probably mapped as Manager or Site Administrator)
- - EO (probably mapped as Editor)
- - GU (probably mapped as Contributor)
+- EA (probably mapped as Manager or Site Administrator)
+- EO (probably mapped as Editor)
+- GU (probably mapped as Contributor)
 
 Workflow states
 ---------------
 
 We visualize a workflow with, more or less, the following states:
 
- #. **Private**
-      Initial state of the election; the EA fills all the parameters and submit
-      the election to be reviewed by the EO's (Trans. 1)
- #. **Internal revision**
-      If all data entered is correct, a PDF gets exported with it.
-      The EA signs it with his GPG key and adds the signed PDF and signature
-      to the election.
-      Only the pdf and signature fields are writable in this state.
-      The election can be sent back to the Private state (Trans. 2) or be
+#. **Private**
+    * Initial state of the election; the EA fills all the parameters and
+      submit the election to be reviewed by the EO's (Trans. 1).
+
+#. **Internal revision**
+    * If all data entered is correct, a PDF gets exported with it.
+    * The EA signs it locally with his GPG private key and adds the signed PDF
+      and signature to the election.
+    * Only the PDF and signature fields are writable in this state.
+    * The election can be sent back to the Private state (Trans. 2) or be
       submitted for public review (Trans. 3).
-      The CEO is the only role allowed to call Trans. 3.
- #. **Public revision**
-      In this state, none of the fields of the election are writable by anybody.
-      It can be sent back to the Private state (Trans. 4) in case of some error
-      Transition to the Nominees state is done automatically in a given date
+    * The CEO is the only role allowed to call Trans. 3.
+
+#. **Public revision**
+    * In this state, none of the fields of the election are writable by
+      anybody.
+    * It can be sent back to the Private state (Trans. 4) in case of some
+      error.
+    * Transition to the Nominees state is done automatically in a given date
       (Trans. 5).
- #. **Nominees**
-      In this state, the electoral roll and nominations roll are filled by the
-      EA.
-      Only these 2 fields are writable by anybody in this state.
-      This state cannot be sent back.
-      The EA can submit to the Nominee revision state (Trans. 6)
- #. **Nominee revision**
-      In this state, the electoral and nominations roll are reviewed by the EO's
-      If everything is correct, then a second PDF gets exported.
-      The EA signs it with his GPG key and adds the signed PDF and signature
-      to the election.
-      Only the pdf and signature fields are writable in this state.
-      (2 additional fields, separate from the 2 fields used in state Internal
+
+#. **Nominees**
+    * In this state, the electoral and nominations roll are filled by the EA.
+    * Only these 2 fields are writable by anybody in this state.
+    * This state cannot be sent back.
+    * The EA can submit to the Nominee revision state (Trans. 6)
+
+#. **Nominee revision**
+    * In this state, the electoral and nominations roll are reviewed by the
+      EO's If everything is correct, then a second PDF gets exported.
+    * The EA signs it locally with his GPG private key and adds the signed PDF
+      and signature to the election.
+    * Only the PDF and signature fields are writable in this state. (2
+      additional fields, separate from the 2 fields used in state Internal
       revision).
-      The election can be sent back to the Nominees state (Trans. 7) or be
+    * The election can be sent back to the Nominees state (Trans. 7) or be
       submitted for public review (Trans. 8).
-      The CEO is the only role allowed to call Trans. 8.
- #. **Public**
-      In this state, none of the fields of the election are writable by anybody.
-      It can be sent back to the Nominees state (Trans. 9) in case of some error
-      Transition to the Voting state is done automatically in a given date
-      (Trans. 10).
- #. **Voting**
-      Votes are allowed to be entered. No fields are writable by anybody
-      This state cannot be sent back.
-      Voting will end in a previously given date automatically and the eleciton
-      be moved to the Scrutinity state (Trans. 11)
- #. **Scrutiny**
-      Votes are counted.
-      In a previously given date, the election will automatically be moved to
-      the Results state (Trans. 12)
- #. **Results**
-      Results of the election are available to everybody.
-      In this state, the EO's can validate valid signatures and finally, the CEO
-      can close the election (Trans. 13)
- #. **Closed**
-      No one can make further changes to the election object.
+    * The CEO is the only role allowed to call Trans. 8.
+
+#. **Public**
+    * In this state, none of the fields of the election are writable by
+      anybody.
+    * It can be sent back to the Nominees state (Trans. 9) in case of some
+      error Transition to the Voting state is done automatically in a given
+      date (Trans. 10).
+
+#. **Voting**
+    * Votes are allowed to be entered. No fields are writable by anybody.
+    * This state cannot be sent back.
+    * Voting will end in a previously given date automatically and the
+      eleciton be moved to the Scrutinity state (Trans. 11).
+
+#. **Scrutiny**
+    * Votes are counted.
+    * In a previously given date, the election will automatically be moved to
+      the Results state (Trans. 12).
+
+#. **Results**
+    * Results of the election are available to everybody.
+    * In this state, the EO's can validate valid signatures and finally, the
+      CEO can close the election (Trans. 13).
+
+#. **Closed**
+    * No one can make further changes to the election object.
 
 Transitions
 -----------
 
- #. **Trans. 1**
-      Private -> Internal revision
-      Manually triggered transition. Only the EA is allowed to call it
- #. **Trans. 2**
-      Internal revision -> Private
-      Manually triggered transition. EA and EO's are allowed to call it
- #. **Trans. 3**
-      Internal revision -> Public revision
-      Manually triggered transition.
-      This transition cannot be triggered, unless the PDF and signature fields
+#. **Trans. 1**
+    * Private -> Internal revision
+    * Manually triggered transition. Only the EA is allowed to call it
+
+#. **Trans. 2**
+    * Internal revision -> Private
+    * Manually triggered transition. EA and EO's are allowed to call it
+
+#. **Trans. 3**
+    * Internal revision -> Public revision
+    * Manually triggered transition.
+    * This transition cannot be triggered, unless the PDF and signature fields
       of the election are populated. Only the CEO is allowed to call it.
- #. **Trans. 4**
-      Public revision -> Private
-      Manually triggered transition. EA and EO's are allowed to call it
-      When this transition is triggered, the PDF and signature fields are
+
+#. **Trans. 4**
+    * Public revision -> Private
+    * Manually triggered transition. EA and EO's are allowed to call it
+    * When this transition is triggered, the PDF and signature fields are
       wiped out.
- #. **Trans. 5**
-      Public revision -> Nominees
-      Automatically triggered transition when a specific date is reached
- #. **Trans. 6**
-      Nominees -> Nominee revision
-      Manually triggered transition. Only the EA is allowed to call it
- #. **Trans. 7**
-      Nominee revision -> Nominees
-      Manually triggered transition. EA and EO's are allowed to call it
- #. **Trans. 8**
-      Nominee revision -> Public
-      Manually triggered transition.
-      This transition cannot be triggered, unless the second PDF and signature
-      fields of the election are populated. Only the CEO is allowed to call it.
- #. **Trans. 9**
-      Public -> Nominees
-      Manually triggered transition. EA and EO's are allowed to call it
-      When this transition is triggered, the second PDF and signature fields are
-      wiped out.
- #. **Trans. 10**
-      Public -> Voting
-      Automatically triggered transition when a specific date is reached.
-      In this transition, hashes with electors and voters are generated
- #. **Trans. 11**
-      Voting -> Scrutiny
-      Automatically triggered transition when a specific date is reached.
- #. **Trans. 12**
-      Scrutiny -> Results
-      Automatically triggered transition when a specific date is reached.
- #. **Trans. 13**
-      Results -> Closed
-      Manually triggered transition. Only the CEO is allowed to call it
+
+#. **Trans. 5**
+    * Public revision -> Nominees
+    * Automatically triggered transition when a specific date is reached
+
+#. **Trans. 6**
+    * Nominees -> Nominee revision
+    * Manually triggered transition. Only the EA is allowed to call it
+
+#. **Trans. 7**
+    * Nominee revision -> Nominees
+    * Manually triggered transition. EA and EO's are allowed to call it
+
+#. **Trans. 8**
+    * Nominee revision -> Public
+    * Manually triggered transition.
+    * This transition cannot be triggered, unless the second PDF and signature
+      fields of the election are populated. Only the CEO is allowed to call
+      it.
+
+#. **Trans. 9**
+    * Public -> Nominees
+    * Manually triggered transition. EA and EO's are allowed to call it
+    * When this transition is triggered, the second PDF and signature fields
+      are wiped out.
+
+#. **Trans. 10**
+    * Public -> Voting
+    * Automatically triggered transition when a specific date is reached.
+    * In this transition, hashes with electors and voters are generated
+
+#. **Trans. 11**
+    * Voting -> Scrutiny
+    * Automatically triggered transition when a specific date is reached.
+
+#. **Trans. 12**
+    * Scrutiny -> Results
+    * Automatically triggered transition when a specific date is reached.
+
+#. **Trans. 13**
+    * Results -> Closed
+    * Manually triggered transition. Only the CEO is allowed to call it
+
