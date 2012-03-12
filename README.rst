@@ -1,11 +1,11 @@
-********************
+====================
 collective.elections
-********************
+====================
 
 .. contents:: Table of Contents
 
 Introduction
-============
+------------
 
 collective.elections aims to be an electronic voting system based on `KOA
 <http://secure.ucd.ie/products/opensource/KOA/>`_ (*Kiezen op Afstand*), an
@@ -26,7 +26,7 @@ above using `Dexterity <http://pypi.python.org/pypi/plone.app.dexterity>`_ and
 a custom workflow.
 
 Security requirements
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 KOA protocol fulfills the following requirements:
 
@@ -47,7 +47,7 @@ features a versatile key management system as well as access modules for all
 kinds of public key directories.
 
 Overview of the original system
-===============================
+-------------------------------
 
 The original system was developed using Archetypes and did not used Plone's
 workflow machinery at all. The system was heavily attached to
@@ -57,22 +57,24 @@ directory, and to ATSelectUsers, a product developed by the Institute of
 Mathematics in order to create subsets of persons inside a staff directory.
 
 User roles
-----------
+^^^^^^^^^^
 
 The original system defined three user roles:
 
-- **Election Administrator** (EA)
+**Election Administrator** (EA)
   A member of the portal Administrators group that creates the election and
   the rolls of nominees and voters.
-- **Election Officials** (EO)
+
+**Election Officials** (EO)
   These are the members of the portal that will guarantee the election call is
   fulfilled; they will also sign documents produced through the election
   process.
-- **General Users** (GU)
+
+**General Users** (GU)
   Nominees, candidates and voters.
 
 The election process in a nutshell
-----------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The EA adds a new election object and fills all the parameters in the general
 configuration screen. These parameters include the title, description, the
@@ -99,10 +101,44 @@ these rolls without detection and everybody can check to see if all, nominees
 and voters, really fulfill the requirements published in the call for the
 election.
 
-(To be continued…)
+Users of the system can check their status as nominees and/or voters and they
+can accept/reject/cancel their nomination to become candidates. Any claim must
+be done to the EO.
+
+Before the voting process starts, the system generates a set of random numbers
+for each pair of voter/candidate (if we have 2 candidates and 10 voters the
+system will generate 20 random numbers) to avoid duplicate votes. This set of
+numbers is encrypted with the public key used by the EO, and is used to create
+ballots for each voter:
+
+.. csv-table::
+   :header: Candidates, A, B
+   :widths: 10, 10, 10
+
+   "Voter 1", 9095, 7613
+   "Voter 2", 9211, 8291
+   "Voter 3", 522, 4640
+   "Voter 4", 5988, 4415
+   "Voter 5", 8489, 4730
+   "Voter 6", 9416, 1940
+   "Voter 7", 877, 8033
+   "Voter 8", 3028, 487
+   "Voter 9", 8875, 1164
+   "Voter 10", 7854, 2642
+
+Each ballot can only be accessed by the voter associated with it when she is
+about to cast her vote.
+
+After the voting has finished (the end date arrives), the vote counting
+process starts. First, the EO has to decrypt the ballots, to check that no
+vote has been modified, and then the counting is done automatically by the
+system.
+
+Now the results can be published. The EO creates and signs a PDF with the
+results of the election and the information is made available to the public.
 
 Overview of the current effort
-==============================
+------------------------------
 
 collective.elections will use Dexterity-based content types to describe an
 election. The election object will move across an election workflow in which
@@ -111,7 +147,7 @@ We want to keep this as simple as we can, so we will try not to implement more
 roles or permissions unless necessary.
 
 User roles
-----------
+^^^^^^^^^^
 
 We will maintain the three roles mentioned before:
 
@@ -120,7 +156,7 @@ We will maintain the three roles mentioned before:
 - GU (probably mapped as Contributor)
 
 Workflow states
----------------
+^^^^^^^^^^^^^^^
 
 We visualize a workflow with, more or less, the following states:
 
@@ -174,9 +210,9 @@ We visualize a workflow with, more or less, the following states:
     * Votes are allowed to be entered. No fields are writable by anybody.
     * This state cannot be sent back.
     * Voting will end in a previously given date automatically and the
-      eleciton be moved to the Scrutinity state (Trans. 11).
+      election be moved to the Vote Counting state (Trans. 11).
 
-#. **Scrutiny**
+#. **Vote Counting**
     * Votes are counted.
     * In a previously given date, the election will automatically be moved to
       the Results state (Trans. 12).
@@ -190,7 +226,7 @@ We visualize a workflow with, more or less, the following states:
     * No one can make further changes to the election object.
 
 Transitions
------------
+^^^^^^^^^^^
 
 #. **Trans. 1**
     * Private -> Internal revision
@@ -243,11 +279,11 @@ Transitions
     * In this transition, hashes with electors and voters are generated
 
 #. **Trans. 11**
-    * Voting -> Scrutiny
+    * Voting -> Vote Counting
     * Automatically triggered transition when a specific date is reached.
 
 #. **Trans. 12**
-    * Scrutiny -> Results
+    * Vote Counting -> Results
     * Automatically triggered transition when a specific date is reached.
 
 #. **Trans. 13**
