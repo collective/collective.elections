@@ -1,0 +1,57 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="collective.elections">
+
+    <!-- Permissions for specific wf transitions -->
+    
+        
+    <!-- End -->
+    
+    <!-- Permissions for specific election fields -->
+    
+    <permission
+        id="collective.elections.textEditable"
+        title="collective.elections: Election text field editable"
+        />
+    <permission
+        id="collective.elections.chief_electoral_officerEditable"
+        title="collective.elections: Election chief_electoral_officer field editable"
+        />
+    <permission
+        id="collective.elections.voting_start_dateEditable"
+        title="collective.elections: Election voting_start_date field editable"
+        />
+    <permission
+        id="collective.elections.voting_end_dateEditable"
+        title="collective.elections: Election voting_end_date field editable"
+        />
+    <permission
+        id="collective.elections.publication_dateEditable"
+        title="collective.elections: Election publication_date field editable"
+        />
+    <permission
+        id="collective.elections.results_modeEditable"
+        title="collective.elections: Election results_mode field editable"
+        />
+    <permission
+        id="collective.elections.gpg_key_adminEditable"
+        title="collective.elections: Election gpg_key_admin field editable"
+        />
+    <permission
+        id="collective.elections.gpg_modeEditable"
+        title="collective.elections: Election gpg_mode field editable"
+        />
+    <permission
+        id="collective.elections.electoral_rollEditable"
+        title="collective.elections: Election electoral_roll field editable"
+        />
+    <permission
+        id="collective.elections.nominations_rollEditable"
+        title="collective.elections: Election nominations_roll field editable"
+        />
+        
+   <!-- End -->
+  
+  
+  
+  
+</configure>

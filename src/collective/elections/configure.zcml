@@ -7,6 +7,9 @@
 
   <i18n:registerTranslations directory="locales" />
 
+  <include file="permissions.zcml" />
+  <include package=".browser" />
+  
   <includeDependencies package="." />
   <grok:grok package="." />
 

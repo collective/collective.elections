@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<rolemap>
+
+  <roles>
+    <role name="Election Administrator"/>
+    <role name="Election Officials"/>
+    <role name="General Users"/>
+  </roles>
+  
+  <permissions/>
+
+</rolemap>

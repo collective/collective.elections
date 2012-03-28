@@ -15,6 +15,11 @@
    <required>True</required>
    <vocabulary>plone.principalsource.Users</vocabulary>
   </field>
+  <field name="nominee_selection_date" type="zope.schema.Datetime">
+   <title>Nominee selection date</title>
+   <description>From this day forward, nominees are able to be selected</description>
+   <required>True</required>
+  </field>
   <field name="voting_start_date" type="zope.schema.Datetime">
    <title>Start of voting</title>
    <description></description>
