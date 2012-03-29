@@ -87,10 +87,94 @@
  <state state_id="nominee_revision" title="Nominee Revision">
   <exit-transition transition_id="select_nominees"/>
   <exit-transition transition_id="send_to_public"/>
+  <permission-map name="Access contents information" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
+  </permission-map>
+  <permission-map name="Review portal content" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election electoral_roll field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election gpg_key_admin field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election gpg_mode field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election nominations_roll field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election publication_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election results_mode field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election text field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election voting_end_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election voting_start_date field editable" acquired="False">
+  </permission-map>
  </state>
  <state state_id="nominee_selection" title="Nominee Selection">
   <description>In this state, the nominees are filled by the EA</description>
   <exit-transition transition_id="review_nominees"/>
+  <permission-map name="Access contents information" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Review portal content" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election electoral_roll field editable" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+  </permission-map>
+  <permission-map name="collective.elections: Election gpg_key_admin field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election gpg_mode field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election nominations_roll field editable" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+  </permission-map>
+  <permission-map name="collective.elections: Election publication_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election results_mode field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election text field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election voting_end_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election voting_start_date field editable" acquired="False">
+  </permission-map>
  </state>
  <state state_id="private" title="Private">
   <description>Can only be seen and edited by the owner.</description>
@@ -104,16 +188,16 @@
    <permission-role>Election Administrator</permission-role>
    <permission-role>Owner</permission-role>
   </permission-map>
+  <permission-map name="Review portal content" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+   <permission-role>Owner</permission-role>
+  </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Election Administrator</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
-   <permission-role>Election Administrator</permission-role>
-   <permission-role>Owner</permission-role>
-  </permission-map>
-  <permission-map name="collective.elections: Election editable" acquired="False">
    <permission-role>Election Administrator</permission-role>
    <permission-role>Owner</permission-role>
   </permission-map>
@@ -276,7 +360,8 @@ After starting, the election cannot be sent back.</description>
  <transition transition_id="close" title="Close election" new_state="closed" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=close" category="workflow" icon="">Close election</action>
   <guard>
-   <guard-permission>Modify portal content</guard-permission>
+   <guard-permission>Review portal content</guard-permission>
+   <guard-expression>here/@@can-be-closed</guard-expression>
   </guard>
  </transition>
  <transition transition_id="count" title="Compute the votes" new_state="scrutiny" trigger="USER" before_script="" after_script="">
@@ -284,7 +369,8 @@ After starting, the election cannot be sent back.</description>
 It shouldn't be able to execute if the given date was not reached.</description>
   <action url="%(content_url)s/content_status_modify?workflow_action=count" category="workflow" icon="">Compute the votes</action>
   <guard>
-   <guard-permission>Modify portal content</guard-permission>
+   <guard-permission>Review portal content</guard-permission>
+   <guard-expression>here/@@should-be-ended</guard-expression>
   </guard>
  </transition>
  <transition transition_id="publish" title="Publish election" new_state="published" trigger="USER" before_script="" after_script="">
@@ -292,7 +378,8 @@ It shouldn't be able to execute if the given date was not reached.</description>
 It shouldn't be able to execute if the given date was not reached.</description>
   <action url="%(content_url)s/content_status_modify?workflow_action=publish" category="workflow" icon="">Publish election</action>
   <guard>
-   <guard-permission>Modify portal content</guard-permission>
+   <guard-permission>Review portal content</guard-permission>
+   <guard-expression>here/@@results-should-be-public</guard-expression>
   </guard>
  </transition>
  <transition transition_id="retract_to_private" title="Retract" new_state="private" trigger="USER" before_script="" after_script="">
@@ -306,7 +393,7 @@ It shouldn't be able to execute if the given date was not reached.</description>
   <description>Sends the election to the Nominee revision state</description>
   <action url="%(content_url)s/content_status_modify?workflow_action=review_nominees" category="workflow" icon="">Review nominees</action>
   <guard>
-   <guard-permission>Modify portal content</guard-permission>
+   <guard-permission>Review portal content</guard-permission>
   </guard>
  </transition>
  <transition transition_id="select_nominees" title="Select nominees" new_state="nominee_selection" trigger="USER" before_script="" after_script="">
@@ -322,7 +409,8 @@ It shouldn't be able to execute if the given date was not reached.</description>
   <description>Moves the election into the Public state.</description>
   <action url="%(content_url)s/content_status_modify?workflow_action=send_to_public" category="workflow" icon="">Send to public</action>
   <guard>
-   <guard-permission>Modify portal content</guard-permission>
+   <guard-permission>Review portal content</guard-permission>
+   <guard-expression>here/@@can-send-to-public</guard-expression>
   </guard>
  </transition>
  <transition transition_id="start" title="Start voting" new_state="voting" trigger="USER" before_script="" after_script="">
@@ -330,21 +418,22 @@ It shouldn't be able to execute if the given date was not reached.</description>
 It shouldn't be able to execute if the given date was not reached.</description>
   <action url="%(content_url)s/content_status_modify?workflow_action=start" category="workflow" icon="">Start voting</action>
   <guard>
-   <guard-permission>Modify portal content</guard-permission>
+   <guard-permission>Review portal content</guard-permission>
+   <guard-expression>here/@@can-be-started</guard-expression>
   </guard>
  </transition>
  <transition transition_id="submit_to_internal" title="Submit to internal" new_state="internal_revision" trigger="USER" before_script="" after_script="">
   <description>Submits to Internal Revision</description>
   <action url="%(content_url)s/content_status_modify?workflow_action=submit_to_internal" category="workflow" icon="">Submit to internal</action>
   <guard>
-   <guard-permission>Modify portal content</guard-permission>
+   <guard-permission>Review portal content</guard-permission>
   </guard>
  </transition>
  <transition transition_id="submit_to_public" title="Submit to public" new_state="public_revision" trigger="USER" before_script="" after_script="">
   <description>Submits the election for public revision</description>
   <action url="%(content_url)s/content_status_modify?workflow_action=submit_to_public" category="workflow" icon="">Submit to public</action>
   <guard>
-   <guard-permission>Modify portal content</guard-permission>
+   <guard-permission>Review portal content</guard-permission>
    <guard-expression>here/@@can-submit-to-public</guard-expression>
   </guard>
  </transition>
