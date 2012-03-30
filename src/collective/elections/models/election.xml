@@ -4,38 +4,51 @@
        xmlns:security="http://namespaces.plone.org/supermodel/security">
  <schema>
 
-  <field name="text" type="plone.app.textfield.RichText">
+  <field name="text" type="plone.app.textfield.RichText"
+     security:write-permission="collective.elections.textEditable">
    <title>Text</title>
    <description></description>
    <required>True</required>
   </field>
-  <field name="chief_electoral_officer" type="zope.schema.Choice">
+  
+  <field name="chief_electoral_officer" type="zope.schema.Choice"
+     security:write-permission="collective.elections.chief_electoral_officerEditable">
    <title>Chief electoral officer</title>
    <description></description>
    <required>True</required>
    <vocabulary>plone.principalsource.Users</vocabulary>
   </field>
-  <field name="nominee_selection_date" type="zope.schema.Datetime">
+  
+  <field name="nominee_selection_date" type="zope.schema.Datetime"
+     security:write-permission="collective.elections.nominee_selection_dateEditable">
    <title>Nominee selection date</title>
    <description>From this day forward, nominees are able to be selected</description>
    <required>True</required>
   </field>
-  <field name="voting_start_date" type="zope.schema.Datetime">
+  
+  <field name="voting_start_date" type="zope.schema.Datetime"
+     security:write-permission="collective.elections.voting_start_dateEditable">
    <title>Start of voting</title>
    <description></description>
    <required>True</required>
   </field>
-  <field name="voting_end_date" type="zope.schema.Datetime">
+  
+  <field name="voting_end_date" type="zope.schema.Datetime"
+     security:write-permission="collective.elections.voting_end_dateEditable">
    <title>End of voting</title>
    <description></description>
    <required>True</required>
   </field>
-  <field name="publication_date" type="zope.schema.Datetime">
+  
+  <field name="publication_date" type="zope.schema.Datetime"
+     security:write-permission="collective.elections.publication_dateEditable">
    <title>Publication of results</title>
    <description></description>
    <required>True</required>
   </field>
-  <field name="results_mode" type="zope.schema.TextLine">
+  
+  <field name="results_mode" type="zope.schema.TextLine"
+     security:write-permission="collective.elections.results_modeEditable">
    <title>Results mode</title>
    <default>Votes</default>
    <description></description>
@@ -45,13 +58,17 @@
     <element>Votes</element>
    </values>
   </field>
+  
   <field name="gpg_key_admin" type="zope.schema.Text"
-     form:validator="collective.elections.validators.GPGKeyValidator">
+     form:validator="collective.elections.validators.GPGKeyValidator"
+     security:write-permission="collective.elections.gpg_key_adminEditable">
    <title>GPG public key of the election administrator</title>
    <description></description>
    <required>True</required>
   </field>
-  <field name="gpg_mode" type="zope.schema.Choice">
+  
+  <field name="gpg_mode" type="zope.schema.Choice"
+     security:write-permission="collective.elections.gpg_modeEditable">
    <title>GPG mode</title>
    <default>Optional</default>
    <description>
@@ -64,16 +81,48 @@
     <element>Optional</element>
    </values>
   </field>
-  <field name="electoral_roll" type="zope.schema.Text">
+  
+  <field name="electoral_roll" type="zope.schema.Text"
+     security:write-permission="collective.elections.electoral_rollEditable">
    <title>Electoral roll</title>
    <description></description>
    <required>True</required>
   </field>
-  <field name="nominations_roll" type="zope.schema.Text">
+  
+  <field name="nominations_roll" type="zope.schema.Text"
+     security:write-permission="collective.elections.nominations_rollEditable">
    <title>Nominations roll</title>
    <description></description>
    <required>True</required>
   </field>
-
+  
+  <field name="configuration_pdf" type="plone.namedfile.field.NamedFile"
+     form:validator="collective.elections.validators.IsPDFFile"
+     security:write-permission="collective.elections.configuration_pdfEditable">
+    <description>The PDF loaded here, contains all the initial configuration used when creating the election. The file uploaded here, should be the result of previously exporting the data using the appropriate link from the election, and signing it afterwards.</description>
+    <title>Configuration PDF</title>
+  </field>
+  
+  <field name="configuration_pdf_signature" type="plone.namedfile.field.NamedFile"
+     form:validator="collective.elections.validators.GPGSignatureValidator"
+     security:write-permission="collective.elections.configuration_pdf_signatureEditable">
+    <description>Signature file for the configuration PDF.</description>
+    <title>Configuration PDF signature</title>
+  </field>
+  
+  <field name="rolls_pdf" type="plone.namedfile.field.NamedFile"
+     form:validator="collective.elections.validators.IsPDFFile"
+     security:write-permission="collective.elections.rolls_pdfEditable">
+    <description>The PDF loaded here, contains the electoral and nominations roll. The file uploaded here, should be the result of previously exporting the data using the appropriate link from the election, and signing it afterwards.</description>
+    <title>Electoral and nominations roll PDF</title>
+  </field>
+  
+  <field name="rolls_pdf_signature" type="plone.namedfile.field.NamedFile"
+     form:validator="collective.elections.validators.GPGSignatureValidator"
+     security:write-permission="collective.elections.rolls_pdf_signatureEditable">
+    <description>Signature file for the electoral and nominations roll PDF.</description>
+    <title>Electoral and nominations roll PDF signature</title>
+  </field>
+  
  </schema>
 </model>

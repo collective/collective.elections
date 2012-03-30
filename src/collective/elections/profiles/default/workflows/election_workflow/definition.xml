@@ -5,39 +5,71 @@
  <permission>Review portal content</permission>
  <permission>View</permission>
  <permission>collective.elections: Election chief_electoral_officer field editable</permission>
+ <permission>collective.elections: Election configuration_pdf field editable</permission>
+ <permission>collective.elections: Election configuration_pdf_signature field editable</permission>
  <permission>collective.elections: Election electoral_roll field editable</permission>
  <permission>collective.elections: Election gpg_key_admin field editable</permission>
  <permission>collective.elections: Election gpg_mode field editable</permission>
  <permission>collective.elections: Election nominations_roll field editable</permission>
+ <permission>collective.elections: Election nominee_selection_date field editable</permission>
  <permission>collective.elections: Election publication_date field editable</permission>
  <permission>collective.elections: Election results_mode field editable</permission>
+ <permission>collective.elections: Election rolls_pdf field editable</permission>
+ <permission>collective.elections: Election rolls_pdf_signature field editable</permission>
  <permission>collective.elections: Election text field editable</permission>
  <permission>collective.elections: Election voting_end_date field editable</permission>
  <permission>collective.elections: Election voting_start_date field editable</permission>
  <state state_id="closed" title="Closed">
   <description>Election is closed, no changes can be made.</description>
   <permission-map name="Access contents information" acquired="False">
-   <permission-role>Contributor</permission-role>
-   <permission-role>Editor</permission-role>
    <permission-role>Election Administrator</permission-role>
    <permission-role>Election Officials</permission-role>
    <permission-role>General Users</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
-   <permission-role>Reader</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
   </permission-map>
+  <permission-map name="Review portal content" acquired="False">
+  </permission-map>
   <permission-map name="View" acquired="False">
-   <permission-role>Contributor</permission-role>
-   <permission-role>Editor</permission-role>
    <permission-role>Election Administrator</permission-role>
    <permission-role>Election Officials</permission-role>
    <permission-role>General Users</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf_signature field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election electoral_roll field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election gpg_key_admin field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election gpg_mode field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election nominations_roll field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election nominee_selection_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election publication_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election results_mode field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf_signature field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election text field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election voting_end_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election voting_start_date field editable" acquired="False">
   </permission-map>
  </state>
  <state state_id="internal_revision" title="Internal Revision">
@@ -51,7 +83,6 @@
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Election Administrator</permission-role>
-   <permission-role>Election Officials</permission-role>
   </permission-map>
   <permission-map name="Review portal content" acquired="False">
    <permission-role>Election Administrator</permission-role>
@@ -65,6 +96,12 @@
   </permission-map>
   <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
   </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf field editable" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+  </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf_signature field editable" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+  </permission-map>
   <permission-map name="collective.elections: Election electoral_roll field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election gpg_key_admin field editable" acquired="False">
@@ -73,9 +110,15 @@
   </permission-map>
   <permission-map name="collective.elections: Election nominations_roll field editable" acquired="False">
   </permission-map>
+  <permission-map name="collective.elections: Election nominee_selection_date field editable" acquired="False">
+  </permission-map>
   <permission-map name="collective.elections: Election publication_date field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election results_mode field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf_signature field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election text field editable" acquired="False">
   </permission-map>
@@ -96,7 +139,6 @@
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Election Administrator</permission-role>
-   <permission-role>Election Officials</permission-role>
   </permission-map>
   <permission-map name="Review portal content" acquired="False">
    <permission-role>Election Administrator</permission-role>
@@ -111,6 +153,10 @@
   </permission-map>
   <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
   </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf_signature field editable" acquired="False">
+  </permission-map>
   <permission-map name="collective.elections: Election electoral_roll field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election gpg_key_admin field editable" acquired="False">
@@ -119,9 +165,17 @@
   </permission-map>
   <permission-map name="collective.elections: Election nominations_roll field editable" acquired="False">
   </permission-map>
+  <permission-map name="collective.elections: Election nominee_selection_date field editable" acquired="False">
+  </permission-map>
   <permission-map name="collective.elections: Election publication_date field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election results_mode field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf field editable" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf_signature field editable" acquired="False">
+   <permission-role>Election Administrator</permission-role>
   </permission-map>
   <permission-map name="collective.elections: Election text field editable" acquired="False">
   </permission-map>
@@ -155,6 +209,10 @@
   </permission-map>
   <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
   </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf_signature field editable" acquired="False">
+  </permission-map>
   <permission-map name="collective.elections: Election electoral_roll field editable" acquired="False">
    <permission-role>Election Administrator</permission-role>
   </permission-map>
@@ -165,9 +223,15 @@
   <permission-map name="collective.elections: Election nominations_roll field editable" acquired="False">
    <permission-role>Election Administrator</permission-role>
   </permission-map>
+  <permission-map name="collective.elections: Election nominee_selection_date field editable" acquired="False">
+  </permission-map>
   <permission-map name="collective.elections: Election publication_date field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election results_mode field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf_signature field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election text field editable" acquired="False">
   </permission-map>
@@ -181,6 +245,7 @@
   <exit-transition transition_id="submit_to_internal"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Election Administrator</permission-role>
+   <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
@@ -194,12 +259,17 @@
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Election Administrator</permission-role>
+   <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
    <permission-role>Election Administrator</permission-role>
    <permission-role>Owner</permission-role>
+  </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf_signature field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election electoral_roll field editable" acquired="False">
   </permission-map>
@@ -213,6 +283,8 @@
   </permission-map>
   <permission-map name="collective.elections: Election nominations_roll field editable" acquired="False">
   </permission-map>
+  <permission-map name="collective.elections: Election nominee_selection_date field editable" acquired="False">
+  </permission-map>
   <permission-map name="collective.elections: Election publication_date field editable" acquired="False">
    <permission-role>Election Administrator</permission-role>
    <permission-role>Owner</permission-role>
@@ -220,6 +292,10 @@
   <permission-map name="collective.elections: Election results_mode field editable" acquired="False">
    <permission-role>Election Administrator</permission-role>
    <permission-role>Owner</permission-role>
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf_signature field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election text field editable" acquired="False">
    <permission-role>Election Administrator</permission-role>
@@ -239,6 +315,57 @@
 After starting, the election cannot be sent back.</description>
   <exit-transition transition_id="select_nominees"/>
   <exit-transition transition_id="start"/>
+  <permission-map name="Access contents information" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="False">
+  </permission-map>
+  <permission-map name="Review portal content" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
+   <permission-role>Manager</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf_signature field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election electoral_roll field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election gpg_key_admin field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election gpg_mode field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election nominations_roll field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election nominee_selection_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election publication_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election results_mode field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf_signature field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election text field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election voting_end_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election voting_start_date field editable" acquired="False">
+  </permission-map>
  </state>
  <state state_id="public_revision" title="Public Revision">
   <exit-transition transition_id="retract_to_private"/>
@@ -256,6 +383,7 @@ After starting, the election cannot be sent back.</description>
   <permission-map name="Review portal content" acquired="False">
    <permission-role>Election Administrator</permission-role>
    <permission-role>Election Officials</permission-role>
+   <permission-role>Manager</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Election Administrator</permission-role>
@@ -265,11 +393,11 @@ After starting, the election cannot be sent back.</description>
    <permission-role>Member</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
-  <permission-map name="collective.elections: Can retract to private state" acquired="False">
-   <permission-role>Election Administrator</permission-role>
-   <permission-role>Election Officials</permission-role>
-  </permission-map>
   <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf_signature field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election electoral_roll field editable" acquired="False">
   </permission-map>
@@ -279,9 +407,15 @@ After starting, the election cannot be sent back.</description>
   </permission-map>
   <permission-map name="collective.elections: Election nominations_roll field editable" acquired="False">
   </permission-map>
+  <permission-map name="collective.elections: Election nominee_selection_date field editable" acquired="False">
+  </permission-map>
   <permission-map name="collective.elections: Election publication_date field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election results_mode field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf_signature field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election text field editable" acquired="False">
   </permission-map>
@@ -294,67 +428,163 @@ After starting, the election cannot be sent back.</description>
   <description>The election results are publicly available</description>
   <exit-transition transition_id="close"/>
   <permission-map name="Access contents information" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
+   <permission-role>General Users</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Reader</permission-role>
-   <permission-role>Contributor</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
+  <permission-map name="Modify portal content" acquired="False">
+  </permission-map>
+  <permission-map name="Review portal content" acquired="False">
+   <permission-role>Manager</permission-role>
+  </permission-map>
   <permission-map name="View" acquired="False">
-   <permission-role>Anonymous</permission-role>
+   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
+   <permission-role>General Users</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf_signature field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election electoral_roll field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election gpg_key_admin field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election gpg_mode field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election nominations_roll field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election nominee_selection_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election publication_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election results_mode field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf_signature field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election text field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election voting_end_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election voting_start_date field editable" acquired="False">
   </permission-map>
  </state>
  <state state_id="scrutiny" title="Scrutiny">
   <description>The votes are being counted.</description>
   <exit-transition transition_id="publish"/>
   <permission-map name="Access contents information" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Reader</permission-role>
-   <permission-role>Contributor</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
+  </permission-map>
+  <permission-map name="Review portal content" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Contributor</permission-role>
-   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Reader</permission-role>
-   <permission-role>Contributor</permission-role>
    <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf_signature field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election electoral_roll field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election gpg_key_admin field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election gpg_mode field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election nominations_roll field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election nominee_selection_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election publication_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election results_mode field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf_signature field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election text field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election voting_end_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election voting_start_date field editable" acquired="False">
   </permission-map>
  </state>
  <state state_id="voting" title="Voting">
   <description>Election is underway.</description>
   <exit-transition transition_id="count"/>
   <permission-map name="Access contents information" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
+   <permission-role>General Users</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Reader</permission-role>
-   <permission-role>Contributor</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
+  </permission-map>
+  <permission-map name="Review portal content" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Contributor</permission-role>
-   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
+   <permission-role>General Users</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Reader</permission-role>
-   <permission-role>Contributor</permission-role>
    <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf_signature field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election electoral_roll field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election gpg_key_admin field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election gpg_mode field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election nominations_roll field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election nominee_selection_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election publication_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election results_mode field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf_signature field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election text field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election voting_end_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election voting_start_date field editable" acquired="False">
   </permission-map>
  </state>
  <transition transition_id="close" title="Close election" new_state="closed" trigger="USER" before_script="" after_script="">

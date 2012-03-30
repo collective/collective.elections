@@ -25,7 +25,10 @@ class CanSubmitToPublic(grok.View):
         if not proper_user:
             return False
             
-        # TODO: Check if the PDF and signature fields are populated. If not, fail
+        if not (getattr(self.context, 'configuration_pdf') and\
+                getattr(self.context, 'configuration_pdf_signature')):
+            return False
+            
         return True
         
     def render(self):
@@ -62,8 +65,11 @@ class CanSendToPublic(grok.View):
         
         if not proper_user:
             return False
+
+        if not (getattr(self.context, 'rolls_pdf') and\
+                getattr(self.context, 'rolls_pdf_signature')):
+            return False
             
-        # TODO: Check if the PDF and signature fields are populated. If not, fail
         return True
         
     def render(self):

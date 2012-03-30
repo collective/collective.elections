@@ -29,3 +29,14 @@ class GPGSignatureValidator(validator.SimpleFieldValidator):
         super(GPGSignatureValidator, self).validate(value)
 
         # TODO: implement validator
+
+
+class IsPDFFile(validator.SimpleFieldValidator):
+    """
+    Ensure uploaded file is a PDF file
+    """
+
+    def validate(self, value):
+        super(IsPDFFile, self).validate(value)
+
+        # TODO: implement validator

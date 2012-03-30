@@ -12,7 +12,8 @@ def remove_configuration_pdf(obj):
     under "Internal Revision" state
     """
     
-    pass
+    setattr(obj, 'configuration_pdf', None)
+    setattr(obj, 'configuration_pdf_signature', None)
     
 
 def remove_nominees_pdf(obj):
@@ -21,8 +22,9 @@ def remove_nominees_pdf(obj):
     under "Nominees" state
     """
     
-    pass
-
+    setattr(obj, 'rolls_pdf', None)
+    setattr(obj, 'rolls_pdf_signature', None)
+    
 
 def count_votes(obj):
     """

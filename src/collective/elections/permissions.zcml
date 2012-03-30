@@ -17,6 +17,10 @@
         title="collective.elections: Election chief_electoral_officer field editable"
         />
     <permission
+        id="collective.elections.nominee_selection_dateEditable"
+        title="collective.elections: Election nominee_selection_date field editable"
+        />
+    <permission
         id="collective.elections.voting_start_dateEditable"
         title="collective.elections: Election voting_start_date field editable"
         />
@@ -47,6 +51,22 @@
     <permission
         id="collective.elections.nominations_rollEditable"
         title="collective.elections: Election nominations_roll field editable"
+        />
+    <permission
+        id="collective.elections.configuration_pdfEditable"
+        title="collective.elections: Election configuration_pdf field editable"
+        />
+    <permission
+        id="collective.elections.configuration_pdf_signatureEditable"
+        title="collective.elections: Election configuration_pdf_signature field editable"
+        />
+    <permission
+        id="collective.elections.rolls_pdfEditable"
+        title="collective.elections: Election rolls_pdf field editable"
+        />
+    <permission
+        id="collective.elections.rolls_pdf_signatureEditable"
+        title="collective.elections: Election rolls_pdf_signature field editable"
         />
         
    <!-- End -->
