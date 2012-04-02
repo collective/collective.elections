@@ -9,7 +9,7 @@ from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
 from plone.dexterity.interfaces import IDexterityFTI
 
-from collective.elections.content import IElection
+from collective.elections.election import IElection
 from collective.elections.testing import INTEGRATION_TESTING
 
 

@@ -284,6 +284,8 @@
   <permission-map name="collective.elections: Election nominations_roll field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election nominee_selection_date field editable" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+   <permission-role>Owner</permission-role>
   </permission-map>
   <permission-map name="collective.elections: Election publication_date field editable" acquired="False">
    <permission-role>Election Administrator</permission-role>
@@ -438,7 +440,7 @@ After starting, the election cannot be sent back.</description>
   <permission-map name="Modify portal content" acquired="False">
   </permission-map>
   <permission-map name="Review portal content" acquired="False">
-   <permission-role>Manager</permission-role>
+   <permission-role>Election Officials</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Election Administrator</permission-role>

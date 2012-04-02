@@ -6,7 +6,12 @@
     <role name="Election Officials"/>
     <role name="General Users"/>
   </roles>
-  
-  <permissions/>
 
+  <permissions>
+
+    <permission name="collective.elections: Can add Election" acquire="False">
+      <role name="Election Administrator"/>
+    </permission>
+
+  </permissions>
 </rolemap>

@@ -1,13 +1,21 @@
 <configure xmlns="http://namespaces.zope.org/zope"
     i18n_domain="collective.elections">
 
-    <!-- Permissions for specific wf transitions -->
-    
-        
+    <!-- Permissions for election content type -->
+
+    <permission
+        id="collective.elections.electionAddable"
+        title="collective.elections: Can add Election"
+        />
+
     <!-- End -->
-    
+
+    <!-- Permissions for specific wf transitions -->
+
+    <!-- End -->
+
     <!-- Permissions for specific election fields -->
-    
+
     <permission
         id="collective.elections.textEditable"
         title="collective.elections: Election text field editable"
@@ -68,10 +76,10 @@
         id="collective.elections.rolls_pdf_signatureEditable"
         title="collective.elections: Election rolls_pdf_signature field editable"
         />
-        
+
    <!-- End -->
-  
-  
-  
-  
+
+
+
+
 </configure>

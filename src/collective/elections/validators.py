@@ -16,9 +16,10 @@ class GPGKeyValidator(validator.SimpleFieldValidator):
     def validate(self, value):
         super(GPGKeyValidator, self).validate(value)
 
-        import_result = gpg.import_keys(value)
-        if import_result.count == 0:
-            raise Invalid(_(u"The GPG key is not valid"))
+        if value:
+            import_result = gpg.import_keys(value)
+            if import_result.count == 0:
+                raise Invalid(_(u"The GPG key is not valid"))
 
 
 class GPGSignatureValidator(validator.SimpleFieldValidator):

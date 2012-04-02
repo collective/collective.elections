@@ -5,11 +5,13 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="collective.elections">
 
+  <include package="borg.localrole" />
+
   <i18n:registerTranslations directory="locales" />
 
   <include file="permissions.zcml" />
   <include package=".browser" />
-  
+
   <includeDependencies package="." />
   <grok:grok package="." />
 
@@ -19,6 +21,11 @@
       directory="profiles/default"
       description="Installs the collective.elections package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <adapter
+      factory=".election.ElectionLocalRoles"
+      name="election_localrole"
       />
 
 </configure>
