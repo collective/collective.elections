@@ -35,8 +35,9 @@ setup(name='collective.elections',
       install_requires=[
         'setuptools',
         'python-gnupg',
-        'plone.app.dexterity>=1.1',
+        'plone.app.dexterity>=1.2.1',
         'plone.principalsource',
+        'borg.localrole',
         ],
       extras_require={
         'test': ['plone.app.testing'],
