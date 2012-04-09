@@ -1,17 +1,14 @@
 <?xml version="1.0"?>
 <rolemap>
-
-  <roles>
-    <role name="Election Administrator"/>
-    <role name="Election Officials"/>
-    <role name="General Users"/>
-  </roles>
-
-  <permissions>
-
-    <permission name="collective.elections: Can add Election" acquire="False">
-      <role name="Election Administrator"/>
-    </permission>
-
-  </permissions>
+ <roles>
+  <role name="Election Administrator"/>
+  <role name="Election Officials"/>
+  <role name="General Users"/>
+ </roles>
+ <permissions>
+  <permission name="collective.elections: Can add Election" acquire="False">
+   <role name="Election Administrator"/>
+   <role name="Manager"/>
+  </permission>
+ </permissions>
 </rolemap>

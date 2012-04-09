@@ -20,7 +20,7 @@ class WorkflowTest(unittest.TestCase):
         self.workflow_tool = getattr(self.portal, 'portal_workflow')
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.portal.invokeFactory('Folder', 'test-folder')
-        setRoles(self.portal, TEST_USER_ID, ['Member'])
+        #setRoles(self.portal, TEST_USER_ID, ['Member'])
         self.folder = self.portal['test-folder']
 
         self.folder.invokeFactory(ctype, 'obj')
