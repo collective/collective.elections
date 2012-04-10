@@ -606,7 +606,7 @@ It shouldn't be able to execute if the given date was not reached.</description>
   </guard>
  </transition>
  <transition transition_id="publish" title="Publish election" new_state="published" trigger="USER" before_script="" after_script="">
-  <description>This transition will maove the election to the Published state.
+  <description>This transition will move the election to the Published state.
 It shouldn't be able to execute if the given date was not reached.</description>
   <action url="%(content_url)s/content_status_modify?workflow_action=publish" category="workflow" icon="">Publish election</action>
   <guard>
