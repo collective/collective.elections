@@ -1,23 +1,23 @@
 # -*- coding: utf-8 -*-
 
-from Products.CMFCore.utils import getToolByName
-from zope.component import getMultiAdapter
-
-from collective.elections import _
-
-from plone.directives import dexterity, form
-from borg.localrole.interfaces import ILocalRoleProvider
-
-from zope.interface import Interface
-
-from zope.interface import implements
 from zope.component import adapts
+from zope.component import getMultiAdapter
+from zope.interface import Interface
+from zope.interface import implements
 
 from five import grok
 
+from plone.directives import dexterity, form
+
+from borg.localrole.interfaces import ILocalRoleProvider
+
+from Products.CMFCore.utils import getToolByName
+
+from collective.elections import _
+
 
 class IElection(form.Schema):
-    """Election
+    """ An election.
     """
     form.model("models/election.xml")
 
@@ -26,14 +26,17 @@ class View(dexterity.DisplayForm):
     grok.context(IElection)
     grok.require('zope2.View')
 
-    def allowed_to_vote(self):
-        wf_tool = getToolByName(self.context, "portal_workflow")
+    def get_election_state(self):
+        wf_tool = getToolByName(self.context, 'portal_workflow')
         chain = wf_tool.getChainForPortalType(self.context.portal_type)
         status = wf_tool.getStatusOf(chain[0], self.context)
 
         state = status['review_state']
 
-        return state == 'voting'
+        return state
+
+    def allowed_to_vote(self):
+        return self.get_election_state() == 'voting'
 
     def status_change_msg(self):
         wf_tool = getToolByName(self.context, "portal_workflow")
@@ -54,7 +57,7 @@ class View(dexterity.DisplayForm):
 
         if state in wf_tr_map:
             trans_guard = getMultiAdapter((self.context, self.request),
-                                        name=wf_tr_map[state])
+                                          name=wf_tr_map[state])
             can_call_trans = trans_guard()
 
             if not can_call_trans:
@@ -78,8 +81,7 @@ class View(dexterity.DisplayForm):
 
 
 class ElectionLocalRoles(object):
-    """
-    Provide local roles for Elections
+    """ Provide local roles for Elections
 
     XXX: This was taken literally from
     http://collective-docs.readthedocs.org/en/latest/security/dynamic_roles.html
@@ -94,15 +96,15 @@ class ElectionLocalRoles(object):
         self.context = context
 
     def getGeneralUserRolesOnContext(self, context, principal_id):
-        """
-        Calculate General User roles based on the user object.
+        """ Calculate General User roles based on the user object.
 
-        Note: This function is *heavy* since it wakes lots of objects along the acquisition chain.
+        Note: This function is *heavy* since it wakes lots of objects along
+        the acquisition chain.
         """
 
-        # Filter out bogus look-ups - Plone calls this function
-        # for every possible role look up out there, but
-        # we are interested only these two cases
+        # Filter out bogus look-ups - Plone calls this function for every
+        # possible role look up out there, but we are interested only these
+        # two cases
         if IElection.providedBy(context):
             if context.electoral_roll and (principal_id in context.electoral_roll):
                 return ["General Users"]
@@ -111,7 +113,7 @@ class ElectionLocalRoles(object):
         return []
 
     def getRoles(self, principal_id):
-        """Returns the roles for the given principal in context.
+        """ Returns the roles for the given principal in context.
 
         This function is additional besides other ILocalRoleProvider plug-ins.
 
@@ -121,6 +123,7 @@ class ElectionLocalRoles(object):
         return self.getGeneralUserRolesOnContext(self.context, principal_id)
 
     def getAllRoles(self):
-        """Returns all the local roles assigned in this context:
-        (principal_id, [role1, role2])"""
-        return [ ("general_users", ["General Users"]) ]
+        """ Returns all the local roles assigned in this context:
+        (principal_id, [role1, role2])
+        """
+        return [("general_users", ["General Users"])]
