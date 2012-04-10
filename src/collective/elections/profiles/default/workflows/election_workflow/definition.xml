@@ -82,7 +82,7 @@
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
-   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
   </permission-map>
   <permission-map name="Review portal content" acquired="False">
    <permission-role>Election Administrator</permission-role>
@@ -97,10 +97,10 @@
   <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election configuration_pdf field editable" acquired="False">
-   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
   </permission-map>
   <permission-map name="collective.elections: Election configuration_pdf_signature field editable" acquired="False">
-   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
   </permission-map>
   <permission-map name="collective.elections: Election electoral_roll field editable" acquired="False">
   </permission-map>
@@ -138,7 +138,7 @@
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
-   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
   </permission-map>
   <permission-map name="Review portal content" acquired="False">
    <permission-role>Election Administrator</permission-role>
@@ -172,10 +172,10 @@
   <permission-map name="collective.elections: Election results_mode field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election rolls_pdf field editable" acquired="False">
-   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
   </permission-map>
   <permission-map name="collective.elections: Election rolls_pdf_signature field editable" acquired="False">
-   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
   </permission-map>
   <permission-map name="collective.elections: Election text field editable" acquired="False">
   </permission-map>

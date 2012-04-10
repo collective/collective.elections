@@ -165,9 +165,10 @@ We visualize a workflow with, more or less, the following states:
       submit the election to be reviewed by the EO's (Trans. 1).
 
 #. **Internal revision**
-    * If all data entered is correct, a PDF gets exported with it.
-    * The EA signs it locally with his GPG private key and adds the signed PDF
-      and signature to the election.
+    * In this state the election configuration is reviewed by the CEO; if
+      everything is correct, a PDF file with this information gets exported.
+    * The CEO signs the file locally with his GPG private key and adds the
+      signed PDF and signature to the election.
     * Only the PDF and signature fields are writable in this state.
     * The election can be sent back to the Private state (Trans. 2) or be
       submitted for public review (Trans. 3).
@@ -189,9 +190,10 @@ We visualize a workflow with, more or less, the following states:
 
 #. **Nominee revision**
     * In this state, the electoral and nominations roll are reviewed by the
-      EO's If everything is correct, then a second PDF gets exported.
-    * The EA signs it locally with his GPG private key and adds the signed PDF
-      and signature to the election.
+      CEO; if everything is correct, then a second PDF file with the rolls
+      gets exported.
+    * The CEO signs it locally with his GPG private key and adds the signed
+      PDF and signature to the election.
     * Only the PDF and signature fields are writable in this state. (2
       additional fields, separate from the 2 fields used in state Internal
       revision).
