@@ -18,16 +18,47 @@
 
         <p tal:content="view/status_change_msg"/>
 
-        <p class="documentDescription" tal:content="structure context/text/output" />
+        <p class="documentDescription" tal:content="structure context/text/output|nothing" />
 
         <div tal:replace="structure provider:plone.abovecontentbody" />
 
-        <a href="#" tal:condition="view/allowed_to_vote">
-            <span>
-                Cast vote
-            </span>
-        </a>
-        <!-- <div tal:content="structure view/w/details/render" /> -->
+        <p>Chief Electoral Oficer:
+            <span tal:content="context/chief_electoral_officer" />
+        </p>
+
+        <p>Nominee selection date:
+            <span tal:content="context/nominee_selection_date" />
+        </p>
+
+        <p>Start of voting:
+            <span tal:content="context/voting_start_date" />
+        </p>
+
+        <p>End of voting:
+            <span tal:content="context/voting_end_date" />
+        </p>
+
+        <p>Publication of results:
+            <span tal:content="context/publication_date" />
+        </p>
+
+        <div tal:condition="view/is_public_revision"
+             tal:replace="structure context/publicrevision" />
+
+        <div tal:condition="view/is_nominee_selection"
+             tal:replace="structure context/nomineeselection" />
+
+        <div tal:condition="view/is_public"
+             tal:replace="structure context/public" />
+
+        <div tal:condition="view/is_allowed_to_vote"
+             tal:replace="structure context/vote" />
+
+        <div tal:condition="view/is_counting"
+             tal:replace="structure context/scrutiny" />
+
+        <div tal:condition="view/is_closed"
+             tal:replace="structure context/closed" />
 
         <div tal:replace="structure provider:plone.belowcontentbody" />
 

@@ -35,9 +35,6 @@ class View(dexterity.DisplayForm):
 
         return state
 
-    def allowed_to_vote(self):
-        return self.get_election_state() == 'voting'
-
     def status_change_msg(self):
         wf_tool = getToolByName(self.context, "portal_workflow")
         chain = wf_tool.getChainForPortalType(self.context.portal_type)
@@ -78,6 +75,31 @@ class View(dexterity.DisplayForm):
 
         return _(u"")
 
+    def is_public_revision(self):
+        return self.get_election_state() == 'public_revision'
+
+    def is_nominee_selection(self):
+        return self.get_election_state() == 'nominee_selection'
+
+    def is_public(self):
+        return self.get_election_state() == 'public'
+
+    def is_allowed_to_vote(self):
+        if self.get_election_state() == 'voting':
+            pm = getToolByName(self.context, 'portal_membership')
+
+            auth_member = pm.getAuthenticatedMember()
+            electoral_roll = self.context.electoral_roll
+
+            return auth_member.getMemberId() in electoral_roll
+
+        return False
+
+    def is_counting(self):
+        return self.get_election_state() == 'scrutiny'
+
+    def is_closed(self):
+        return self.get_election_state() == 'closed'
 
 
 class ElectionLocalRoles(object):
@@ -127,3 +149,46 @@ class ElectionLocalRoles(object):
         (principal_id, [role1, role2])
         """
         return [("general_users", ["General Users"])]
+
+
+# XXX: this views should be viewlets
+class PublicRevision(dexterity.DisplayForm):
+    """ This view is used in the Public Revision workflow state.
+    """
+    grok.context(IElection)
+    grok.require('zope2.View')
+
+
+class NomineeSelection(dexterity.DisplayForm):
+    """ This view is used in the Nominee Selection workflow state.
+    """
+    grok.context(IElection)
+    grok.require('zope2.View')
+
+
+class Public(dexterity.DisplayForm):
+    """ This view is used in the Public workflow state.
+    """
+    grok.context(IElection)
+    grok.require('zope2.View')
+
+
+class Vote(dexterity.DisplayForm):
+    """ This view is used in the Voting workflow state.
+    """
+    grok.context(IElection)
+    grok.require('zope2.View')
+
+
+class Scrutiny(dexterity.DisplayForm):
+    """ This view is used in the Scrutiny workflow state.
+    """
+    grok.context(IElection)
+    grok.require('zope2.View')
+
+
+class Closed(dexterity.DisplayForm):
+    """ This view is used in the Closed workflow state.
+    """
+    grok.context(IElection)
+    grok.require('zope2.View')

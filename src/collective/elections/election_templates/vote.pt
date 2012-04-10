@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="collective.elections"
+      tal:omit-tag="">
+
+<div>
+
+    <p>Nominations roll:
+        <span tal:content="context/nominations_roll" />
+    </p>
+
+    <p>
+        <a href="#">
+            <span>Cast vote</span>
+        </a>
+    </p>
+
+</div>
+</html>
