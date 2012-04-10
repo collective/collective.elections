@@ -91,20 +91,22 @@
    </values>
   </field>
 
-  <field name="electoral_roll" type="zope.schema.Text"
+  <field name="electoral_roll" type="zope.schema.List"
      security:write-permission="collective.elections.electoral_rollEditable"
      form:omitted="z3c.form.interfaces.IForm:true z3c.form.interfaces.IEditForm:false">
    <title>Electoral roll</title>
    <description></description>
    <required>True</required>
+   <value_type type="zope.schema.Text" />
   </field>
 
-  <field name="nominations_roll" type="zope.schema.Text"
+  <field name="nominations_roll" type="zope.schema.List"
      security:write-permission="collective.elections.nominations_rollEditable"
      form:omitted="z3c.form.interfaces.IForm:true z3c.form.interfaces.IEditForm:false">
    <title>Nominations roll</title>
    <description></description>
    <required>True</required>
+   <value_type type="zope.schema.Text" />
   </field>
 
   <field name="configuration_pdf" type="plone.namedfile.field.NamedFile"
