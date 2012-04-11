@@ -57,6 +57,9 @@
         <div tal:condition="view/is_counting"
              tal:replace="structure context/scrutiny" />
 
+        <div tal:condition="view/is_published"
+             tal:replace="structure context/results" />
+
         <div tal:condition="view/is_closed"
              tal:replace="structure context/closed" />
 

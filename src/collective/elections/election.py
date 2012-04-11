@@ -98,6 +98,9 @@ class View(dexterity.DisplayForm):
     def is_counting(self):
         return self.get_election_state() == 'scrutiny'
 
+    def is_published(self):
+        return self.get_election_state() == 'published'
+
     def is_closed(self):
         return self.get_election_state() == 'closed'
 
@@ -182,6 +185,13 @@ class Vote(dexterity.DisplayForm):
 
 class Scrutiny(dexterity.DisplayForm):
     """ This view is used in the Scrutiny workflow state.
+    """
+    grok.context(IElection)
+    grok.require('zope2.View')
+
+
+class Results(dexterity.DisplayForm):
+    """ This view is used in the Published workflow state.
     """
     grok.context(IElection)
     grok.require('zope2.View')
