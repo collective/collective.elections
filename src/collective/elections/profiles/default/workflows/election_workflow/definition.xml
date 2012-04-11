@@ -335,6 +335,7 @@ After starting, the election cannot be sent back.</description>
    <permission-role>Election Administrator</permission-role>
    <permission-role>Election Officials</permission-role>
    <permission-role>Manager</permission-role>
+   <permission-role>Member</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
@@ -488,10 +489,13 @@ After starting, the election cannot be sent back.</description>
    <permission-role>Election Administrator</permission-role>
    <permission-role>Election Officials</permission-role>
    <permission-role>Manager</permission-role>
+   <permission-role>Member</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+   <permission-role>Election Officials</permission-role>
   </permission-map>
   <permission-map name="Review portal content" acquired="False">
    <permission-role>Manager</permission-role>
@@ -500,6 +504,7 @@ After starting, the election cannot be sent back.</description>
    <permission-role>Election Administrator</permission-role>
    <permission-role>Election Officials</permission-role>
    <permission-role>Manager</permission-role>
+   <permission-role>Member</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
@@ -555,6 +560,7 @@ After starting, the election cannot be sent back.</description>
    <permission-role>Election Officials</permission-role>
    <permission-role>General Users</permission-role>
    <permission-role>Manager</permission-role>
+   <permission-role>Member</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
