@@ -7,17 +7,5 @@
 
 <div>
 
-    <p>PDF File:
-        <a tal:attributes="href string:${context/absolute_url}/@@download/rolls_pdf/${context/rolls_pdf/filename}">
-            <span tal:content="context/rolls_pdf/filename" />
-        </a>
-    </p>
-
-    <p>Signature:
-        <a tal:attributes="href string:${context/absolute_url}/@@download/rolls_pdf/${context/rolls_pdf_signature/filename}">
-            <span tal:content="context/rolls_pdf_signature/filename" />
-        </a>
-    </p>
-
 </div>
 </html>

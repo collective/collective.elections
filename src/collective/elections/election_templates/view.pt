@@ -42,11 +42,35 @@
             <span tal:content="context/publication_date" />
         </p>
 
+        <p tal:condition="context/configuration_pdf">Configuration PDF file:
+            <a tal:attributes="href string:${context/absolute_url}/@@download/configuration_pdf/${context/configuration_pdf/filename}">
+                <span tal:content="context/configuration_pdf/filename" />
+            </a>
+        </p>
+
+        <p tal:condition="context/configuration_pdf_signature">Signature for the configuration PDF file:
+            <a tal:attributes="href string:${context/absolute_url}/@@download/configuration_pdf_signature/${context/configuration_pdf_signature/filename}">
+                <span tal:content="context/configuration_pdf_signature/filename" />
+            </a>
+        </p>
+
         <div tal:condition="view/is_public_revision"
              tal:replace="structure context/publicrevision" />
 
         <div tal:condition="view/is_nominee_selection"
              tal:replace="structure context/nomineeselection" />
+
+        <p tal:condition="context/rolls_pdf">Electoral rolls PDF file:
+            <a tal:attributes="href string:${context/absolute_url}/@@download/rolls_pdf/${context/rolls_pdf/filename}">
+                <span tal:content="context/rolls_pdf/filename" />
+            </a>
+        </p>
+
+        <p tal:condition="context/rolls_pdf_signature">Signature for the electoral rolls PDF file:
+            <a tal:attributes="href string:${context/absolute_url}/@@download/rolls_pdf_signature/${context/rolls_pdf_signature/filename}">
+                <span tal:content="context/rolls_pdf_signature/filename" />
+            </a>
+        </p>
 
         <div tal:condition="view/is_public"
              tal:replace="structure context/public" />
