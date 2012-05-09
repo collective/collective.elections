@@ -1,0 +1,11 @@
+Contributors
+------------
+
+- Héctor Velarde
+- Sergio Rajsbaum
+- Franco Pellegrini
+
+Development sponsored by `Instituto de Matemáticas`_, UNAM.
+
+.. _`Instituto de Matemáticas`: http://www.matem.unam.mx/
+
