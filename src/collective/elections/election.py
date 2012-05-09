@@ -151,7 +151,7 @@ class ElectionLocalRoles(object):
         """ Returns all the local roles assigned in this context:
         (principal_id, [role1, role2])
         """
-        return [("general_users", ["General Users"])]
+        return []
 
 
 # XXX: this views should be viewlets
