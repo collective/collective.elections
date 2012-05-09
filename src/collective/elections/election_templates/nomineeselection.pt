@@ -7,11 +7,11 @@
 
 <div>
 
-    <p>Electoral roll:
+    <p tal:condition="context/electoral_roll">Electoral roll:
         <span tal:content="context/electoral_roll" />
     </p>
 
-    <p>Nominations roll:
+    <p tal:condition="context/nominations_roll">Nominations roll:
         <span tal:content="context/nominations_roll" />
     </p>
 
