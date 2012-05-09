@@ -6,9 +6,11 @@
   <role name="General Users"/>
  </roles>
  <permissions>
-  <permission name="collective.elections: Can add Election" acquire="False">
+  <permission name="collective.elections: Can add Election" acquire="True">
    <role name="Election Administrator"/>
    <role name="Manager"/>
+   <role name="Contributor"/>
+   <role name="Owner"/>
   </permission>
  </permissions>
 </rolemap>
