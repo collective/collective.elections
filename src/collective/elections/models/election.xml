@@ -3,6 +3,19 @@
        xmlns:form="http://namespaces.plone.org/supermodel/form"
        xmlns:security="http://namespaces.plone.org/supermodel/security">
  <schema>
+  <field name="title" type="zope.schema.TextLine"
+     form:omitted="z3c.form.interfaces.IForm:false z3c.form.interfaces.IEditForm:true">
+   <title>Text</title>
+   <description></description>
+   <required>True</required>
+  </field>
+
+  <field name="description" type="zope.schema.Text"
+     form:omitted="z3c.form.interfaces.IForm:false z3c.form.interfaces.IEditForm:true">
+   <title>Description</title>
+   <description>A short summary of the content.</description>
+   <required>False</required>
+  </field>
 
   <field name="text" type="plone.app.textfield.RichText"
      security:write-permission="collective.elections.textEditable"
