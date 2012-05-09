@@ -5,7 +5,7 @@
 
     <permission
         id="collective.elections.electionAddable"
-        title="collective.elections: Can add Election"
+        title="collective.elections: Add Election"
         />
 
     <!-- End -->
