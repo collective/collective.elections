@@ -1,0 +1,12 @@
+#!/bin/sh
+
+DIR="${buildout:directory}/src/"
+
+if [ -n "$1" ]; then
+        DIR="$1"
+fi
+
+for filename in `find $DIR -iname "*.py"`; do
+    ${buildout:bin-directory}/pep8 $filename
+    ${buildout:bin-directory}/pyflakes $filename
+done
