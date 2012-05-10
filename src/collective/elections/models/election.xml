@@ -110,7 +110,9 @@
    <title>Electoral roll</title>
    <description></description>
    <required>True</required>
-   <value_type type="zope.schema.Text" />
+   <value_type type="zope.schema.Choice" >
+    <vocabulary>plone.principalsource.Users</vocabulary>
+   </value_type>
   </field>
 
   <field name="nominations_roll" type="zope.schema.List"
@@ -119,7 +121,9 @@
    <title>Nominations roll</title>
    <description></description>
    <required>True</required>
-   <value_type type="zope.schema.Text" />
+   <value_type type="zope.schema.Choice" >
+    <vocabulary>plone.principalsource.Users</vocabulary>
+   </value_type>
   </field>
 
   <field name="configuration_pdf" type="plone.namedfile.field.NamedFile"
