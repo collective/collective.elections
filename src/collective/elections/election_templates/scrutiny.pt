@@ -7,7 +7,11 @@
 
 <div>
 
-    <p>Do something!</p>
+    <p>Results:</p>
+
+    <tal:block repeat="result view/get_voting_count">
+        <p tal:content="result"/>
+    </tal:block>
 
 </div>
 </html>

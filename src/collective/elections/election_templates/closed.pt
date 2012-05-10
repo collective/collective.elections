@@ -9,5 +9,11 @@
 
     <p>The election is closed.</p>
 
+    <p>Results:</p>
+
+    <tal:block repeat="result view/get_voting_count">
+        <p tal:content="result"/>
+    </tal:block>
+
 </div>
 </html>

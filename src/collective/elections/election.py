@@ -251,6 +251,30 @@ class Scrutiny(dexterity.DisplayForm):
     grok.context(IElection)
     grok.require('zope2.View')
 
+    def get_voting_count(self):
+        # XXX: This will go away, once the correct way for counting
+        #      votes is implemented
+        aux_results = {}
+        results = []
+        annotation = IAnnotations(self.context)
+        nominees = annotation['nominees']
+        votes = annotation['votes']
+        for vote in votes:
+            nominee = nominees[vote]
+            nominee_count = aux_results.get(nominee, 0)
+            nominee_count += 1
+            aux_results[nominee] = nominee_count
+
+        vocab = getUtility(IVocabularyFactory,
+                           name="plone.principalsource.Users")
+        values = vocab(self.context)
+
+        for nominee in self.context.nominations_roll:
+            full_name = values.getTermByToken(nominee).title
+            results.append("%s: %s votes." % (full_name,
+                                              aux_results.get(nominee,0)))
+
+        return results
 
 class Results(dexterity.DisplayForm):
     """ This view is used in the Published workflow state.
@@ -258,12 +282,62 @@ class Results(dexterity.DisplayForm):
     grok.context(IElection)
     grok.require('zope2.View')
 
+    def get_voting_count(self):
+        # XXX: This will go away, once the correct way for counting
+        #      votes is implemented
+        aux_results = {}
+        results = []
+        annotation = IAnnotations(self.context)
+        nominees = annotation['nominees']
+        votes = annotation['votes']
+        for vote in votes:
+            nominee = nominees[vote]
+            nominee_count = aux_results.get(nominee, 0)
+            nominee_count += 1
+            aux_results[nominee] = nominee_count
+
+        vocab = getUtility(IVocabularyFactory,
+                           name="plone.principalsource.Users")
+        values = vocab(self.context)
+
+        for nominee in self.context.nominations_roll:
+            full_name = values.getTermByToken(nominee).title
+            results.append("%s: %s votes." % (full_name,
+                                              aux_results.get(nominee,0)))
+
+        return results
+
 
 class Closed(dexterity.DisplayForm):
     """ This view is used in the Closed workflow state.
     """
     grok.context(IElection)
     grok.require('zope2.View')
+
+    def get_voting_count(self):
+        # XXX: This will go away, once the correct way for counting
+        #      votes is implemented
+        aux_results = {}
+        results = []
+        annotation = IAnnotations(self.context)
+        nominees = annotation['nominees']
+        votes = annotation['votes']
+        for vote in votes:
+            nominee = nominees[vote]
+            nominee_count = aux_results.get(nominee, 0)
+            nominee_count += 1
+            aux_results[nominee] = nominee_count
+
+        vocab = getUtility(IVocabularyFactory,
+                           name="plone.principalsource.Users")
+        values = vocab(self.context)
+
+        for nominee in self.context.nominations_roll:
+            full_name = values.getTermByToken(nominee).title
+            results.append("%s: %s votes." % (full_name,
+                                              aux_results.get(nominee,0)))
+
+        return results
 
 
 class CastVote(dexterity.DisplayForm):
@@ -344,3 +418,14 @@ def generate_random_numbers_for_candidates(obj, event):
     # Finally, store everything in the annotation and finish
     annotation['nominees'] = nominee_annotation
     annotation['electoral'] = electoral_annotation
+
+
+@grok.subscribe(IElection, IActionSucceededEvent)
+def count_votes(obj, event):
+
+    if event.action != 'count':
+        # If this is not the transition where the counting starts, then return
+        return
+
+    # At the moment we don't need this, we leave it as a placeholder for when
+    # we need to decrypt to count, etc...
