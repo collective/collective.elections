@@ -5,7 +5,7 @@
  <schema>
   <field name="title" type="zope.schema.TextLine"
      form:omitted="z3c.form.interfaces.IForm:false z3c.form.interfaces.IEditForm:true">
-   <title>Text</title>
+   <title>Title</title>
    <description></description>
    <required>True</required>
   </field>
