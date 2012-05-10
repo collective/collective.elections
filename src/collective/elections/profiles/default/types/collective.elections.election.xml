@@ -6,7 +6,7 @@
   <!-- Basic metadata -->
   <property name="title" i18n:translate="">Election</property>
   <property name="description" i18n:translate="">Election</property>
-  <property name="content_icon">++resource++collective.election/election.png</property>
+  <property name="content_icon">++resource++collective.elections/election.png</property>
   <property name="factory">collective.elections.election</property>
   <property name="global_allow">True</property>
   <property name="filter_content_types">False</property>
