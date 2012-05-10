@@ -16,7 +16,7 @@
               i18n:translate="">
             You have already voted.
         </span>
-        <a href="#"
+        <a href="#" class="cast-vote"
            tal:condition="not:view/has_already_voted"
            tal:attributes="href string:${context/absolute_url}/@@castvote">
             <span>Cast vote</span>

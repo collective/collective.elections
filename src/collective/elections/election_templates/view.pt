@@ -5,6 +5,14 @@
       lang="en"
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="collective.elections">
+
+<metal:javascriptslot fill-slot="javascript_head_slot" >
+
+        <script type="text/javascript" src="++resource++collective.elections/javascript.js">
+        </script>
+
+</metal:javascriptslot>
+
 <body>
 
 <metal:main fill-slot="main">
