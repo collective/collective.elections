@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="collective.elections"
+      tal:omit-tag="">
+
+    <form action="#"
+          name="collective.elections.nominees"
+          method="POST"
+          tal:attributes="action string:${context/absolute_url}">
+
+        <tal:block repeat="nominee view/get_nominees">
+            <input type="radio"
+                name="chosen_nominee"
+                value="#"
+                tal:attributes="value python:nominee[0]"/>
+                <span tal:content="python:nominee[1]">Nominee</span><br />
+        </tal:block>
+
+        <input type="submit" value="Cast vote!" />
+    </form>
+</html>

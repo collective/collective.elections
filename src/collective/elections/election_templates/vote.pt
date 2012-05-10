@@ -17,7 +17,8 @@
             You have already voted.
         </span>
         <a href="#"
-           tal:condition="not:view/has_already_voted">
+           tal:condition="not:view/has_already_voted"
+           tal:attributes="href string:${context/absolute_url}/@@castvote">
             <span>Cast vote</span>
         </a>
     </p>

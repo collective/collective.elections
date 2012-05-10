@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
 
+from zope.annotation.interfaces import IAnnotations
+
 from zope.component import adapts
 from zope.component import getMultiAdapter
+from zope.component import getUtility
 from zope.interface import Interface
 from zope.interface import implements
 from zope.security import checkPermission
+
+from zope.schema.interfaces import IVocabularyFactory
 
 from five import grok
 
@@ -12,9 +17,13 @@ from plone.directives import dexterity, form
 
 from borg.localrole.interfaces import ILocalRoleProvider
 
+from Products.CMFCore.interfaces import IActionSucceededEvent
+
 from Products.CMFCore.utils import getToolByName
 
 from collective.elections import _
+
+from random import random
 
 
 class IElection(form.Schema):
@@ -26,6 +35,55 @@ class IElection(form.Schema):
 class View(dexterity.DisplayForm):
     grok.context(IElection)
     grok.require('zope2.View')
+
+    def __call__(self):
+        if "chosen_nominee" in self.request:
+            # A vote has been casted, let's store it
+            self.cast_vote()
+        return dexterity.DisplayForm.__call__(self)
+
+    def cast_vote(self):
+        pm = getToolByName(self.context, 'portal_membership')
+
+        nominee = self.request.get("chosen_nominee")
+        voter = pm.getAuthenticatedMember().getId()
+
+        # Now, let's get the random number that belongs for this voter and
+        # nominee
+        annotation = IAnnotations(self.context)
+
+        # XXX: Do some error checking, for now let's assume everything
+        #      works fine
+        random_number = annotation['electoral'][voter][nominee]
+
+        # Finally, store the number in the annotation
+        # XXX: From the documentation, we need to first concatenate a new
+        #      random number, and get a hash from it. Also, we need to
+        #      double encrypt it, and store that. For now, let's store it
+        #      as it is.
+        not_used_votes = annotation.get('not_used_votes', [])
+        votes = annotation.get('votes', [])
+        if random_number not in not_used_votes and\
+           random_number not in votes:
+            votes.append(random_number)
+            annotation['votes'] = votes
+        else:
+            # XXX: This number shouldn't be usable, something wrong happened
+            #      need to figure out how to proceed in this case
+            print "CHEATING!"
+            return
+
+        # And now, we store the other possible random_numbers from this voter
+        # Se they cannot be used
+        not_used_votes += [i for i in annotation['electoral'][voter].values()
+                                      if i != random_number]
+        annotation['not_used_votes'] = not_used_votes
+
+        # Finally, we "mark" the voter as "already_voted"
+        annotation['electoral'][voter]['already_voted'] = True
+
+        #Done.
+        return
 
     def get_election_state(self):
         wf_tool = getToolByName(self.context, 'portal_workflow')
@@ -180,7 +238,12 @@ class Vote(dexterity.DisplayForm):
                                self.context)
 
     def has_already_voted(self):
-        return False
+        pm = getToolByName(self.context, 'portal_membership')
+        voter = pm.getAuthenticatedMember().getId()
+
+        annotation = IAnnotations(self.context)
+
+        return (annotation['electoral'][voter]).get('already_voted', False)
 
 class Scrutiny(dexterity.DisplayForm):
     """ This view is used in the Scrutiny workflow state.
@@ -208,3 +271,76 @@ class CastVote(dexterity.DisplayForm):
     """
     grok.context(IElection)
     grok.require('collective.elections.canCastVote')
+
+    def get_nominees(self):
+        results = []
+        # XXX: Find a way to get the vocabulary name from the field instead
+        #      of having it hard-coded here
+        vocab = getUtility(IVocabularyFactory,
+                           name="plone.principalsource.Users")
+        values = vocab(self.context)
+        for id in self.context.nominations_roll:
+            full_name = values.getTermByToken(id).title
+            results.append((id,full_name))
+
+        return results
+
+@grok.subscribe(IElection, IActionSucceededEvent)
+def generate_random_numbers_for_candidates(obj, event):
+    """
+    Here we will generate the random numbers for each candidate and each
+    voter
+    """
+
+    #XXX: "digit_count" should be some customizable field from the election
+    #     and not defined here.
+    digit_count = 10
+
+    if event.action != 'start':
+        # If this is not the transition where the voting starts, then just
+        # return
+        return
+
+    # Ok, let's generate our random numbers
+    random_numbers = []
+    total_numbers = len(obj.electoral_roll) * len(obj.nominations_roll)
+
+    while len(random_numbers) < total_numbers:
+        random_number = long(random()*(10**digit_count))
+        if random_number not in random_numbers:
+            random_numbers.append(random_number)
+
+    # We have in random_numbers a whole list of unique random numbers
+    # For now, we will store this in an annotation, perhaps we need to revise
+    # this and store it somewhere else.
+    annotation = IAnnotations(obj)
+    nominee_annotation = {}
+    electoral_annotation = {}
+
+    # The idea here is to have 2 lists with len()=total_numbers which will
+    # allow the use of zip built-in to assign each random number to
+    # a nominee and a voter
+
+    aux_nominees = obj.nominations_roll * len(obj.electoral_roll)
+    aux_electoral = obj.electoral_roll * len(obj.nominations_roll)
+    aux_electoral.sort()
+
+    combination = zip(random_numbers, aux_electoral, aux_nominees)
+
+    # Now, for each combination, we'll store it in the annotation
+    for elem in combination:
+        # First, let's store a dict with the number as key and the nominee
+        # as value
+        nominee_annotation[elem[0]] = elem[2]
+
+        # Now, for the voter, we'll store a dict with the nominee and his
+        # number
+        vote_map = electoral_annotation.get(elem[1], {})
+        vote_map[elem[2]] = elem[0]
+        electoral_annotation[elem[1]] = vote_map
+        # Also, let's mark it as "not already voted"
+        electoral_annotation[elem[1]]['already_voted'] = False
+
+    # Finally, store everything in the annotation and finish
+    annotation['nominees'] = nominee_annotation
+    annotation['electoral'] = electoral_annotation
