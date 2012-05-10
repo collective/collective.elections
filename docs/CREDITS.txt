@@ -7,5 +7,8 @@ Contributors
 
 Development sponsored by `Instituto de Matemáticas`_, UNAM.
 
+collective.elections icon is courtesy of `Tango Desktop Project`_.
+
 .. _`Instituto de Matemáticas`: http://www.matem.unam.mx/
+.. _`Tango Desktop Project`: http://tango.freedesktop.org/
 
