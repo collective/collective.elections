@@ -11,7 +11,7 @@ ctype = 'collective.elections.election'
 workflow_id = 'election_workflow'
 
 
-class WorkflowTest(unittest.TestCase):
+class WorkflowTestCase(unittest.TestCase):
 
     layer = INTEGRATION_TESTING
 
@@ -20,7 +20,7 @@ class WorkflowTest(unittest.TestCase):
         self.workflow_tool = getattr(self.portal, 'portal_workflow')
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.portal.invokeFactory('Folder', 'test-folder')
-        #setRoles(self.portal, TEST_USER_ID, ['Member'])
+        setRoles(self.portal, TEST_USER_ID, ['Member'])
         self.folder = self.portal['test-folder']
 
         self.folder.invokeFactory(ctype, 'obj')
@@ -28,12 +28,12 @@ class WorkflowTest(unittest.TestCase):
 
     def test_workflow_installed(self):
         ids = self.workflow_tool.getWorkflowIds()
-        self.failUnless(workflow_id in ids)
+        self.assertTrue(workflow_id in ids)
 
     def test_default_workflow(self):
         chain = self.workflow_tool.getChainForPortalType(self.obj.portal_type)
-        self.failUnless(len(chain) == 1)
-        self.failUnless(chain[0] == workflow_id)
+        self.assertTrue(len(chain) == 1)
+        self.assertTrue(chain[0] == workflow_id)
 
     def test_workflow_initial_state(self):
         review_state = self.workflow_tool.getInfoFor(self.obj, 'review_state')
@@ -62,7 +62,3 @@ class WorkflowTest(unittest.TestCase):
         self.workflow_tool.doActionFor(self.obj, 'close')
         review_state = self.workflow_tool.getInfoFor(self.obj, 'review_state')
         self.assertEqual(review_state, 'closed')
-
-
-def test_suite():
-    return unittest.defaultTestLoader.loadTestsFromName(__name__)
