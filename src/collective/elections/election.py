@@ -4,6 +4,7 @@ from zope.component import adapts
 from zope.component import getMultiAdapter
 from zope.interface import Interface
 from zope.interface import implements
+from zope.security import checkPermission
 
 from five import grok
 
@@ -84,16 +85,8 @@ class View(dexterity.DisplayForm):
     def is_public(self):
         return self.get_election_state() == 'public'
 
-    def is_allowed_to_vote(self):
-        if self.get_election_state() == 'voting':
-            pm = getToolByName(self.context, 'portal_membership')
-
-            auth_member = pm.getAuthenticatedMember()
-            electoral_roll = self.context.electoral_roll
-
-            return auth_member.getMemberId() in electoral_roll
-
-        return False
+    def is_in_voting_state(self):
+        return self.get_election_state() == 'voting'
 
     def is_counting(self):
         return self.get_election_state() == 'scrutiny'
@@ -182,6 +175,12 @@ class Vote(dexterity.DisplayForm):
     grok.context(IElection)
     grok.require('zope2.View')
 
+    def is_allowed_to_vote(self):
+        return checkPermission('collective.elections.canCastVote',
+                               self.context)
+
+    def has_already_voted(self):
+        return False
 
 class Scrutiny(dexterity.DisplayForm):
     """ This view is used in the Scrutiny workflow state.
@@ -202,3 +201,10 @@ class Closed(dexterity.DisplayForm):
     """
     grok.context(IElection)
     grok.require('zope2.View')
+
+
+class CastVote(dexterity.DisplayForm):
+    """ This view is used to cast the vote.
+    """
+    grok.context(IElection)
+    grok.require('collective.elections.canCastVote')

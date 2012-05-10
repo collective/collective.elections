@@ -11,11 +11,20 @@
         <span tal:content="context/nominations_roll" />
     </p>
 
-    <p>
-        <a href="#">
+    <p tal:condition="view/is_allowed_to_vote">
+        <span tal:condition="view/has_already_voted"
+              i18n:translate="">
+            You have already voted.
+        </span>
+        <a href="#"
+           tal:condition="not:view/has_already_voted">
             <span>Cast vote</span>
         </a>
     </p>
 
+    <p tal:condition="not:view/is_allowed_to_vote"
+       i18n:translate="">
+       You are not allowed to vote in this election.
+    </p>
 </div>
 </html>

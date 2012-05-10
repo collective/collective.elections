@@ -19,6 +19,7 @@
  <permission>collective.elections: Election text field editable</permission>
  <permission>collective.elections: Election voting_end_date field editable</permission>
  <permission>collective.elections: Election voting_start_date field editable</permission>
+ <permission>collective.elections: Can cast a vote</permission>
  <state state_id="closed" title="Closed">
   <description>Election is closed, no changes can be made.</description>
   <permission-map name="Access contents information" acquired="False">
@@ -40,6 +41,8 @@
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="collective.elections: Can cast a vote" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
   </permission-map>
@@ -93,6 +96,8 @@
    <permission-role>Election Officials</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="collective.elections: Can cast a vote" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
   </permission-map>
@@ -151,6 +156,8 @@
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
+  <permission-map name="collective.elections: Can cast a vote" acquired="False">
+  </permission-map>
   <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election configuration_pdf field editable" acquired="False">
@@ -207,6 +214,8 @@
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
+  <permission-map name="collective.elections: Can cast a vote" acquired="False">
+  </permission-map>
   <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election configuration_pdf field editable" acquired="False">
@@ -262,6 +271,8 @@
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="collective.elections: Can cast a vote" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
    <permission-role>Election Administrator</permission-role>
@@ -339,6 +350,8 @@ After starting, the election cannot be sent back.</description>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
+  <permission-map name="collective.elections: Can cast a vote" acquired="False">
+  </permission-map>
   <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election configuration_pdf field editable" acquired="False">
@@ -396,6 +409,8 @@ After starting, the election cannot be sent back.</description>
    <permission-role>Member</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
+  <permission-map name="collective.elections: Can cast a vote" acquired="False">
+  </permission-map>
   <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election configuration_pdf field editable" acquired="False">
@@ -450,6 +465,8 @@ After starting, the election cannot be sent back.</description>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="collective.elections: Can cast a vote" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
   </permission-map>
@@ -508,6 +525,8 @@ After starting, the election cannot be sent back.</description>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
+  <permission-map name="collective.elections: Can cast a vote" acquired="False">
+  </permission-map>
   <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election configuration_pdf field editable" acquired="False">
@@ -563,6 +582,9 @@ After starting, the election cannot be sent back.</description>
    <permission-role>Member</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="collective.elections: Can cast a vote" acquired="False">
+   <permission-role>General Users</permission-role>
   </permission-map>
   <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
   </permission-map>

@@ -75,7 +75,7 @@
         <div tal:condition="view/is_public"
              tal:replace="structure context/public" />
 
-        <div tal:condition="view/is_allowed_to_vote"
+        <div tal:condition="view/is_in_voting_state"
              tal:replace="structure context/vote" />
 
         <div tal:condition="view/is_counting"

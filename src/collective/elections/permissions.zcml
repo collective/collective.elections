@@ -8,6 +8,11 @@
         title="collective.elections: Can add Election"
         />
 
+    <permission
+        id="collective.elections.canCastVote"
+        title="collective.elections: Can cast a vote"
+        />
+
     <!-- End -->
 
     <!-- Permissions for specific wf transitions -->
