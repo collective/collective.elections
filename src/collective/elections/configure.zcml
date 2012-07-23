@@ -18,7 +18,7 @@
       name="default"
       title="collective.elections"
       directory="profiles/default"
-      description="Installs the collective.elections package"
+      description="An implementation of the KOA electronic voting system for Plone."
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
