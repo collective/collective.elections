@@ -1,11 +1,18 @@
 # -*- coding: utf-8 -*-
 
+import hashlib
+import gnupg
+gpg = gnupg.GPG()
+
+from datetime import datetime
+
 from zope.annotation.interfaces import IAnnotations
 
 from zope.component import adapts
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.interface import Interface
+from zope.interface import Invalid
 from zope.interface import implements
 from zope.security import checkPermission
 
@@ -24,6 +31,7 @@ from Products.CMFCore.utils import getToolByName
 from collective.elections import _
 
 from random import random
+from random import shuffle
 
 
 class IElection(form.Schema):
@@ -43,8 +51,10 @@ class View(dexterity.DisplayForm):
         return dexterity.DisplayForm.__call__(self)
 
     def cast_vote(self):
+        #XXX: "digit_count" should be some customizable field from the election
+        #     and not defined here. (neither should be in generate_random_numbers_for_candidates )
+        digit_count = 10
         pm = getToolByName(self.context, 'portal_membership')
-
         nominee = self.request.get("chosen_nominee")
         voter = pm.getAuthenticatedMember().getId()
 
@@ -52,31 +62,71 @@ class View(dexterity.DisplayForm):
         # nominee
         annotation = IAnnotations(self.context)
 
-        # XXX: Do some error checking, for now let's assume everything
-        #      works fine
+        # This should never ever happen, but just in case...
+        if voter not in annotation['electoral']:
+            raise Invalid(_(u"You are not allowed to vote. Please contact the system administrator."))
+
+        if nominee not in annotation['electoral'][voter]:
+            raise Invalid(_(u"The nominee you selected does not exist. Please contact the system administrator."))
+
+        # We get the random number assigned for this nominee to this voter
         random_number = annotation['electoral'][voter][nominee]
 
-        # Finally, store the number in the annotation
-        # XXX: From the documentation, we need to first concatenate a new
-        #      random number, and get a hash from it. Also, we need to
-        #      double encrypt it, and store that. For now, let's store it
-        #      as it is.
+        # We create the new random number with the same length.
+        new_random = long(random()*(10**digit_count))
+
+        # Append it
+        result = str(random_number) + str(new_random)
+
+        receipts = annotation.get('receipts', {})
+
+        # Generate our MD5 receipt
+        receipt = hashlib.md5(result).hexdigest()
+        now = datetime.now()
+
+        receipts[voter] = {'receipt': receipt,
+                           'date': now}
+
+        # And save it
+        annotation['receipts'] = receipts
+
+        # Now, we get our keys fingerprints. We have to do it this way because python's gnupg
+        # uses the system gnupg, so it may happen that at some point the key is lost from
+        # the system keyring. 
+        try:
+            admin_fingerprint = gpg.import_keys(self.context.gpg_key_admin).results[0]['fingerprint']
+        except:
+            raise Invalid(_(u"Something wrong happened with the admin GPG key."))
+
+        try:
+            comission_fingerprint = gpg.import_keys(self.context.gpg_key_comission).results[0]['fingerprint']
+        except:
+            raise Invalid(_(u"Something wrong happened with the comission GPG key."))
+            
+        # Now we double cipher it. First with the comission key
+        first = gpg.encrypt(result, comission_fingerprint)
+        # Then with the admin's one.
+        second = gpg.encrypt(first.data, admin_fingerprint)
+
+        # Finally, store the vote in the annotation
         not_used_votes = annotation.get('not_used_votes', [])
         votes = annotation.get('votes', [])
-        if random_number not in not_used_votes and\
-           random_number not in votes:
-            votes.append(random_number)
+        if random_number not in not_used_votes:
+            votes.append(second.data)
+            # And we shuffle it to improve anonymity
+            shuffle(votes)
             annotation['votes'] = votes
         else:
             # XXX: This number shouldn't be usable, something wrong happened
             #      need to figure out how to proceed in this case
-            print "CHEATING!"
+            raise Invalid(_(u"A nominee code was tried to be reused."))
             return
 
         # And now, we store the other possible random_numbers from this voter
-        # Se they cannot be used
-        not_used_votes += [i for i in annotation['electoral'][voter].values()
-                                      if i != random_number]
+        # So they cannot be used
+        not_used_votes += [value for key,value in annotation['electoral'][voter].items() 
+                                      if key!='already_voted' and value != random_number]
+
         annotation['not_used_votes'] = not_used_votes
 
         # Finally, we "mark" the voter as "already_voted"

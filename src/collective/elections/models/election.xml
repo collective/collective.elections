@@ -88,6 +88,15 @@
    <required>False</required>
   </field>
 
+  <field name="gpg_key_comission" type="zope.schema.Text"
+     form:validator="collective.elections.validators.GPGKeyValidator"
+     security:write-permission="collective.elections.gpg_key_ceoEditable"
+     form:omitted="z3c.form.interfaces.IForm:false z3c.form.interfaces.IEditForm:false">
+   <title>GPG public key of the watch comission</title>
+   <description></description>
+   <required>False</required>
+  </field>
+
   <field name="gpg_mode" type="zope.schema.Choice"
      security:write-permission="collective.elections.gpg_modeEditable"
      form:omitted="z3c.form.interfaces.IForm:false z3c.form.interfaces.IEditForm:false">
