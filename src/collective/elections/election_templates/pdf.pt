@@ -1,0 +1,16 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="collective.elections">
+
+<body>
+<div>
+
+    <div tal:replace="structure context/publicrevision" />
+
+    <div tal:replace="structure context/nomineeselection" />
+
+</div>
+</body>
+</html>
