@@ -24,8 +24,6 @@ from plone.directives import dexterity, form
 
 from borg.localrole.interfaces import ILocalRoleProvider
 
-from Products.CMFCore.interfaces import IActionSucceededEvent
-
 from Products.CMFCore.utils import getToolByName
 
 from collective.elections import _
@@ -73,7 +71,7 @@ class View(dexterity.DisplayForm):
         random_number = annotation['electoral'][voter][nominee]
 
         # We create the new random number with the same length.
-        new_random = long(random()*(10**digit_count))
+        new_random = long(random() * (10 ** digit_count))
 
         # Append it
         result = str(random_number) + str(new_random)
@@ -92,7 +90,7 @@ class View(dexterity.DisplayForm):
 
         # Now, we get our keys fingerprints. We have to do it this way because python's gnupg
         # uses the system gnupg, so it may happen that at some point the key is lost from
-        # the system keyring. 
+        # the system keyring.
         try:
             admin_fingerprint = gpg.import_keys(self.context.gpg_key_admin).results[0]['fingerprint']
         except:
@@ -102,7 +100,7 @@ class View(dexterity.DisplayForm):
             comission_fingerprint = gpg.import_keys(self.context.gpg_key_comission).results[0]['fingerprint']
         except:
             raise Invalid(_(u"Something wrong happened with the comission GPG key."))
-            
+
         # Now we double cipher it. First with the comission key
         first = gpg.encrypt(result, comission_fingerprint)
         # Then with the admin's one.
@@ -124,8 +122,8 @@ class View(dexterity.DisplayForm):
 
         # And now, we store the other possible random_numbers from this voter
         # So they cannot be used
-        not_used_votes += [value for key,value in annotation['electoral'][voter].items() 
-                                      if key!='already_voted' and value != random_number]
+        not_used_votes += [value for key, value in annotation['electoral'][voter].items()
+                           if key != 'already_voted' and value != random_number]
 
         annotation['not_used_votes'] = not_used_votes
 
@@ -295,6 +293,7 @@ class Vote(dexterity.DisplayForm):
 
         return (annotation['electoral'][voter]).get('already_voted', False)
 
+
 class Scrutiny(dexterity.DisplayForm):
     """ This view is used in the Scrutiny workflow state.
     """
@@ -322,9 +321,10 @@ class Scrutiny(dexterity.DisplayForm):
         for nominee in self.context.nominations_roll:
             full_name = values.getTermByToken(nominee).title
             results.append("%s: %s votes." % (full_name,
-                                              aux_results.get(nominee,0)))
+                                              aux_results.get(nominee, 0)))
 
         return results
+
 
 class Results(dexterity.DisplayForm):
     """ This view is used in the Published workflow state.
@@ -353,7 +353,7 @@ class Results(dexterity.DisplayForm):
         for nominee in self.context.nominations_roll:
             full_name = values.getTermByToken(nominee).title
             results.append("%s: %s votes." % (full_name,
-                                              aux_results.get(nominee,0)))
+                                              aux_results.get(nominee, 0)))
 
         return results
 
@@ -385,7 +385,7 @@ class Closed(dexterity.DisplayForm):
         for nominee in self.context.nominations_roll:
             full_name = values.getTermByToken(nominee).title
             results.append("%s: %s votes." % (full_name,
-                                              aux_results.get(nominee,0)))
+                                              aux_results.get(nominee, 0)))
 
         return results
 
@@ -405,77 +405,6 @@ class CastVote(dexterity.DisplayForm):
         values = vocab(self.context)
         for id in self.context.nominations_roll:
             full_name = values.getTermByToken(id).title
-            results.append((id,full_name))
+            results.append((id, full_name))
 
         return results
-
-@grok.subscribe(IElection, IActionSucceededEvent)
-def generate_random_numbers_for_candidates(obj, event):
-    """
-    Here we will generate the random numbers for each candidate and each
-    voter
-    """
-
-    #XXX: "digit_count" should be some customizable field from the election
-    #     and not defined here.
-    digit_count = 10
-
-    if event.action != 'start':
-        # If this is not the transition where the voting starts, then just
-        # return
-        return
-
-    # Ok, let's generate our random numbers
-    random_numbers = []
-    total_numbers = len(obj.electoral_roll) * len(obj.nominations_roll)
-
-    while len(random_numbers) < total_numbers:
-        random_number = long(random()*(10**digit_count))
-        if random_number not in random_numbers:
-            random_numbers.append(random_number)
-
-    # We have in random_numbers a whole list of unique random numbers
-    # For now, we will store this in an annotation, perhaps we need to revise
-    # this and store it somewhere else.
-    annotation = IAnnotations(obj)
-    nominee_annotation = {}
-    electoral_annotation = {}
-
-    # The idea here is to have 2 lists with len()=total_numbers which will
-    # allow the use of zip built-in to assign each random number to
-    # a nominee and a voter
-
-    aux_nominees = obj.nominations_roll * len(obj.electoral_roll)
-    aux_electoral = obj.electoral_roll * len(obj.nominations_roll)
-    aux_electoral.sort()
-
-    combination = zip(random_numbers, aux_electoral, aux_nominees)
-
-    # Now, for each combination, we'll store it in the annotation
-    for elem in combination:
-        # First, let's store a dict with the number as key and the nominee
-        # as value
-        nominee_annotation[elem[0]] = elem[2]
-
-        # Now, for the voter, we'll store a dict with the nominee and his
-        # number
-        vote_map = electoral_annotation.get(elem[1], {})
-        vote_map[elem[2]] = elem[0]
-        electoral_annotation[elem[1]] = vote_map
-        # Also, let's mark it as "not already voted"
-        electoral_annotation[elem[1]]['already_voted'] = False
-
-    # Finally, store everything in the annotation and finish
-    annotation['nominees'] = nominee_annotation
-    annotation['electoral'] = electoral_annotation
-
-
-@grok.subscribe(IElection, IActionSucceededEvent)
-def count_votes(obj, event):
-
-    if event.action != 'count':
-        # If this is not the transition where the counting starts, then return
-        return
-
-    # At the moment we don't need this, we leave it as a placeholder for when
-    # we need to decrypt to count, etc...
