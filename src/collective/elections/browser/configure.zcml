@@ -1,0 +1,22 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser">
+
+    <include package="Products.CMFCore" file="permissions.zcml"
+             xmlns:zcml="http://namespaces.zope.org/zcml"
+             zcml:condition="have plone-41" />
+
+    <browser:page
+        name="generate-configuration-pdf"
+        for="collective.elections.election.IElection"
+        class="collective.elections.browser.pdf.GenerateConfigurationPDF"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
+        name="generate-rolls-pdf"
+        for="collective.elections.election.IElection"
+        class="collective.elections.browser.pdf.GenerateRollsPDF"
+        permission="cmf.ModifyPortalContent"
+        />
+
+</configure>

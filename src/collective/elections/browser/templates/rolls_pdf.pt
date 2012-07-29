@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="collective.elections">
+
+<body>
+  <header>
+    <h1 tal:content="context/title"/>
+
+    <p tal:content="context/description"/>
+  </header>
+
+  <article>
+    <div tal:content="structure context/text/output|nothing" />
+
+    <p i18n:translate="">Nominee selection date:
+      <span tal:content="context/nominee_selection_date"/>
+    </p>
+
+    <p i18n:translate="">Start of voting:
+      <span tal:content="context/voting_start_date"/>
+    </p>
+
+    <p i18n:translate="">End of voting:
+      <span tal:content="context/voting_end_date"/>
+    </p>
+
+    <p i18n:translate="">Publication of results:
+      <span tal:content="context/publication_date"/>
+    </p>
+
+    <p i18n:translate="">Electoral roll:</p>
+    <ul tal:repeat="name view/get_electoral_roll">
+      <li tal:content="name"/>
+    </ul>
+
+    <p i18n:translate="">Nominations roll:</p>
+    <ul tal:repeat="name view/get_nominations_roll">
+      <li tal:content="name"/>
+    </ul>
+  </article>
+
+  <footer>
+    <p i18n:translate="">Document generated:
+      <span tal:content="view/now"/>
+    </p>
+  </footer>
+</body>
+</html>

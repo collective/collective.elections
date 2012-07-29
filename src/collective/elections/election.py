@@ -6,14 +6,11 @@ gpg = gnupg.GPG()
 
 from datetime import datetime
 
-from zope.annotation.interfaces import IAnnotations
+from Acquisition import aq_inner
 
-from zope.component import adapts
-from zope.component import getMultiAdapter
-from zope.component import getUtility
-from zope.interface import Interface
-from zope.interface import Invalid
-from zope.interface import implements
+from zope.annotation.interfaces import IAnnotations
+from zope.component import adapts, getMultiAdapter, getUtility
+from zope.interface import implements, Interface, Invalid
 from zope.security import checkPermission
 
 from zope.schema.interfaces import IVocabularyFactory
@@ -47,6 +44,10 @@ class View(dexterity.DisplayForm):
             # A vote has been casted, let's store it
             self.cast_vote()
         return dexterity.DisplayForm.__call__(self)
+
+    def update(self):
+        self.context = aq_inner(self.context)
+        self.canModifyPortalContent = checkPermission('cmf.ModifyPortalContent', self.context)
 
     def cast_vote(self):
         #XXX: "digit_count" should be some customizable field from the election
@@ -184,11 +185,17 @@ class View(dexterity.DisplayForm):
 
         return _(u"")
 
+    def is_internal_revision(self):
+        return self.get_election_state() == 'internal_revision'
+
     def is_public_revision(self):
         return self.get_election_state() == 'public_revision'
 
     def is_nominee_selection(self):
         return self.get_election_state() == 'nominee_selection'
+
+    def is_nominee_revision(self):
+        return self.get_election_state() == 'nominee_revision'
 
     def is_public(self):
         return self.get_election_state() == 'public'

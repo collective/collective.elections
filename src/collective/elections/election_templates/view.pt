@@ -20,6 +20,17 @@
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
 
+        <div tal:condition="view/canModifyPortalContent">
+            <p tal:condition="view/is_internal_revision">
+              <a href="" tal:attributes="href string:${context/absolute_url}/generate-configuration-pdf"
+                 i18n:translate="">Generate configuration PDF</a>
+            </p>
+            <p tal:condition="view/is_nominee_revision">
+              <a href="" tal:attributes="href string:${context/absolute_url}/generate-rolls-pdf"
+                 i18n:translate="">Generate rolls PDF</a>
+            </p>
+        </div>
+
         <h1 class="documentFirstHeading" tal:content="context/title" />
 
         <div tal:replace="structure provider:plone.belowcontenttitle" />
