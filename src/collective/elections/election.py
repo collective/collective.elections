@@ -5,10 +5,6 @@ import gnupg
 gpg = gnupg.GPG()
 
 from datetime import datetime
-from xhtml2pdf import pisa
-
-from Acquisition import aq_inner
-from StringIO import StringIO
 
 from zope.annotation.interfaces import IAnnotations
 
@@ -146,6 +142,8 @@ class View(dexterity.DisplayForm):
 
         return state
 
+    # TODO: this should be done using Products.statusmessages
+    # https://github.com/collective/collective.elections/issues/1
     def status_change_msg(self):
         wf_tool = getToolByName(self.context, "portal_workflow")
         chain = wf_tool.getChainForPortalType(self.context.portal_type)
@@ -412,22 +410,3 @@ class CastVote(dexterity.DisplayForm):
             results.append((id, full_name))
 
         return results
-
-
-#class PDF(dexterity.DisplayForm):
-class myPDF(grok.View):
-    """ This view is used to generate a PDF file.
-    """
-    grok.context(IElection)
-    grok.require('zope2.View')
-
-    def update(self):
-        context = aq_inner(self.context)
-        self.result = StringIO()
-        self.pdf = pisa.pisaDocument(StringIO("<h1>Hello World!</h1>"),
-                                     self.result)
-
-    def render(self):
-        if not self.pdf.err:
-            self.response.setHeader('Content-Type', 'application/pdf')
-            return self.result.getvalue()
