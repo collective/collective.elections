@@ -7,6 +7,8 @@ collective.elections
 Introduction
 ------------
 
+.. image:: https://secure.travis-ci.org/collective/collective.elections.png
+
 collective.elections aims to be an electronic voting system based on `KOA
 <http://secure.ucd.ie/products/opensource/KOA/>`_ (*Kiezen op Afstand*), an
 Open Source Electronic/Remote/Internet Voting System developed for the Dutch
