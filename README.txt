@@ -8,6 +8,7 @@ Introduction
 ------------
 
 .. image:: https://secure.travis-ci.org/collective/collective.elections.png
+    :target: http://travis-ci.org/collective/collective.elections
 
 collective.elections aims to be an electronic voting system based on `KOA
 <http://secure.ucd.ie/products/opensource/KOA/>`_ (*Kiezen op Afstand*), an
