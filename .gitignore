@@ -11,6 +11,7 @@ output.xml
 report.html
 selenium*
 bin/
+coverage/
 develop-eggs/
 downloads/
 eggs/
