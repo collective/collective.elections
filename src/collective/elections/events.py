@@ -6,6 +6,7 @@ from collective.elections.election import IElection
 
 from Products.CMFCore.utils import getToolByName
 
+
 def remove_configuration_pdf(obj):
     """
     Remove the configuration PDF and signature that is supposed to be added
@@ -53,5 +54,3 @@ def state_changed(obj, event):
         remove_nominees_pdf(obj)
     elif state == 'scrutiny':
         count_votes(obj)
-
-

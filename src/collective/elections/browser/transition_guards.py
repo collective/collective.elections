@@ -144,5 +144,3 @@ class CanBeClosed(grok.View):
 
     def render(self):
         return "can-be-closed"
-
-

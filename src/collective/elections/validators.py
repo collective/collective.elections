@@ -56,7 +56,6 @@ class GPGSignatureValidator(validator.SimpleFieldValidator):
                 if pdf_field:
                     data = pdf_field.data
 
-            
         # It would be nice to be able to do this from a stream,
         # but unfortunately, gnupg expects files
         fd, fn = tempfile.mkstemp(prefix='elections')
@@ -64,7 +63,7 @@ class GPGSignatureValidator(validator.SimpleFieldValidator):
         os.close(fd)
 
         sig = _make_binary_stream(value.data, gpg.encoding)
-        
+
         verify = gpg.verify_file(sig, fn)
 
         if not verify.valid:
