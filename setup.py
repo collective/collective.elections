@@ -42,7 +42,7 @@ setup(
     install_requires=[
         'borg.localrole',
         'Pillow',
-        'plone.app.dexterity>=1.2.1',
+        'plone.app.dexterity<=2',
         'plone.principalsource',
         'python-gnupg',
         'setuptools',
