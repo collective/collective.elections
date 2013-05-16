@@ -13,7 +13,7 @@ install:
   - test "$PLONE_VERSION" = "4.2" && sed -ie "s#collective.js.jqueryui = 1.10.1.2#collective.js.jqueryui = 1.8.16.9#" travis.cfg || true
   - mkdir -p buildout-cache/downloads
   - python bootstrap.py -c travis.cfg annotate
-  - python bootstrap.py -c travis.cfg
+  - python bootstrap.py -c travis.cfg -v
   - bin/buildout -c travis.cfg -N -q -t 3
 before_script:
   - export DISPLAY=:99.0
