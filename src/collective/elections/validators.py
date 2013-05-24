@@ -26,35 +26,38 @@ class GPGKeyValidator(validator.SimpleFieldValidator):
 
 
 class GPGSignatureValidator(validator.SimpleFieldValidator):
-    """Ensure GPG signature is valid.
+    """Ensure GPG signature is valid. This validator works with the fields name
+    So, for this to work, make sure you name your fields correctly.
+    
+    The idea is you should put 2 fields in your schema, one for the file, and
+    the other one for the signature.
+    
+    The signature field name should be the same as the file one, but should
+    end with "_signature".
+    So, if the field where you upload a file is called "my_file", then the
+    field where you upload the signature for that file should be called
+    "my_file_signature", and this field should contain this validator.
     """
 
     def validate(self, value):
         super(GPGSignatureValidator, self).validate(value)
 
         data = ''
-        if self.field.getName() == 'configuration_pdf_signature':
-            # if self.request.form.get('form.widgets.configuration_pdf.action', '') == u'replace':
-            file = self.request.form.get('form.widgets.configuration_pdf')
-            if file:
-                file.seek(0)
-                data = file.read()
-                file.seek(0)
-            else:
-                pdf_field = self.context.configuration_pdf
-                if pdf_field:
-                    data = pdf_field.data
-
-        elif self.field.getName() == 'rolls_pdf_signature':
-            file = self.request.form.get('form.widgets.rolls_pdf')
-            if file:
-                file.seek(0)
-                data = file.read()
-                file.seek(0)
-            else:
-                pdf_field = self.context.rolls_pdf
-                if pdf_field:
-                    data = pdf_field.data
+        ending = "_signature"
+        _len = len(ending)
+        
+        signature = self.field.getName()
+        signed_file = signature[:-_len]
+        
+        file = self.request.form.get('form.widgets.%s' % signed_file)
+        if file:
+            file.seek(0)
+            data = file.read()
+            file.seek(0)
+        else:
+            pdf_field = getattr(self.context, signed_file, None)
+            if pdf_field:
+                  data = pdf_field.data
 
         # It would be nice to be able to do this from a stream,
         # but unfortunately, gnupg expects files
