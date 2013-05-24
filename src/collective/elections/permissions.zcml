@@ -13,6 +13,11 @@
         title="collective.elections: Can cast a vote"
         />
 
+    <permission
+        id="collective.elections.canDownloadUrn"
+        title="collective.elections: Can download the encrypted urn"
+        />
+
     <!-- End -->
 
     <!-- Permissions for specific wf transitions -->

@@ -12,6 +12,13 @@
     <tal:block repeat="result view/get_voting_count">
         <p tal:content="result"/>
     </tal:block>
+    <p tal:condition="view/is_allowed_to_download"
+       i18n:translate="">
+       Download the encrypted urn from
+       <a href="#"
+          tal:attributes="href string:${context/absolute_url}/@@urn-download"
+          i18n:translate="">here</a>
+    </p>
 
 </div>
 </html>

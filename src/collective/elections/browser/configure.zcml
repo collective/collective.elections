@@ -19,4 +19,11 @@
         permission="cmf.ModifyPortalContent"
         />
 
+    <browser:page
+        name="urn-download"
+        for="collective.elections.election.IElection"
+        class="collective.elections.browser.scrutiny.GenerateEncryptedURN"
+        permission="collective.elections.canDownloadUrn"
+        />
+
 </configure>

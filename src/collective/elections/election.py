@@ -309,6 +309,10 @@ class Scrutiny(dexterity.DisplayForm):
     grok.context(IElection)
     grok.require('zope2.View')
 
+    def is_allowed_to_download(self):
+        return checkPermission('collective.elections.canDownloadUrn',
+                               self.context)
+
     def get_voting_count(self):
         # XXX: This will go away, once the correct way for counting
         #      votes is implemented
