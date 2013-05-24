@@ -7,9 +7,9 @@
 
 <div>
 
-    <p>The election is closed.</p>
+    <p i18n:translate="">The election is closed.</p>
 
-    <p>Results:</p>
+    <p i18n:translate="">Results:</p>
 
     <tal:block repeat="result view/get_voting_count">
         <p tal:content="result"/>

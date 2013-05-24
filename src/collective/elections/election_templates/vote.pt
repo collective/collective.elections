@@ -7,7 +7,7 @@
 
 <div>
 
-    <p>Nominations roll:
+    <p i18n:translate="">Nominations roll:
         <span tal:content="context/nominations_roll" />
     </p>
 
@@ -19,7 +19,7 @@
         <a href="#" class="cast-vote"
            tal:condition="not:view/has_already_voted"
            tal:attributes="href string:${context/absolute_url}/@@castvote">
-            <span>Cast vote</span>
+            <span i18n:translate="">Cast vote</span>
         </a>
     </p>
 

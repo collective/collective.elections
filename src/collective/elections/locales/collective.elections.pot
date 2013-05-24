@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-11-28 23:37+0000\n"
+"POT-Creation-Date: 2013-05-24 23:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,201 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.elections\n"
 
+#: collective/elections/election.py:194
+msgid ""
+msgstr ""
+
+#: collective/elections/election.py:129
+msgid "A nominee code was tried to be reused."
+msgstr ""
+
+#: collective/elections/election.py:192
+msgid "Cannot close the election. You are not the CEO"
+msgstr ""
+
+#: collective/elections/election.py:190
+msgid "Cannot publish results. The date has not been reached"
+msgstr ""
+
+#: collective/elections/election.py:182
+msgid "Cannot select nominees. The date has not been reached"
+msgstr ""
+
+#: collective/elections/election.py:180
+msgid "Cannot send to public. You are not the CEO or you need to upload the signed configuration PDF and signature"
+msgstr ""
+
+#: collective/elections/election.py:184
+msgid "Cannot send to public. You are not the CEO or you need to upload the signed nomination and electoral PDF and signature"
+msgstr ""
+
+#: collective/elections/election.py:188
+msgid "Cannot start counting votes. The date has not been reached"
+msgstr ""
+
+#: collective/elections/election.py:186
+msgid "Cannot start voting. The date has not been reached"
+msgstr ""
+
+#: collective/elections/election_templates/vote.pt:22
+msgid "Cast vote"
+msgstr ""
+
+#: collective/elections/election_templates/castvote.pt:33
+msgid "Cast vote!"
+msgstr ""
+
+#: collective/elections/election_templates/view.pt:45
+msgid "Chief Electoral Oficer: <span>${DYNAMIC_CONTENT}</span>"
+msgstr ""
+
+#: collective/elections/election_templates/view.pt:67
+msgid "Configuration PDF file: <a href="${DYNAMIC_CONTENT}"> <span>${DYNAMIC_CONTENT}</span> </a>"
+msgstr ""
+
+#: collective/elections/browser/templates/configuration_pdf.pt:36
+#: collective/elections/browser/templates/rolls_pdf.pt:46
+msgid "Document generated: <span>${DYNAMIC_CONTENT}</span>"
+msgstr ""
+
+#: collective/elections/election_templates/scrutiny.pt:13
+msgid "Download the encrypted urn from <a href="${DYNAMIC_CONTENT}">x</a>"
+msgstr ""
+
 #: collective/elections/profiles/default/types/collective.elections.election.xml
 msgid "Election"
 msgstr ""
 
-#: collective/elections/validators.py:21
-#: collective/elections/vocabularies.py:21
+#: collective/elections/election_templates/view.pt:101
+msgid "Election results zip: <a href="${DYNAMIC_CONTENT}"> <span>${DYNAMIC_CONTENT}</span> </a>"
+msgstr ""
+
+#: collective/elections/browser/templates/rolls_pdf.pt:33
+msgid "Electoral roll:"
+msgstr ""
+
+#: collective/elections/election_templates/view.pt:87
+msgid "Electoral rolls PDF file: <a href="${DYNAMIC_CONTENT}"> <span>${DYNAMIC_CONTENT}</span> </a>"
+msgstr ""
+
+#: collective/elections/browser/templates/configuration_pdf.pt:26
+#: collective/elections/browser/templates/rolls_pdf.pt:26
+#: collective/elections/election_templates/view.pt:57
+msgid "End of voting: <span>${DYNAMIC_CONTENT}</span>"
+msgstr ""
+
+#: collective/elections/validators.py:78
+msgid "Error: %s."
+msgstr ""
+
+#: collective/elections/election_templates/view.pt:25
+msgid "Generate configuration PDF"
+msgstr ""
+
+#: collective/elections/election_templates/view.pt:29
+msgid "Generate rolls PDF"
+msgstr ""
+
+#: collective/elections/validators.py:81
+msgid "Invalid signature."
+msgstr ""
+
+#: collective/elections/browser/templates/rolls_pdf.pt:38
+msgid "Nominations roll:"
+msgstr ""
+
+#: collective/elections/election_templates/vote.pt:11
+msgid "Nominations roll: <span>${DYNAMIC_CONTENT}</span>"
+msgstr ""
+
+#: collective/elections/election_templates/scrutiny.pt:24
+msgid "Nominee"
+msgstr ""
+
+#: collective/elections/browser/templates/configuration_pdf.pt:18
+#: collective/elections/browser/templates/rolls_pdf.pt:18
+#: collective/elections/election_templates/view.pt:49
+msgid "Nominee selection date: <span>${DYNAMIC_CONTENT}</span>"
+msgstr ""
+
+#: collective/elections/browser/templates/configuration_pdf.pt:30
+#: collective/elections/browser/templates/rolls_pdf.pt:30
+#: collective/elections/election_templates/view.pt:61
+msgid "Publication of results: <span>${DYNAMIC_CONTENT}</span>"
+msgstr ""
+
+#: collective/elections/election_templates/closed.pt:12
+#: collective/elections/election_templates/results.pt:10
+msgid "Results:"
+msgstr ""
+
+#: collective/elections/election_templates/scrutiny.pt:19
+msgid "Scrutiny is taking place, please hold on for the results"
+msgstr ""
+
+#: collective/elections/election_templates/view.pt:74
+msgid "Signature for the configuration PDF file: <a href="${DYNAMIC_CONTENT}"> <span>${DYNAMIC_CONTENT}</span> </a>"
+msgstr ""
+
+#: collective/elections/election_templates/view.pt:108
+msgid "Signature for the election results zip: <a href="${DYNAMIC_CONTENT}"> <span>${DYNAMIC_CONTENT}</span> </a>"
+msgstr ""
+
+#: collective/elections/election_templates/view.pt:94
+msgid "Signature for the electoral rolls PDF file: <a href="${DYNAMIC_CONTENT}"> <span>${DYNAMIC_CONTENT}</span> </a>"
+msgstr ""
+
+#: collective/elections/election.py:106
+msgid "Something wrong happened with the admin GPG key."
+msgstr ""
+
+#: collective/elections/election.py:111
+msgid "Something wrong happened with the comission GPG key."
+msgstr ""
+
+#: collective/elections/browser/templates/configuration_pdf.pt:22
+#: collective/elections/browser/templates/rolls_pdf.pt:22
+#: collective/elections/election_templates/view.pt:53
+msgid "Start of voting: <span>${DYNAMIC_CONTENT}</span>"
+msgstr ""
+
+#: collective/elections/validators.py:25
 msgid "The GPG key is not valid"
+msgstr ""
+
+#: collective/elections/election_templates/closed.pt:10
+msgid "The election is closed."
+msgstr ""
+
+#: collective/elections/election.py:73
+msgid "The nominee you selected does not exist. Please contact the system administrator."
+msgstr ""
+
+#: collective/elections/election.py:343
+msgid "There doesn't seem to be a valid nominee for vote: %s. Data might be corrupt: %s."
+msgstr ""
+
+#: collective/elections/validators.py:76
+msgid "This signature is not valid for the uploaded file."
+msgstr ""
+
+#: collective/elections/election_templates/scrutiny.pt:25
+msgid "Votes"
+msgstr ""
+
+#: collective/elections/election_templates/vote.pt:26
+msgid "You are not allowed to vote in this election."
+msgstr ""
+
+#: collective/elections/election.py:70
+msgid "You are not allowed to vote. Please contact the system administrator."
+msgstr ""
+
+#: collective/elections/election_templates/vote.pt:15
+msgid "You have already voted."
+msgstr ""
+
+#: collective/elections/election_templates/scrutiny.pt:13
+msgid "here"
 msgstr ""
 
