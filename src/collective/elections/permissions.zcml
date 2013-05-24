@@ -90,7 +90,14 @@
         id="collective.elections.rolls_pdf_signatureEditable"
         title="collective.elections: Election rolls_pdf_signature field editable"
         />
-
+    <permission
+        id="collective.elections.votes_count_zipEditable"
+        title="collective.elections: Election votes_count_zip field editable"
+        />
+    <permission
+        id="collective.elections.votes_count_zip_signatureEditable"
+        title="collective.elections: Election votes_count_zip_signature field editable"
+        />
    <!-- End -->
 
 

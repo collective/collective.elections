@@ -86,4 +86,15 @@ class IsPDFFile(validator.SimpleFieldValidator):
     def validate(self, value):
         super(IsPDFFile, self).validate(value)
 
-        # TODO: implement validator
+        # TODO: Actually implement the validator
+
+
+class IsZIPFile(validator.SimpleFieldValidator):
+    """
+    Ensure uploaded file is a ZIP file
+    """
+
+    def validate(self, value):
+        super(IsZIPFile, self).validate(value)
+
+        # TODO: Actually implement the validator
