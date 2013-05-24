@@ -7,11 +7,6 @@
 
 <div>
 
-    <p>Results:</p>
-
-    <tal:block repeat="result view/get_voting_count">
-        <p tal:content="result"/>
-    </tal:block>
     <p tal:condition="view/is_allowed_to_download"
        i18n:translate="">
        Download the encrypted urn from
@@ -20,5 +15,23 @@
           i18n:translate="">here</a>
     </p>
 
+    <tal:voting_count define="results view/get_voting_count">
+      <p i18n:translate="" tal:condition="not:results">Scrutiny is taking place, please hold on for the results</p>
+      
+      <table tal:condition="results" border="1">
+        <thead>
+        <tr>
+          <th i18n:translate="">Nominee</th>
+          <th i18n:translate="">Votes</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr tal:repeat="result results">
+          <td tal:content="python:result['name']" />
+          <td tal:content="python:result['votes']" />
+        </tr>
+        </tbody>
+      </table>  
+    </tal:voting_count>
 </div>
 </html>
