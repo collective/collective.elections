@@ -33,6 +33,11 @@ def generate_random_numbers_for_candidates(obj, event):
 
     while len(random_numbers) < total_numbers:
         random_number = long(random() * (10 ** digit_count))
+        
+        # Make sure that the random number has digit_count digits:
+        while len(str(random_number)) != digit_count:
+            random_number = long(random() * (10 ** digit_count))
+
         if random_number not in random_numbers:
             random_numbers.append(random_number)
 

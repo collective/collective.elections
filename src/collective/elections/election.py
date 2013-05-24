@@ -74,6 +74,10 @@ class View(dexterity.DisplayForm):
         # We create the new random number with the same length.
         new_random = long(random() * (10 ** digit_count))
 
+        # Make sure that the random number has digit_count digits:
+        while len(str(new_random)) != digit_count:
+            new_random = long(random() * (10 ** digit_count))
+
         # Append it
         result = str(random_number) + str(new_random)
 
