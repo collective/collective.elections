@@ -59,6 +59,10 @@
         title="collective.elections: Election gpg_key_admin field editable"
         />
     <permission
+        id="collective.elections.gpg_key_ceoEditable"
+        title="collective.elections: Election gpg_key_ceoEditable field editable"
+        />
+    <permission
         id="collective.elections.gpg_modeEditable"
         title="collective.elections: Election gpg_mode field editable"
         />
