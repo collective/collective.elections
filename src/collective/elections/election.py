@@ -364,28 +364,8 @@ class Results(dexterity.DisplayForm):
     grok.require('zope2.View')
 
     def get_voting_count(self):
-        # XXX: This will go away, once the correct way for counting
-        #      votes is implemented
-        aux_results = {}
-        results = []
         annotation = IAnnotations(self.context)
-        nominees = annotation['nominees']
-        votes = annotation['votes']
-        for vote in votes:
-            nominee = nominees[vote]
-            nominee_count = aux_results.get(nominee, 0)
-            nominee_count += 1
-            aux_results[nominee] = nominee_count
-
-        vocab = getUtility(IVocabularyFactory,
-                           name="plone.principalsource.Users")
-        values = vocab(self.context)
-
-        for nominee in self.context.nominations_roll:
-            full_name = values.getTermByToken(nominee).title
-            results.append("%s: %s votes." % (full_name,
-                                              aux_results.get(nominee, 0)))
-
+        results = annotation.get('final_results', [])
         return results
 
 
@@ -396,28 +376,8 @@ class Closed(dexterity.DisplayForm):
     grok.require('zope2.View')
 
     def get_voting_count(self):
-        # XXX: This will go away, once the correct way for counting
-        #      votes is implemented
-        aux_results = {}
-        results = []
         annotation = IAnnotations(self.context)
-        nominees = annotation['nominees']
-        votes = annotation['votes']
-        for vote in votes:
-            nominee = nominees[vote]
-            nominee_count = aux_results.get(nominee, 0)
-            nominee_count += 1
-            aux_results[nominee] = nominee_count
-
-        vocab = getUtility(IVocabularyFactory,
-                           name="plone.principalsource.Users")
-        values = vocab(self.context)
-
-        for nominee in self.context.nominations_roll:
-            full_name = values.getTermByToken(nominee).title
-            results.append("%s: %s votes." % (full_name,
-                                              aux_results.get(nominee, 0)))
-
+        results = annotation.get('final_results', [])
         return results
 
 

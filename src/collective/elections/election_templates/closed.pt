@@ -11,9 +11,20 @@
 
     <p i18n:translate="">Results:</p>
 
-    <tal:block repeat="result view/get_voting_count">
-        <p tal:content="result"/>
-    </tal:block>
+    <table tal:define="results view/get_voting_count" border="1">
+      <thead>
+      <tr>
+        <th i18n:translate="">Nominee</th>
+        <th i18n:translate="">Votes</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr tal:repeat="result results">
+        <td tal:content="python:result['name']" />
+        <td tal:content="python:result['votes']" />
+      </tr>
+      </tbody>
+    </table>
 
 </div>
 </html>
