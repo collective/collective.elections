@@ -25,7 +25,7 @@ class CanSubmitToPublic(grok.View):
         if not proper_user:
             return False
 
-        if not (getattr(self.context, 'configuration_pdf') and\
+        if not (getattr(self.context, 'configuration_pdf') and
                 getattr(self.context, 'configuration_pdf_signature')):
             return False
 
@@ -69,7 +69,7 @@ class CanSendToPublic(grok.View):
         if not proper_user:
             return False
 
-        if not (getattr(self.context, 'rolls_pdf') and\
+        if not (getattr(self.context, 'rolls_pdf') and
                 getattr(self.context, 'rolls_pdf_signature')):
             return False
 

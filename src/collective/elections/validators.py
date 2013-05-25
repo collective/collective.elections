@@ -28,10 +28,10 @@ class GPGKeyValidator(validator.SimpleFieldValidator):
 class GPGSignatureValidator(validator.SimpleFieldValidator):
     """Ensure GPG signature is valid. This validator works with the fields name
     So, for this to work, make sure you name your fields correctly.
-    
+
     The idea is you should put 2 fields in your schema, one for the file, and
     the other one for the signature.
-    
+
     The signature field name should be the same as the file one, but should
     end with "_signature".
     So, if the field where you upload a file is called "my_file", then the
@@ -45,10 +45,10 @@ class GPGSignatureValidator(validator.SimpleFieldValidator):
         data = ''
         ending = "_signature"
         _len = len(ending)
-        
+
         signature = self.field.getName()
         signed_file = signature[:-_len]
-        
+
         file = self.request.form.get('form.widgets.%s' % signed_file)
         if file:
             file.seek(0)
@@ -57,7 +57,7 @@ class GPGSignatureValidator(validator.SimpleFieldValidator):
         else:
             pdf_field = getattr(self.context, signed_file, None)
             if pdf_field:
-                  data = pdf_field.data
+                data = pdf_field.data
 
         # It would be nice to be able to do this from a stream,
         # but unfortunately, gnupg expects files

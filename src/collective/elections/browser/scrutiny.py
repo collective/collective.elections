@@ -4,15 +4,12 @@ import os
 import gnupg
 gpg = gnupg.GPG()
 from zipfile import ZipFile, ZIP_DEFLATED
-from StringIO import StringIO
 from tempfile import mkdtemp
 import shutil
 
 from zope.annotation.interfaces import IAnnotations
 
 from Products.Five.browser import BrowserView
-
-from Products.CMFCore.utils  import getToolByName
 
 
 class GenerateEncryptedURN(BrowserView):
@@ -29,13 +26,13 @@ class GenerateEncryptedURN(BrowserView):
         votes = annotation['votes']
         # Create temporary folder where we are going to store votes
         vote_dir = mkdtemp(prefix="collective.elections")
-        for index,vote in enumerate(votes):
-            filename = os.path.join(vote_dir,"vote-%s"%index)
+        for index, vote in enumerate(votes):
+            filename = os.path.join(vote_dir, "vote-%s" % index)
             vote_file = open(filename, "w")
             vote_file.write(vote)
             vote_file.close()
 
-        zip_filename = os.path.join(vote_dir,"votes.zip")
+        zip_filename = os.path.join(vote_dir, "votes.zip")
         zip_file = ZipFile(zip_filename, "w", ZIP_DEFLATED)
         # Now, create a zip file in the same folder, containing the votes
         for root, dirs, files in os.walk(vote_dir):

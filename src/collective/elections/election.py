@@ -160,8 +160,7 @@ class View(dexterity.DisplayForm):
 
         state = status['review_state']
 
-        wf_tr_map = {
-                     'internal_revision': 'can-submit-to-public',
+        wf_tr_map = {'internal_revision': 'can-submit-to-public',
                      'public_revision': 'can-select-nominees',
                      'nominee_revision': 'can-send-to-public',
                      'public': 'can-be-started',
@@ -340,20 +339,20 @@ class Scrutiny(dexterity.DisplayForm):
                 vote = zip_file.read(name)[:digit_count]
                 nominee = nominees.get(long(vote))
                 if not nominee:
-                    raise Invalid(_(u"There doesn't seem to be a valid nominee for vote: %s. Data might be corrupt: %s."%(vote,nominees)))
+                    raise Invalid(_(u"There doesn't seem to be a valid nominee for vote: %s. Data might be corrupt: %s." % (vote, nominees)))
                 nominee_count = aux_results.get(nominee, 0)
                 nominee_count += 1
                 aux_results[nominee] = nominee_count
-            
+
             vocab = getUtility(IVocabularyFactory,
-                              name="plone.principalsource.Users")
+                               name="plone.principalsource.Users")
             values = vocab(self.context)
 
             for nominee in self.context.nominations_roll:
                 full_name = values.getTermByToken(nominee).title
                 results.append({'name': full_name,
                                 'votes': aux_results.get(nominee, 0)})
-                
+
         return results
 
 

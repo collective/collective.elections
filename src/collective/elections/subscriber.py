@@ -35,7 +35,7 @@ def generate_random_numbers_for_candidates(obj, event):
 
     while len(random_numbers) < total_numbers:
         random_number = long(random() * (10 ** digit_count))
-        
+
         # Make sure that the random number has digit_count digits:
         while len(str(random_number)) != digit_count:
             random_number = long(random() * (10 ** digit_count))
@@ -90,7 +90,7 @@ def save_votes(obj, event):
     context = obj
     request = obj.REQUEST
     annotation = IAnnotations(context)
-    scrutiny = getMultiAdapter((context,request), name="scrutiny")
+    scrutiny = getMultiAdapter((context, request), name="scrutiny")
 
     annotation['final_results'] = scrutiny.get_voting_count()
 
@@ -103,7 +103,6 @@ def cleanup_annotations(obj, event):
 
     # Remove all annotations except for the final results and receipts when closing
     context = obj
-    request = obj.REQUEST
     annotation = IAnnotations(context)
     del annotation['votes']
     del annotation['nominees']
