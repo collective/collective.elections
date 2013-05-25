@@ -98,9 +98,14 @@ def save_votes(obj, event):
 @grok.subscribe(IElection, IActionSucceededEvent)
 def cleanup_annotations(obj, event):
 
-    if event.action != 'count':
-        # If this is not the transition where the counting starts, then return
+    if event.action != 'close':
         return
 
-    # At the moment we don't need this, we leave it as a placeholder for when
-    # we need to decrypt to count, etc...
+    # Remove all annotations except for the final results and receipts when closing
+    context = obj
+    request = obj.REQUEST
+    annotation = IAnnotations(context)
+    del annotation['votes']
+    del annotation['nominees']
+    del annotation['electoral']
+    del annotation['not_used_votes']
