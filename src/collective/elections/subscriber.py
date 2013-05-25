@@ -2,6 +2,8 @@
 
 from random import random
 
+from zope.component import getMultiAdapter
+
 from zope.annotation.interfaces import IAnnotations
 
 from five import grok
@@ -78,7 +80,23 @@ def generate_random_numbers_for_candidates(obj, event):
 
 
 @grok.subscribe(IElection, IActionSucceededEvent)
-def count_votes(obj, event):
+def save_votes(obj, event):
+
+    if event.action != 'publish':
+        return
+
+    # After the voting has ended and the scrutiny is over, save the results
+    # In an annotation so we can cleanup later
+    context = obj
+    request = obj.REQUEST
+    annotation = IAnnotations(context)
+    scrutiny = getMultiAdapter((context,request), name="scrutiny")
+
+    annotation['final_results'] = scrutiny.get_voting_count()
+
+
+@grok.subscribe(IElection, IActionSucceededEvent)
+def cleanup_annotations(obj, event):
 
     if event.action != 'count':
         # If this is not the transition where the counting starts, then return
