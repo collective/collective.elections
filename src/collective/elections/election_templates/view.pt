@@ -41,33 +41,35 @@
 
         <div tal:replace="structure provider:plone.abovecontentbody" />
 
-        <p>Chief Electoral Oficer:
+        <p i18n:translate="">Chief Electoral Oficer:
             <span tal:content="context/chief_electoral_officer" />
         </p>
 
-        <p>Nominee selection date:
+        <p i18n:translate="">Nominee selection date:
             <span tal:content="context/nominee_selection_date" />
         </p>
 
-        <p>Start of voting:
+        <p i18n:translate="">Start of voting:
             <span tal:content="context/voting_start_date" />
         </p>
 
-        <p>End of voting:
+        <p i18n:translate="">End of voting:
             <span tal:content="context/voting_end_date" />
         </p>
 
-        <p>Publication of results:
+        <p i18n:translate="">Publication of results:
             <span tal:content="context/publication_date" />
         </p>
 
-        <p tal:condition="context/configuration_pdf">Configuration PDF file:
+        <p tal:condition="context/configuration_pdf"
+           i18n:translate="">Configuration PDF file:
             <a tal:attributes="href string:${context/absolute_url}/@@download/configuration_pdf/${context/configuration_pdf/filename}">
                 <span tal:content="context/configuration_pdf/filename" />
             </a>
         </p>
 
-        <p tal:condition="context/configuration_pdf_signature">Signature for the configuration PDF file:
+        <p tal:condition="context/configuration_pdf_signature"
+           i18n:translate="">Signature for the configuration PDF file:
             <a tal:attributes="href string:${context/absolute_url}/@@download/configuration_pdf_signature/${context/configuration_pdf_signature/filename}">
                 <span tal:content="context/configuration_pdf_signature/filename" />
             </a>
@@ -79,15 +81,31 @@
         <div tal:condition="view/is_nominee_selection"
              tal:replace="structure context/nomineeselection" />
 
-        <p tal:condition="context/rolls_pdf">Electoral rolls PDF file:
+        <p tal:condition="context/rolls_pdf"
+           i18n:translate="">Electoral rolls PDF file:
             <a tal:attributes="href string:${context/absolute_url}/@@download/rolls_pdf/${context/rolls_pdf/filename}">
                 <span tal:content="context/rolls_pdf/filename" />
             </a>
         </p>
 
-        <p tal:condition="context/rolls_pdf_signature">Signature for the electoral rolls PDF file:
+        <p tal:condition="context/rolls_pdf_signature"
+           i18n:translate="">Signature for the electoral rolls PDF file:
             <a tal:attributes="href string:${context/absolute_url}/@@download/rolls_pdf_signature/${context/rolls_pdf_signature/filename}">
                 <span tal:content="context/rolls_pdf_signature/filename" />
+            </a>
+        </p>
+
+        <p tal:condition="context/votes_count_zip"
+           i18n:translate="">Election results zip:
+            <a tal:attributes="href string:${context/absolute_url}/@@download/votes_count_zip/${context/votes_count_zip/filename}">
+                <span tal:content="context/votes_count_zip/filename" />
+            </a>
+        </p>
+
+        <p tal:condition="context/votes_count_zip_signature"
+           i18n:translate="">Signature for the election results zip:
+            <a tal:attributes="href string:${context/absolute_url}/@@download/votes_count_zip_signature/${context/votes_count_zip_signature/filename}">
+                <span tal:content="context/votes_count_zip_signature/filename" />
             </a>
         </p>
 

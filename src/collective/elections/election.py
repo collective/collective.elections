@@ -6,6 +6,10 @@ gpg = gnupg.GPG()
 
 from datetime import datetime
 
+from StringIO import StringIO
+
+from zipfile import ZipFile, ZIP_DEFLATED
+
 from Acquisition import aq_inner
 
 from zope.annotation.interfaces import IAnnotations
@@ -73,6 +77,10 @@ class View(dexterity.DisplayForm):
 
         # We create the new random number with the same length.
         new_random = long(random() * (10 ** digit_count))
+
+        # Make sure that the random number has digit_count digits:
+        while len(str(new_random)) != digit_count:
+            new_random = long(random() * (10 ** digit_count))
 
         # Append it
         result = str(random_number) + str(new_random)
@@ -152,8 +160,7 @@ class View(dexterity.DisplayForm):
 
         state = status['review_state']
 
-        wf_tr_map = {
-                     'internal_revision': 'can-submit-to-public',
+        wf_tr_map = {'internal_revision': 'can-submit-to-public',
                      'public_revision': 'can-select-nominees',
                      'nominee_revision': 'can-send-to-public',
                      'public': 'can-be-started',
@@ -309,28 +316,42 @@ class Scrutiny(dexterity.DisplayForm):
     grok.context(IElection)
     grok.require('zope2.View')
 
+    def is_allowed_to_download(self):
+        return checkPermission('collective.elections.canDownloadUrn',
+                               self.context)
+
     def get_voting_count(self):
-        # XXX: This will go away, once the correct way for counting
-        #      votes is implemented
-        aux_results = {}
+        #XXX: "digit_count" should be some customizable field from the election
+        #     and not defined here. (neither should be in generate_random_numbers_for_candidates )
+        digit_count = 10
         results = []
-        annotation = IAnnotations(self.context)
-        nominees = annotation['nominees']
-        votes = annotation['votes']
-        for vote in votes:
-            nominee = nominees[vote]
-            nominee_count = aux_results.get(nominee, 0)
-            nominee_count += 1
-            aux_results[nominee] = nominee_count
+        votes_zip = getattr(self.context, 'votes_count_zip', None)
 
-        vocab = getUtility(IVocabularyFactory,
-                           name="plone.principalsource.Users")
-        values = vocab(self.context)
+        if votes_zip:
+            aux_results = {}
+            annotation = IAnnotations(self.context)
+            nominees = annotation['nominees']
 
-        for nominee in self.context.nominations_roll:
-            full_name = values.getTermByToken(nominee).title
-            results.append("%s: %s votes." % (full_name,
-                                              aux_results.get(nominee, 0)))
+            ob = StringIO()
+            ob.write(votes_zip.data)
+            zip_file = ZipFile(ob, "r", ZIP_DEFLATED)
+            for name in zip_file.namelist():
+                vote = zip_file.read(name)[:digit_count]
+                nominee = nominees.get(long(vote))
+                if not nominee:
+                    raise Invalid(_(u"There doesn't seem to be a valid nominee for vote: %s. Data might be corrupt: %s." % (vote, nominees)))
+                nominee_count = aux_results.get(nominee, 0)
+                nominee_count += 1
+                aux_results[nominee] = nominee_count
+
+            vocab = getUtility(IVocabularyFactory,
+                               name="plone.principalsource.Users")
+            values = vocab(self.context)
+
+            for nominee in self.context.nominations_roll:
+                full_name = values.getTermByToken(nominee).title
+                results.append({'name': full_name,
+                                'votes': aux_results.get(nominee, 0)})
 
         return results
 
@@ -342,28 +363,8 @@ class Results(dexterity.DisplayForm):
     grok.require('zope2.View')
 
     def get_voting_count(self):
-        # XXX: This will go away, once the correct way for counting
-        #      votes is implemented
-        aux_results = {}
-        results = []
         annotation = IAnnotations(self.context)
-        nominees = annotation['nominees']
-        votes = annotation['votes']
-        for vote in votes:
-            nominee = nominees[vote]
-            nominee_count = aux_results.get(nominee, 0)
-            nominee_count += 1
-            aux_results[nominee] = nominee_count
-
-        vocab = getUtility(IVocabularyFactory,
-                           name="plone.principalsource.Users")
-        values = vocab(self.context)
-
-        for nominee in self.context.nominations_roll:
-            full_name = values.getTermByToken(nominee).title
-            results.append("%s: %s votes." % (full_name,
-                                              aux_results.get(nominee, 0)))
-
+        results = annotation.get('final_results', [])
         return results
 
 
@@ -374,28 +375,8 @@ class Closed(dexterity.DisplayForm):
     grok.require('zope2.View')
 
     def get_voting_count(self):
-        # XXX: This will go away, once the correct way for counting
-        #      votes is implemented
-        aux_results = {}
-        results = []
         annotation = IAnnotations(self.context)
-        nominees = annotation['nominees']
-        votes = annotation['votes']
-        for vote in votes:
-            nominee = nominees[vote]
-            nominee_count = aux_results.get(nominee, 0)
-            nominee_count += 1
-            aux_results[nominee] = nominee_count
-
-        vocab = getUtility(IVocabularyFactory,
-                           name="plone.principalsource.Users")
-        values = vocab(self.context)
-
-        for nominee in self.context.nominations_roll:
-            full_name = values.getTermByToken(nominee).title
-            results.append("%s: %s votes." % (full_name,
-                                              aux_results.get(nominee, 0)))
-
+        results = annotation.get('final_results', [])
         return results
 
 

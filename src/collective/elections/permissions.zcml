@@ -13,6 +13,11 @@
         title="collective.elections: Can cast a vote"
         />
 
+    <permission
+        id="collective.elections.canDownloadUrn"
+        title="collective.elections: Can download the encrypted urn"
+        />
+
     <!-- End -->
 
     <!-- Permissions for specific wf transitions -->
@@ -54,6 +59,10 @@
         title="collective.elections: Election gpg_key_admin field editable"
         />
     <permission
+        id="collective.elections.gpg_key_ceoEditable"
+        title="collective.elections: Election gpg_key_ceoEditable field editable"
+        />
+    <permission
         id="collective.elections.gpg_modeEditable"
         title="collective.elections: Election gpg_mode field editable"
         />
@@ -81,7 +90,14 @@
         id="collective.elections.rolls_pdf_signatureEditable"
         title="collective.elections: Election rolls_pdf_signature field editable"
         />
-
+    <permission
+        id="collective.elections.votes_count_zipEditable"
+        title="collective.elections: Election votes_count_zip field editable"
+        />
+    <permission
+        id="collective.elections.votes_count_zip_signatureEditable"
+        title="collective.elections: Election votes_count_zip_signature field editable"
+        />
    <!-- End -->
 
 

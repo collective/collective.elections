@@ -27,10 +27,10 @@
                     name="chosen_nominee"
                     value="#"
                     tal:attributes="value python:nominee[0]"/>
-                    <span tal:content="python:nominee[1]">Nominee</span><br />
+                    <span tal:content="python:nominee[1]" i18n:translate="">Nominee</span><br />
             </tal:block>
 
-            <input type="submit" value="Cast vote!" />
+            <input type="submit" i18n:attributes="value" value="Cast vote!" />
         </form>
 
         <div tal:replace="structure provider:plone.belowcontentbody" />

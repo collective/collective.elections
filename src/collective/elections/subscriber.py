@@ -2,6 +2,8 @@
 
 from random import random
 
+from zope.component import getMultiAdapter
+
 from zope.annotation.interfaces import IAnnotations
 
 from five import grok
@@ -33,6 +35,11 @@ def generate_random_numbers_for_candidates(obj, event):
 
     while len(random_numbers) < total_numbers:
         random_number = long(random() * (10 ** digit_count))
+
+        # Make sure that the random number has digit_count digits:
+        while len(str(random_number)) != digit_count:
+            random_number = long(random() * (10 ** digit_count))
+
         if random_number not in random_numbers:
             random_numbers.append(random_number)
 
@@ -73,11 +80,31 @@ def generate_random_numbers_for_candidates(obj, event):
 
 
 @grok.subscribe(IElection, IActionSucceededEvent)
-def count_votes(obj, event):
+def save_votes(obj, event):
 
-    if event.action != 'count':
-        # If this is not the transition where the counting starts, then return
+    if event.action != 'publish':
         return
 
-    # At the moment we don't need this, we leave it as a placeholder for when
-    # we need to decrypt to count, etc...
+    # After the voting has ended and the scrutiny is over, save the results
+    # In an annotation so we can cleanup later
+    context = obj
+    request = obj.REQUEST
+    annotation = IAnnotations(context)
+    scrutiny = getMultiAdapter((context, request), name="scrutiny")
+
+    annotation['final_results'] = scrutiny.get_voting_count()
+
+
+@grok.subscribe(IElection, IActionSucceededEvent)
+def cleanup_annotations(obj, event):
+
+    if event.action != 'close':
+        return
+
+    # Remove all annotations except for the final results and receipts when closing
+    context = obj
+    annotation = IAnnotations(context)
+    del annotation['votes']
+    del annotation['nominees']
+    del annotation['electoral']
+    del annotation['not_used_votes']

@@ -6,7 +6,7 @@ from StringIO import StringIO
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
-from Products.CMFCore.utils  import getToolByName
+from Products.CMFCore.utils import getToolByName
 
 from xhtml2pdf import pisa
 

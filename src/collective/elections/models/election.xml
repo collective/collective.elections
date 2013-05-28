@@ -167,5 +167,21 @@
     <title>Electoral and nominations roll PDF signature</title>
   </field>
 
+  <field name="votes_count_zip" type="plone.namedfile.field.NamedFile"
+     form:validator="collective.elections.validators.IsZIPFile"
+     security:write-permission="collective.elections.votes_count_zipEditable"
+     form:omitted="z3c.form.interfaces.IForm:true z3c.form.interfaces.IEditForm:false">
+    <description>The ZIP uploaded here contains all the votes after they have been decrypted</description>
+    <title>Voting count ZIP</title>
+  </field>
+
+  <field name="votes_count_zip_signature" type="plone.namedfile.field.NamedFile"
+     form:validator="collective.elections.validators.GPGSignatureValidator"
+     security:write-permission="collective.elections.votes_count_zip_signatureEditable"
+     form:omitted="z3c.form.interfaces.IForm:true z3c.form.interfaces.IEditForm:false">
+    <description>Signature file for the voting count ZIP file.</description>
+    <title>Voting count ZIP signature</title>
+  </field>
+
  </schema>
 </model>
