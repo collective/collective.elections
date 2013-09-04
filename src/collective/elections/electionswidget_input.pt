@@ -1,0 +1,239 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<script type="text/javascript">
+/*  <![CDATA[ */
+function moveItemsElec(from, to)
+  {
+  // shortcuts for selection fields
+  var src = document.getElementById(from);
+  var tgt = document.getElementById(to);
+
+  if (src.selectedIndex == -1) selectionError();
+  else
+    {
+    // iterate over all selected items
+    // --> attribute "selectedIndex" doesn't support multiple selection.
+    // Anyway, it works here, as a moved item isn't selected anymore,
+    // thus "selectedIndex" indicating the "next" selected item :)
+    while (src.selectedIndex > -1)
+      if (src.options[src.selectedIndex].selected)
+        {
+        // create a new virtal object with values of item to copy
+        temp = new Option(src.options[src.selectedIndex].text,
+                      src.options[src.selectedIndex].value);
+        // append virtual object to targe
+        tgt.options[tgt.length] = temp;
+        // want to select newly created item
+        temp.selected = true;
+        // delete moved item in source
+        src.options[src.selectedIndex] = null;
+      }
+    }
+  }
+
+// move item from "from" selection to "to" selection
+function from2toElec(name)
+  {
+  moveItemsElec(name+"-from", name+"-to");
+  copyDataForSubmitElec(name);
+  }
+
+// move item from "to" selection back to "from" selection
+function to2fromElec(name)
+  {
+  moveItemsElec(name+"-to", name+"-from");
+  copyDataForSubmitElec(name);
+  }
+
+// copy each item of "toSel" into one hidden input field
+function copyDataForSubmitElec(name)
+  {
+  // shortcuts for selection field and hidden data field
+  var toSel = document.getElementById(name+"-to");
+  var toDataContainer = document.getElementById(name+"-toDataContainer");
+
+  // delete all child nodes (--> complete content) of "toDataContainer" span
+  while (toDataContainer.hasChildNodes())
+      toDataContainer.removeChild(toDataContainer.firstChild);
+
+  // create new hidden input fields - one for each selection item of
+  // "to" selection
+  for (var i = 0; i < toSel.options.length; i++)
+    {
+    // create virtual node with suitable attributes
+    var newNode = document.createElement("input");
+    var newAttr = document.createAttribute("name");
+    newAttr.nodeValue = name.replace(/-/g, '.')+'default:list';
+    newNode.setAttributeNode(newAttr);
+
+    newAttr = document.createAttribute("type");
+    newAttr.nodeValue = "hidden";
+    newNode.setAttributeNode(newAttr);
+
+    newAttr = document.createAttribute("value");
+    newAttr.nodeValue = toSel.options[i].value;
+    newNode.setAttributeNode(newAttr);
+
+    // actually append virtual node to DOM tree
+    toDataContainer.appendChild(newNode);
+    }
+  }
+
+// error message for missing selection
+function selectionErrorElec()
+  {alert("Must select something!")}
+
+/* ]]> */
+</script>
+
+
+
+<script type="text/javascript" tal:content="string:${view/scriptShowHide}">
+
+</script>
+
+
+<script type="text/javascript" tal:content="string:${view/loadRadio}">
+
+</script>
+
+
+<input type="radio" name="option" value="default" id="defaultid"
+     tal:attributes="name string:${view/id}option;
+                     value string:${view/id}-option-default;
+                     id string:${view/id}-option-defaultid" />Default List Users
+<input type="radio" name="option" value="collection"  id="collectionid"
+    tal:attributes="name string:${view/id}option;
+                     value string:${view/id}-option-collection;
+                     id string:${view/id}-option-collectionid" />Collection
+<input type="radio" name="option" value="plaintext" id="plaintextid"
+    tal:attributes="name string:${view/id}option;
+                     value string:${view/id}-option-plaintext;
+                     id string:${view/id}-option-plaintextid" />Manual
+
+
+<div id="default"
+tal:attributes="id string:${view/id}-option-default">
+
+<table border="0" class="ordered-selection-field">
+  <tr>
+    <td>
+      <select id="from" name="from" class=""  multiple="" size="5"
+          tal:attributes="id string:${view/id}-from;
+                          name string:${view/name}.from;
+                          class view/klass;
+                          style view/style;
+                          title view/title;
+                          lang view/lang;
+                          disabled view/disabled;
+                          tabindex view/tabindex;
+                          multiple view/multiple;
+                          size view/size">
+        <option tal:repeat="entry view/notselectedItems"
+                tal:attributes="value entry/value"
+                tal:content="nocall:entry/content" i18n:translate=""/>
+      </select>
+    </td>
+    <td>
+      <button onclick="javascript:from2toElec()"
+              name="from2toButton" type="button" value="&rarr;"
+              tal:attributes="onClick string:javascript:from2toElec('${view/id}')"
+          >&rarr;</button>
+      <br />
+      <button onclick="javascript:to2fromElec()"
+              name="to2fromButton" type="button" value="&larr;"
+              tal:attributes="onClick string:javascript:to2fromElec('${view/id}')"
+          >&larr;</button>
+    </td>
+    <td>
+      <select id="to" name="to" class="" multiple="" size="5" 
+          tal:attributes="id string:${view/id}-to;
+                          name string:${view/name}.to;
+                          class view/klass;
+                          style view/style;
+                          title view/title;
+                          lang view/lang;
+                          disabled view/disabled;
+                          tabindex view/tabindex;
+                          multiple view/multiple;
+                          size view/size">
+        <option tal:repeat="entry view/selectedItems"
+                tal:attributes="value entry/value"
+                tal:content="nocall:entry/content" i18n:translate=""/>
+      </select>
+      <input name="foo-empty-marker" type="hidden"
+        tal:attributes="name string:${view/name}-empty-marker"/>
+      <span id="toDataContainer"
+            tal:attributes="id string:${view/id}-toDataContainer">
+        <script type="text/javascript" tal:content="string:
+          copyDataForSubmitElec('${view/id}');">
+          // initial copying of field "field.to" --> "field"
+          copyDataForSubmitElec("<i tal:replace="${view/id}"/>");
+        </script>
+      </span>
+    </td>
+  </tr>
+</table>
+</div>
+
+<div id="collection"
+tal:attributes="id string:${view/id}-option-collection">
+<div 
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:tal="http://xml.zope.org/namespaces/tal"
+     tal:omit-tag="">  
+<select id="" name="" class="" tabindex="" disabled="" multiple="" size=""
+        tal:attributes="
+                        name string:${view/name}collection:list;
+                        class view/klass;
+                        style view/style;
+                        title view/title;
+                        lang view/lang;
+                        disabled view/disabled;
+                        tabindex view/tabindex;
+                        multiple string:;
+                        size string:">
+<tal:block repeat="item view/items2"
+  ><option id="" value="" selected="selected"
+         tal:condition="item/selected"
+         tal:attributes="id item/id;
+                         value item/value"
+         tal:content="item/content">label</option
+  ><option id="" value=""
+         tal:condition="not:item/selected"
+         tal:attributes="id item/id;
+                         value item/value"
+         tal:content="item/content">label</option
+></tal:block>
+</select>
+<input name="field-empty-marker" type="hidden" value="1"
+       tal:attributes="name string:${view/name}-empty-marker" />
+</div>
+</div>
+
+<div id="plaintext"
+tal:attributes="id string:${view/id}-option-plaintext">
+
+<textarea
+   id="" name="" class="" cols="" rows=""
+   tabindex="" disabled="" readonly="" accesskey=""
+   tal:attributes="
+                   name string:${view/name}plaintext;
+                   class view/klass;
+                   style view/style;
+                   title view/title;
+                   lang view/lang;
+                   disabled view/disabled;
+                   tabindex view/tabindex;
+                   readonly string:"
+
+   tal:content="view/getText" />
+
+</div>
+
+</html>
