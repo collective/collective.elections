@@ -245,8 +245,10 @@ class ElectionLocalRoles(object):
         # Filter out bogus look-ups - Plone calls this function for every
         # possible role look up out there, but we are interested only these
         # two cases
+
         if IElection.providedBy(context):
-            if context.electoral_roll and (principal_id in context.electoral_roll):
+
+            if context.electors and (principal_id in context.electors):
                 return ["General Users"]
 
         # No match
@@ -348,9 +350,9 @@ class Scrutiny(dexterity.DisplayForm):
                                name="plone.principalsource.Users")
             values = vocab(self.context)
 
-            for nominee in self.context.nominations_roll:
-                full_name = values.getTermByToken(nominee).title
-                results.append({'name': full_name,
+            for nominee in self.context.nomines:
+                #full_name = values.getTermByToken(nominee).title
+                results.append({'name': nominee,
                                 'votes': aux_results.get(nominee, 0)})
 
         return results
@@ -393,8 +395,8 @@ class CastVote(dexterity.DisplayForm):
         vocab = getUtility(IVocabularyFactory,
                            name="plone.principalsource.Users")
         values = vocab(self.context)
-        for id in self.context.nominations_roll:
-            full_name = values.getTermByToken(id).title
-            results.append((id, full_name))
+        for id in self.context.nomines:
+        #    full_name = values.getTermByToken(id).title
+            results.append((id, id))
 
         return results

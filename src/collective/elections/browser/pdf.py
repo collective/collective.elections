@@ -62,9 +62,9 @@ class GenerateRollsPDF(BrowserView):
 
         roll = []
         for id in self.context.electoral_roll:
-            info = membership.getMemberInfo(id)
-            fullname = info['fullname'].decode('utf-8')
-            roll.append(fullname)
+            #info = membership.getMemberInfo(id)
+            #fullname = info['fullname'].decode('utf-8')
+            roll.append(id)
         roll.sort()
 
         return roll

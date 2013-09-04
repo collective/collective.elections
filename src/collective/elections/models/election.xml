@@ -113,26 +113,23 @@
    </values>
   </field>
 
+
   <field name="electoral_roll" type="zope.schema.List"
      security:write-permission="collective.elections.electoral_rollEditable"
-     form:omitted="z3c.form.interfaces.IForm:true z3c.form.interfaces.IEditForm:false">
+     form:omitted="z3c.form.interfaces.IForm:true z3c.form.interfaces.IEditForm:false"
+     form:widget="collective.elections.electionswidget.ElectionsFieldWidget">
    <title>Electoral roll</title>
    <description></description>
    <required>True</required>
-   <value_type type="zope.schema.Choice" >
-    <vocabulary>plone.principalsource.Users</vocabulary>
-   </value_type>
   </field>
 
   <field name="nominations_roll" type="zope.schema.List"
      security:write-permission="collective.elections.nominations_rollEditable"
-     form:omitted="z3c.form.interfaces.IForm:true z3c.form.interfaces.IEditForm:false">
+     form:omitted="z3c.form.interfaces.IForm:true z3c.form.interfaces.IEditForm:false"
+     form:widget="collective.elections.electionswidget.ElectionsFieldWidget">
    <title>Nominations roll</title>
    <description></description>
    <required>True</required>
-   <value_type type="zope.schema.Choice" >
-    <vocabulary>plone.principalsource.Users</vocabulary>
-   </value_type>
   </field>
 
   <field name="configuration_pdf" type="plone.namedfile.field.NamedFile"
@@ -181,6 +178,14 @@
      form:omitted="z3c.form.interfaces.IForm:true z3c.form.interfaces.IEditForm:false">
     <description>Signature file for the voting count ZIP file.</description>
     <title>Voting count ZIP signature</title>
+  </field>
+
+  <field name="electors" type="zope.schema.List"
+     form:omitted="z3c.form.interfaces.IForm:true z3c.form.interfaces.IEditForm:true">
+  </field>
+
+  <field name="nomines" type="zope.schema.List"
+     form:omitted="z3c.form.interfaces.IForm:true z3c.form.interfaces.IEditForm:true">
   </field>
 
  </schema>

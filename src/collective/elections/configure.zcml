@@ -4,6 +4,7 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:grok="http://namespaces.zope.org/grok"
     xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:z3c="http://namespaces.zope.org/z3c"
     i18n_domain="collective.elections">
 
   <five:registerPackage package="." />
@@ -27,5 +28,35 @@
       factory=".election.ElectionLocalRoles"
       name="election_localrole"
       />
+
+
+
+
+  <!-- -*- Widget Registry -*- -->
+
+
+    <class class=".electionswidget.ElectionsWidget">
+        <require
+            permission="zope.Public"
+            interface=".electionswidget.IElectionsWidget"
+        />
+    </class>
+
+
+  <z3c:widgetTemplate
+      mode="input"
+      widget="collective.elections.electionswidget.IElectionsWidget"
+      layer="z3c.form.interfaces.IFormLayer"
+      template="electionswidget_input.pt"
+      />
+
+  <z3c:widgetTemplate
+      mode="display"
+      widget="collective.elections.electionswidget.IElectionsWidget"
+      layer="z3c.form.interfaces.IFormLayer"
+      template="electionswidget_display.pt"
+      />
+
+
 
 </configure>
