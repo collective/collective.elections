@@ -94,6 +94,7 @@ class View(dexterity.DisplayForm):
         receipts[voter] = {'receipt': receipt,
                            'date': now}
 
+        import pdb; pdb.set_trace()
         # And save it
         annotation['receipts'] = receipts
 
@@ -285,6 +286,57 @@ class NomineeSelection(dexterity.DisplayForm):
     grok.context(IElection)
     grok.require('zope2.View')
 
+    def listSelectedElectoral(self):
+           
+        obj = self.context
+        optionele = obj.electoral_roll[3]
+        if u'default' in optionele.split('-'):
+            return  obj.electoral_roll[0]
+
+        if u'collection' in optionele.split('-'):
+        
+            catalog = getToolByName(obj, 'portal_catalog')
+            res  = catalog.searchResults({'portal_type': 'Collection'})
+            for elem in res:
+                if elem.getObject().title == obj.electoral_roll[1][0]:
+                    collection = elem.getObject()
+        
+            lista = []
+            for index in range(collection.results().length):
+                person  = collection.results()[index]
+                person = person.getObject()
+                lista.append(person.id)
+
+            return  lista
+        
+        if u'plaintext' in optionele.split('-'):     
+            electors = obj.electoral_roll[2] 
+            return  electors.split(', ')  
+
+    def listSelectedNomines(self):
+        obj = self.context
+        optionnom = obj.nominations_roll[3]
+        if u'default' in optionnom.split('-'):
+            return  obj.nominations_roll[0]
+
+        if u'collection' in optionnom.split('-'):
+            catalog = getToolByName(obj, 'portal_catalog')
+            res  = catalog.searchResults({'portal_type': 'Collection'})
+            for elem in res:
+                if elem.getObject().title == obj.nominations_roll[1][0]:
+                    collection = elem.getObject()
+        
+            lista = []
+            for index in range(collection.results().length):
+                person  = collection.results()[index]
+                person = person.getObject()
+                lista.append(person.id)
+            return lista
+
+        if u'plaintext' in optionnom.split('-'):     
+            nomines = obj.nominations_roll[2] 
+            return  nomines.split(', ')  
+
 
 class Public(dexterity.DisplayForm):
     """ This view is used in the Public workflow state.
@@ -298,6 +350,12 @@ class Vote(dexterity.DisplayForm):
     """
     grok.context(IElection)
     grok.require('zope2.View')
+    def getReceipt(self):
+        pm = getToolByName(self.context, 'portal_membership')
+        voter = pm.getAuthenticatedMember().getId()
+        annotation = IAnnotations(self.context)
+        return annotation['receipts'][voter]['receipt']
+
 
     def is_allowed_to_vote(self):
         return checkPermission('collective.elections.canCastVote',
@@ -311,6 +369,29 @@ class Vote(dexterity.DisplayForm):
 
         return (annotation['electoral'][voter]).get('already_voted', False)
 
+    def listSelectedNomines(self):
+        obj = self.context
+        optionnom = obj.nominations_roll[3]
+        if u'default' in optionnom.split('-'):
+            return  obj.nominations_roll[0]
+
+        if u'collection' in optionnom.split('-'):
+            catalog = getToolByName(obj, 'portal_catalog')
+            res  = catalog.searchResults({'portal_type': 'Collection'})
+            for elem in res:
+                if elem.getObject().title == obj.nominations_roll[1][0]:
+                    collection = elem.getObject()
+        
+            lista = []
+            for index in range(collection.results().length):
+                person  = collection.results()[index]
+                person = person.getObject()
+                lista.append(person.id)
+            return lista
+
+        if u'plaintext' in optionnom.split('-'):     
+            nomines = obj.nominations_roll[2] 
+            return  nomines.split(', ')  
 
 class Scrutiny(dexterity.DisplayForm):
     """ This view is used in the Scrutiny workflow state.
@@ -329,6 +410,7 @@ class Scrutiny(dexterity.DisplayForm):
         results = []
         votes_zip = getattr(self.context, 'votes_count_zip', None)
 
+        
         if votes_zip:
             aux_results = {}
             annotation = IAnnotations(self.context)
@@ -342,8 +424,8 @@ class Scrutiny(dexterity.DisplayForm):
                 nominee = nominees.get(long(vote))
                 if not nominee:
                     raise Invalid(_(u"There doesn't seem to be a valid nominee for vote: %s. Data might be corrupt: %s." % (vote, nominees)))
-                nominee_count = aux_results.get(nominee, 0)
-                nominee_count += 1
+                nominee_count = aux_results.get(nominee, [])
+                nominee_count.append(hashlib.md5(zip_file.read(name)).hexdigest())
                 aux_results[nominee] = nominee_count
 
             vocab = getUtility(IVocabularyFactory,

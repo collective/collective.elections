@@ -23,11 +23,13 @@
         <tr>
           <th i18n:translate="">Nominee</th>
           <th i18n:translate="">Votes</th>
+          <th i18n:translate="">Codes</th>
         </tr>
         </thead>
         <tbody>
         <tr tal:repeat="result results">
           <td tal:content="python:result['name']" />
+          <td tal:content="python:len(result['votes'])" />
           <td tal:content="python:result['votes']" />
         </tr>
         </tbody>

@@ -12,6 +12,37 @@ from z3c.form import validator
 from collective.elections import _
 
 
+class WidgetProperValues(validator.SimpleFieldValidator):
+    def validate(self, value):
+        super(WidgetProperValues, self).validate(value)
+        optionName = 'form-widgets-'+self.field.getName()+'option'
+        optionVal = self.request.form.get(optionName)
+        if optionVal is None:
+            raise Invalid(_(u"An option must be selected"))
+
+
+        optionPre = 'form.widgets.'+self.field.getName()
+        if optionVal == 'form-widgets-'+self.field.getName()+'-option-default':
+            optionPre +='default' 
+            if self.request.form.get(optionPre) is None:
+                raise Invalid(_(u"Users must be selected"))
+
+        if optionVal == 'form-widgets-'+self.field.getName()+'-option-collection':
+            optionPre +='collection' 
+            if self.request.form.get(optionPre) is None:
+                raise Invalid(_(u"A collection must be selected"))
+
+
+        if optionVal == 'form-widgets-'+self.field.getName()+'-option-plaintext':
+            optionPre +='plaintext' 
+            if self.request.form.get(optionPre) == '':
+                raise Invalid(_(u"Manual option must be entered"))
+
+
+
+
+
+
 class GPGKeyValidator(validator.SimpleFieldValidator):
     """Ensure GPG key is valid.
     """
@@ -40,8 +71,8 @@ class GPGSignatureValidator(validator.SimpleFieldValidator):
     """
 
     def validate(self, value):
-        super(GPGSignatureValidator, self).validate(value)
 
+        super(GPGSignatureValidator, self).validate(value)
         data = ''
         ending = "_signature"
         _len = len(ending)

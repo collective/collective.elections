@@ -61,6 +61,13 @@ def generate_Users(obj, event):
         for elem in res:
             if elem.getObject().title == obj.nominations_roll[1][0]:
                 collection = elem.getObject()
+        lista = []
+        for index in range(collection.results().length):
+            person  = collection.results()[index]
+            person = person.getObject()
+            lista.append(person.id)
+
+        obj.nomines = lista
 
     if u'plaintext' in optionnom.split('-'):     
         nomines = obj.nominations_roll[2] 

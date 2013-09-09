@@ -17,7 +17,7 @@
                       onkeypress view/onkeypress;
                       onkeydown view/onkeydown;
                       onkeyup view/onkeyup"><tal:block
-    repeat="value view/displayValue"
+    repeat="value view/listUsersSelected"
     ><span class="selected-option"
            tal:content="value"
     /><tal:block condition="not:repeat/value/end">, </tal:block
