@@ -111,10 +111,13 @@ function selectionErrorElec()
     tal:attributes="name string:${view/id}option;
                      value string:${view/id}-option-collection;
                      id string:${view/id}-option-collectionid" />Collection
+
+<span tal:condition="view/isNomination">
 <input type="radio" name="option" value="plaintext" id="plaintextid"
     tal:attributes="name string:${view/id}option;
                      value string:${view/id}-option-plaintext;
                      id string:${view/id}-option-plaintextid" />Manual
+</span>
 
 
 <div id="default"

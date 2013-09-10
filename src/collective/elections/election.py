@@ -94,7 +94,6 @@ class View(dexterity.DisplayForm):
         receipts[voter] = {'receipt': receipt,
                            'date': now}
 
-        import pdb; pdb.set_trace()
         # And save it
         annotation['receipts'] = receipts
 

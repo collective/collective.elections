@@ -158,6 +158,10 @@ $(document).ready(function(){ \n \
         return notselecteditems
 
 
+    def isNomination(self):
+        val = self.field.title == 'Nominations roll'
+        return val
+
 
 
     def isSelected(self, term):
