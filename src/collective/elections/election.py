@@ -409,7 +409,6 @@ class Scrutiny(dexterity.DisplayForm):
         results = []
         votes_zip = getattr(self.context, 'votes_count_zip', None)
 
-        
         if votes_zip:
             aux_results = {}
             annotation = IAnnotations(self.context)

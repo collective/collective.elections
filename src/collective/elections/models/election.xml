@@ -68,11 +68,11 @@
 
   <field name="results_mode" type="zope.schema.TextLine"
      security:write-permission="collective.elections.results_modeEditable"
-     form:omitted="z3c.form.interfaces.IForm:false z3c.form.interfaces.IEditForm:false">
+     form:omitted="z3c.form.interfaces.IForm:true z3c.form.interfaces.IEditForm:true">
    <title>Results mode</title>
    <default>Votes</default>
    <description></description>
-   <required>True</required>
+   <required>False</required>
    <values>
     <element>Percentage</element>
     <element>Votes</element>
@@ -99,14 +99,14 @@
 
   <field name="gpg_mode" type="zope.schema.Choice"
      security:write-permission="collective.elections.gpg_modeEditable"
-     form:omitted="z3c.form.interfaces.IForm:false z3c.form.interfaces.IEditForm:false">
+     form:omitted="z3c.form.interfaces.IForm:true z3c.form.interfaces.IEditForm:true">
    <title>GPG mode</title>
    <default>Optional</default>
    <description>
       Defines if GPG is used in the whole process. Votes are encrypted
       regardless the selection.
    </description>
-   <required>True</required>
+   <required>False</required>
    <values>
     <element>Mandatory</element>
     <element>Optional</element>
