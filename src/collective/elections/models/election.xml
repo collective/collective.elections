@@ -182,6 +182,14 @@
     <title>Voting count ZIP signature</title>
   </field>
 
+  <field name="votes_crypted_zip" type="plone.namedfile.field.NamedFile"
+     form:validator="collective.elections.validators.IsZIPFile"
+     security:write-permission="collective.elections.votes_crypted_zipEditable"
+     form:omitted="z3c.form.interfaces.IForm:true z3c.form.interfaces.IEditForm:false">
+    <description>The ZIP uploaded here contains all the votes decrypted by Admin Election, stil encrypted by Officer Election</description>
+    <title>Voting crypted ZIP</title>
+  </field>
+
   <field name="electors" type="zope.schema.List"
      form:omitted="z3c.form.interfaces.IForm:true z3c.form.interfaces.IEditForm:true">
   </field>

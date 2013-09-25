@@ -15,5 +15,8 @@
   <permission name="collective.elections: Can download the encrypted urn" acquire="False">
    <role name="Election Administrator"/>
   </permission>
+  <permission name="collective.elections: Can download Decrypted Votes" acquire="False">
+   <role name="Election Officials"/>
+  </permission>
  </permissions>
 </rolemap>

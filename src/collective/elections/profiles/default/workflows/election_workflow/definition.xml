@@ -21,6 +21,7 @@
  <permission>collective.elections: Election text field editable</permission>
  <permission>collective.elections: Election votes_count_zip field editable</permission>
  <permission>collective.elections: Election votes_count_zip_signature field editable</permission>
+ <permission>collective.elections: Election votes_crypted_zip field editable</permission>
  <permission>collective.elections: Election voting_end_date field editable</permission>
  <permission>collective.elections: Election voting_start_date field editable</permission>
  <state state_id="closed" title="Closed">
@@ -68,6 +69,8 @@
   <permission-map name="collective.elections: Election votes_count_zip field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election votes_count_zip_signature field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election votes_crypted_zip field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election voting_end_date field editable" acquired="False">
   </permission-map>
@@ -132,6 +135,8 @@
   </permission-map>
   <permission-map name="collective.elections: Election votes_count_zip_signature field editable" acquired="False">
   </permission-map>
+  <permission-map name="collective.elections: Election votes_crypted_zip field editable" acquired="False">
+  </permission-map>
   <permission-map name="collective.elections: Election voting_end_date field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election voting_start_date field editable" acquired="False">
@@ -189,6 +194,8 @@
   </permission-map>
   <permission-map name="collective.elections: Election votes_count_zip_signature field editable" acquired="False">
   </permission-map>
+  <permission-map name="collective.elections: Election votes_crypted_zip field editable" acquired="False">
+  </permission-map>
   <permission-map name="collective.elections: Election voting_end_date field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election voting_start_date field editable" acquired="False">
@@ -244,6 +251,8 @@
   <permission-map name="collective.elections: Election votes_count_zip field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election votes_count_zip_signature field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election votes_crypted_zip field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election voting_end_date field editable" acquired="False">
   </permission-map>
@@ -323,6 +332,8 @@
   </permission-map>
   <permission-map name="collective.elections: Election votes_count_zip_signature field editable" acquired="False">
   </permission-map>
+  <permission-map name="collective.elections: Election votes_crypted_zip field editable" acquired="False">
+  </permission-map>
   <permission-map name="collective.elections: Election voting_end_date field editable" acquired="False">
    <permission-role>Election Administrator</permission-role>
    <permission-role>Owner</permission-role>
@@ -384,6 +395,8 @@ After starting, the election cannot be sent back.</description>
   </permission-map>
   <permission-map name="collective.elections: Election votes_count_zip_signature field editable" acquired="False">
   </permission-map>
+  <permission-map name="collective.elections: Election votes_crypted_zip field editable" acquired="False">
+  </permission-map>
   <permission-map name="collective.elections: Election voting_end_date field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election voting_start_date field editable" acquired="False">
@@ -439,6 +452,8 @@ After starting, the election cannot be sent back.</description>
   </permission-map>
   <permission-map name="collective.elections: Election votes_count_zip_signature field editable" acquired="False">
   </permission-map>
+  <permission-map name="collective.elections: Election votes_crypted_zip field editable" acquired="False">
+  </permission-map>
   <permission-map name="collective.elections: Election voting_end_date field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election voting_start_date field editable" acquired="False">
@@ -492,6 +507,8 @@ After starting, the election cannot be sent back.</description>
   </permission-map>
   <permission-map name="collective.elections: Election votes_count_zip_signature field editable" acquired="False">
   </permission-map>
+  <permission-map name="collective.elections: Election votes_crypted_zip field editable" acquired="False">
+  </permission-map>
   <permission-map name="collective.elections: Election voting_end_date field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election voting_start_date field editable" acquired="False">
@@ -499,12 +516,71 @@ After starting, the election cannot be sent back.</description>
  </state>
  <state state_id="scrutiny" title="Scrutiny">
   <description>The votes are being counted.</description>
-  <exit-transition transition_id="publish"/>
+  <exit-transition transition_id="scrutinytr"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Anonymous</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Election Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Review portal content" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Anonymous</permission-role>
+  </permission-map>
+  <permission-map name="collective.elections: Can cast a vote" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election chief_electoral_officer field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election configuration_pdf_signature field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election electoral_roll field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election gpg_key_admin field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election gpg_key_ceoEditable field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election gpg_mode field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election nominations_roll field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election nominee_selection_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election publication_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election results_mode field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election rolls_pdf_signature field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election text field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election votes_count_zip field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election votes_count_zip_signature field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election votes_crypted_zip field editable" acquired="False">
+   <permission-role>Election Administrator</permission-role>
+  </permission-map>
+  <permission-map name="collective.elections: Election voting_end_date field editable" acquired="False">
+  </permission-map>
+  <permission-map name="collective.elections: Election voting_start_date field editable" acquired="False">
+  </permission-map>
+ </state>
+
+
+
+ <state state_id="scrutinytwo" title="Scrutiny">
+  <description>The votes are being counted.</description>
+  <exit-transition transition_id="publish"/>
+  <permission-map name="Access contents information" acquired="False">
+   <permission-role>Anonymous</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="False">
    <permission-role>Election Officials</permission-role>
   </permission-map>
   <permission-map name="Review portal content" acquired="False">
@@ -549,11 +625,17 @@ After starting, the election cannot be sent back.</description>
   <permission-map name="collective.elections: Election votes_count_zip_signature field editable" acquired="False">
    <permission-role>Election Officials</permission-role>
   </permission-map>
+  <permission-map name="collective.elections: Election votes_crypted_zip field editable" acquired="False">
+  </permission-map>
   <permission-map name="collective.elections: Election voting_end_date field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election voting_start_date field editable" acquired="False">
   </permission-map>
  </state>
+
+
+
+
  <state state_id="voting" title="Voting">
   <description>Election is underway.</description>
   <exit-transition transition_id="count"/>
@@ -603,6 +685,8 @@ After starting, the election cannot be sent back.</description>
   </permission-map>
   <permission-map name="collective.elections: Election votes_count_zip_signature field editable" acquired="False">
   </permission-map>
+  <permission-map name="collective.elections: Election votes_crypted_zip field editable" acquired="False">
+  </permission-map>
   <permission-map name="collective.elections: Election voting_end_date field editable" acquired="False">
   </permission-map>
   <permission-map name="collective.elections: Election voting_start_date field editable" acquired="False">
@@ -615,6 +699,8 @@ After starting, the election cannot be sent back.</description>
    <guard-expression>here/@@can-be-closed</guard-expression>
   </guard>
  </transition>
+
+
  <transition transition_id="count" title="Compute the votes" new_state="scrutiny" trigger="USER" before_script="" after_script="">
   <description>This transition moves the election to the Scrutinity state and allows counting of the votes to begin.
 It shouldn't be able to execute if the given date was not reached.</description>
@@ -624,6 +710,24 @@ It shouldn't be able to execute if the given date was not reached.</description>
    <guard-expression>here/@@should-be-ended</guard-expression>
   </guard>
  </transition>
+
+
+
+
+
+ <transition transition_id="scrutinytr" title="Officer Decryption" new_state="scrutinytwo" trigger="USER" before_script="" after_script="">
+  <description>This transition  move the election to the Second Scrutiny state, 
+   Electoral Officer Decryption.</description>
+  <action url="%(content_url)s/content_status_modify?workflow_action=scrutinytr" category="workflow" icon="">Officer Decryption</action>
+  <guard>
+   <guard-permission>Review portal content</guard-permission>
+   <guard-expression>here/@@can-submit-to-officer-decrypt</guard-expression>
+  </guard>
+ </transition>
+
+
+
+
  <transition transition_id="publish" title="Publish election" new_state="published" trigger="USER" before_script="" after_script="">
   <description>This transition will move the election to the Published state.
 It shouldn't be able to execute if the given date was not reached.</description>
@@ -633,6 +737,7 @@ It shouldn't be able to execute if the given date was not reached.</description>
    <guard-expression>here/@@results-should-be-public</guard-expression>
   </guard>
  </transition>
+
  <transition transition_id="retract_to_private" title="Retract" new_state="private" trigger="USER" before_script="" after_script="">
   <description>Retract an election to the private state</description>
   <action url="%(content_url)s/content_status_modify?workflow_action=retract_to_private" category="workflow" icon="">Retract</action>
