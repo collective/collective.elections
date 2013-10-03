@@ -5,25 +5,45 @@
       i18n:domain="collective.elections"
       tal:omit-tag="">
 
-<div>
+<div tal:define="results view/get_voting_count">
 
     <p i18n:translate="">Results:</p>
 
-    <table tal:define="results view/get_voting_count" border="1">
-      <thead>
-      <tr>
-        <th i18n:translate="">Nominee</th>
-        <th i18n:translate="">Votes</th>
-        <th i18n:translate="">Codes</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr tal:repeat="result results">
-        <td tal:content="python:result['name']" />
-        <td tal:content="python:len(result['votes'])" />
-        <td tal:content="python:result['votes']" />
-      </tr>
-      </tbody>
-    </table>
+      <p> Votes counted </p>
+      <table border="1">
+        <thead>
+        <tr>
+          <th i18n:translate="">Nominee</th>
+          <th i18n:translate="">Votes</th>
+          <th i18n:translate="">Codes</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr tal:repeat="result python:results[0]">
+          <td tal:content="python:result['name']" />
+          <td tal:content="python:len(result['votes'])" />
+          <td tal:content="python:result['votes']" />
+        </tr>
+        </tbody>
+      </table>  
+
+      <p> Votes Repeated </p>
+      <table border="1">
+        <thead>
+        <tr>
+          <th i18n:translate="">Vote id</th>
+          <th i18n:translate="">Vote recipe</th>
+          <th i18n:translate="">Vote nominee</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr tal:repeat="result python:results[1]">
+          <td tal:content="python:result[0]" />
+          <td tal:content="python:result[1]" />
+          <td tal:content="python:result[2]" />
+        </tr>
+        </tbody>
+      </table>  
+
 </div>
 </html>

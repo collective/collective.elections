@@ -414,8 +414,16 @@ class Scrutiny(dexterity.DisplayForm):
         #     and not defined here. (neither should be in generate_random_numbers_for_candidates )
         digit_count = 10
         results = []
+        validvotes = []
         votes_zip = getattr(self.context, 'votes_count_zip', None)
+        
+        rawvotes = []
+        votesnorandom = []
 
+        removedvotes = []
+
+        invalidvotes = []
+        
         if votes_zip:
             aux_results = {}
             annotation = IAnnotations(self.context)
@@ -424,14 +432,31 @@ class Scrutiny(dexterity.DisplayForm):
             ob = StringIO()
             ob.write(votes_zip.data)
             zip_file = ZipFile(ob, "r", ZIP_DEFLATED)
+
+            import pdb; pdb.set_trace()
             for name in zip_file.namelist():
                 vote = zip_file.read(name)[:digit_count]
                 nominee = nominees.get(long(vote))
                 if not nominee:
+                    invalidvotes.append(zip_file.read(name))
+                    #Invalid vote
                     raise Invalid(_(u"There doesn't seem to be a valid nominee for vote: %s. Data might be corrupt: %s." % (vote, nominees)))
                 nominee_count = aux_results.get(nominee, [])
-                nominee_count.append(hashlib.md5(zip_file.read(name)).hexdigest())
-                aux_results[nominee] = nominee_count
+                if vote in votesnorandom:
+                    removedvotes.append((vote, hashlib.md5(zip_file.read(name)).hexdigest(), nominee))
+                    print "Theres a repeated vote id "+vote+" for nominee "+nominee 
+                    #If theres is a repeated vote we must remove the vote form results
+                    reprawvote = rawvotes[votesnorandom.index(vote)]
+                    hashexvote = hashlib.md5(reprawvote).hexdigest()
+                    import pdb; pdb.set_trace()
+                    if hashexvote in nominee_count:
+                        nominee_count.remove(hashexvote)
+                        removedvotes.append((vote, hashexvote, nominee))
+                else:
+                    rawvotes.append(zip_file.read(name))
+                    votesnorandom.append(vote)
+                    nominee_count.append(hashlib.md5(zip_file.read(name)).hexdigest())
+                    aux_results[nominee] = nominee_count
 
             vocab = getUtility(IVocabularyFactory,
                                name="plone.principalsource.Users")
@@ -439,8 +464,15 @@ class Scrutiny(dexterity.DisplayForm):
 
             for nominee in self.context.nomines:
                 #full_name = values.getTermByToken(nominee).title
-                results.append({'name': nominee,
+                validvotes.append({'name': nominee,
                                 'votes': aux_results.get(nominee, [])})
+
+            results.append(validvotes)            
+            results.append(removedvotes)
+            results.append(invalidvotes)
+        
+        print "BALBLABLABLALBAL"
+        import pdb; pdb.set_trace() 
         return results
 
 

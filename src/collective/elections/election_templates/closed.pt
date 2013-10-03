@@ -19,7 +19,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr tal:repeat="result results">
+      <tr tal:repeat="result python:results[0]">
         <td tal:content="python:result['name']" />
         <td tal:content="python:result['votes']" />
       </tr>
