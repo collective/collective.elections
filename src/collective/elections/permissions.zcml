@@ -18,6 +18,11 @@
         title="collective.elections: Can download the encrypted urn"
         />
 
+    <permission
+        id="collective.elections.canDownloadDecryptedVotes"
+        title="collective.elections: Can download Decrypted Votes"
+        />
+
     <!-- End -->
 
     <!-- Permissions for specific wf transitions -->
@@ -98,6 +103,11 @@
         id="collective.elections.votes_count_zip_signatureEditable"
         title="collective.elections: Election votes_count_zip_signature field editable"
         />
+    <permission
+        id="collective.elections.votes_crypted_zipEditable"
+        title="collective.elections: Election votes_crypted_zip field editable"
+        />
+
    <!-- End -->
 
 

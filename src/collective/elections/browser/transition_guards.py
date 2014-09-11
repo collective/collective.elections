@@ -8,6 +8,19 @@ from Products.CMFCore.utils import getToolByName
 
 from datetime import datetime
 
+class CanSubmitToOfficerDecrypt(grok.View):
+    grok.context(IElection)
+    grok.name("can-submit-to-officer-decrypt")
+    grok.require("cmf.ReviewPortalContent")
+    
+    def __call__(self):
+        if not getattr(self.context, 'votes_crypted_zip'):
+            return False
+        return True
+
+    def render(self):
+        return "can-submit-to-officer-decrypt"
+
 
 class CanSubmitToPublic(grok.View):
     grok.context(IElection)

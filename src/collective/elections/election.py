@@ -167,6 +167,7 @@ class View(dexterity.DisplayForm):
                      'voting': 'should-be-ended',
                      'scrutiny': 'results-should-be-public',
                      'published': 'can-be-closed',
+                     'scrutinytwo': 'can-submit-to-officer-decrypt',
                      }
 
         if state in wf_tr_map:
@@ -189,6 +190,8 @@ class View(dexterity.DisplayForm):
                     return _(u"Cannot publish results. The date has not been reached")
                 if state == 'published':
                     return _(u"Cannot close the election. You are not the CEO")
+                if state == 'scrutinytwo':
+                    return _(u"Cannot change scrutiny state. The Votes Decrypted by Admin should be uploaded")
 
         return _(u"")
 
@@ -211,7 +214,7 @@ class View(dexterity.DisplayForm):
         return self.get_election_state() == 'voting'
 
     def is_counting(self):
-        return self.get_election_state() == 'scrutiny'
+        return (self.get_election_state() == 'scrutiny' or self.get_election_state() == 'scrutinytwo')
 
     def is_published(self):
         return self.get_election_state() == 'published'
@@ -318,6 +321,10 @@ class Scrutiny(dexterity.DisplayForm):
 
     def is_allowed_to_download(self):
         return checkPermission('collective.elections.canDownloadUrn',
+                               self.context)
+
+    def is_allowed_to_download_votes(self):
+        return checkPermission('collective.elections.canDownloadDecryptedVotes',
                                self.context)
 
     def get_voting_count(self):
